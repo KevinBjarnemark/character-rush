@@ -1,5 +1,3 @@
-import os
-import time
 
 CHARACTER_LIST = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
 STEPS = 20
@@ -11,7 +9,7 @@ stickman_index = 7
 cycle = 0
 
 def print_frame():
-    global stickman_index, character_index, current_character, jumped
+    global stickman_index, character_index, current_character
 
     # Draw the scene (except for bottom row)
     printed_frame = [
@@ -38,10 +36,4 @@ def print_frame():
     for line in printed_frame:
         print(line)
 
-while True:
-    # Clear the console
-    os.system('cls') 
-    print_frame()
-    time.sleep(speed)
-    # Decrement the character_index
-    character_index -= 1
+print_frame()
