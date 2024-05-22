@@ -12,6 +12,14 @@ when viewed in a previewer such as eg. VS Code.
 
 This is a Python-based dexterity game for practicing keyboard typing.
 
+## Development process
+
+In this section I will document the development process as it progresses.
+
+##### A 'sketchy' diagram to envision the foreseen process of this project  
+
+![A 'sketchy' diagram of the foreseen development process](assets/images/readme/development_process/project_diagram_1.png "Project diagram")
+
 ## Code
 
 ##### Template
@@ -23,5 +31,11 @@ This is a Python-based dexterity game for practicing keyboard typing.
 - xterm 
 
 A library that helps with integrating the terminal into the browser
+
+## Third-parties
+
+##### [Excalidraw](https://excalidraw.com/)
+
+Excalidraw is an online drawing tool that I used for drawing the development diagram.
 
 
