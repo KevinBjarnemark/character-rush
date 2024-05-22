@@ -1,3 +1,5 @@
+import os
+import time
 
 CHARACTER_LIST = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
 STEPS = 20
@@ -36,4 +38,10 @@ def print_frame():
     for line in printed_frame:
         print(line)
 
-print_frame()
+while True:
+    # Clear the console
+    os.system('cls') 
+    print_frame()
+    time.sleep(speed)
+    # Decrement the character_index
+    character_index -= 1
