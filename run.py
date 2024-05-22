@@ -1,10 +1,11 @@
 import os
 import time
+import random
 
 CHARACTER_LIST = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
 STEPS = 20
 JUMPING_RANGE = [8, 9, 10]
-speed = 1
+speed = 0.3
 character_index = 20
 current_character = "A"
 stickman_index = 7
@@ -38,9 +39,19 @@ def print_frame():
     for line in printed_frame:
         print(line)
 
+def choose_random_character():
+    global current_character, character_index
+    current_character = random.choice(CHARACTER_LIST)
+    character_index = STEPS # Reset 
+
 while True:
     # Clear the console
-    os.system('cls') 
+    os.system('cls')
+
+    # Choose a new character when it moves out of bounds 
+    if character_index <= 0:
+        choose_random_character()
+
     print_frame()
     time.sleep(speed)
     # Decrement the character_index
