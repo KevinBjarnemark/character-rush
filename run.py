@@ -43,10 +43,23 @@ def print_frame_old():
 
 def print_frame():
     global printed_frame, stickman_index, character_index, current_character
-    
+
+    # Draw the current frame 
     sys.stdout.write(f"\033[{5}A") # Move cursor up 5 lines
-    for i in range(0, len(printed_frame)):
-        sys.stdout.write(f"Row {i}\n")
+    for i in range(0, len(printed_frame)+1):
+        if i == 0:
+           sys.stdout.write("")
+        elif i == 2:
+            sys.stdout.write("")
+        elif i == 3:
+            sys.stdout.write("    O")
+        elif i == 4:
+            sys.stdout.write("   /|\\")
+        elif i == 5:
+            sys.stdout.write("___/_\\_____________")
+
+        # New line
+        sys.stdout.write("\n")
 
 def choose_random_character():
     global current_character, character_index
