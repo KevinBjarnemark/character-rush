@@ -11,6 +11,7 @@ current_character = "A"
 stickman_index = 7
 cycle = 0
 printed_frame = ["", "", "", "", ""]
+jumping = True
 
 
 def print_frame_old():
@@ -43,20 +44,27 @@ def print_frame_old():
 
 
 def print_frame():
-    global printed_frame, stickman_index, character_index, current_character
+    global printed_frame, stickman_index, character_index, current_character, jumping
 
     printed_frame = [""] * len(printed_frame) # Clear the last frame
-    
-    # Draw the current frame 
-    printed_frame[0] = ""
-    printed_frame[1] = ""
-    printed_frame[2] = "    O  "
-    printed_frame[3] = "   /|\\ "
-    default_string =   "___/_\\_____________"
-    # Add the moving character to the last line
-    sliced_string = default_string[:character_index] + current_character + default_string[character_index:]
-    printed_frame[4] = sliced_string
 
+    # Draw the current frame 
+    if not jumping == True:
+        printed_frame[2] = "    O  "
+        printed_frame[3] = "   /|\\ "
+        default_string =   "___/_\\_____________"
+        # Add the moving character to the last line
+        sliced_string = default_string[:character_index] + current_character + default_string[character_index:]
+        printed_frame[4] = sliced_string
+    else:
+        printed_frame[1] = "    O  "
+        printed_frame[2] = "   /|\\ "
+        printed_frame[3] = "   / \\"
+        default_string =   "____________________"
+        # Add the moving character to the last line
+        sliced_string = default_string[:character_index] + current_character + default_string[character_index:]
+        printed_frame[4] = sliced_string
+    
     # Print the current frame 
     sys.stdout.write(f"\033[{len(printed_frame)}A") # Move cursor to the top
     for i in range(0, len(printed_frame)):
