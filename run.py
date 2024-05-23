@@ -1,6 +1,7 @@
 import time
 import random
 import sys
+import threading
 
 CHARACTER_LIST = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
 STEPS = 20
@@ -11,7 +12,7 @@ current_character = "A"
 stickman_index = 7
 cycle = 0
 printed_frame = ["", "", "", "", ""]
-jumping = True
+jumping = False
 
 
 def print_frame_old():
@@ -49,14 +50,17 @@ def print_frame():
     printed_frame = [""] * len(printed_frame) # Clear the last frame
 
     # Draw the current frame 
-    if not jumping == True:
+    if jumping == False:
+        printed_frame[0] = ""
+        printed_frame[1] = ""
         printed_frame[2] = "    O  "
         printed_frame[3] = "   /|\\ "
         default_string =   "___/_\\_____________"
         # Add the moving character to the last line
         sliced_string = default_string[:character_index] + current_character + default_string[character_index:]
         printed_frame[4] = sliced_string
-    else:
+    else: 
+        printed_frame[0] = ""
         printed_frame[1] = "    O  "
         printed_frame[2] = "   /|\\ "
         printed_frame[3] = "   / \\"
@@ -76,15 +80,26 @@ def choose_random_character():
     current_character = random.choice(CHARACTER_LIST)
     character_index = STEPS # Reset 
 
+def get_input():
+    global jumping
+    user_input = sys.stdin.read(1)
+    if user_input == current_character:
+        jumping = True
+
 def start_game():
     global printed_frame, character_index
     # Set color
     print(f"\x1B[38;2;{100};{169};{231}m") # RGB color
     # Draw empty lines to draw on 
     for i in range(0, len(printed_frame)):
-        print("\n")
+        sys.stdout.write("\n")
 
     while True:
+        # Listen to the user input
+        input_thread = threading.Thread(target=get_input)
+        input_thread.daemon = True  # Allow the thread to exit when the main program exits
+        input_thread.start()
+
         # Choose a new character when it moves out of bounds 
         if character_index <= 0:
             choose_random_character()
