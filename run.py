@@ -72,6 +72,7 @@ def print_frame():
     # Print the current frame 
     sys.stdout.write(f"\033[{len(printed_frame)}A") # Move cursor to the top
     for i in range(0, len(printed_frame)):
+        sys.stdout.write("\033[K")
         # Print and add a new line 
         sys.stdout.write(printed_frame[i] + "\n")
 
