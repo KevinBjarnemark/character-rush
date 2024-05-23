@@ -41,11 +41,12 @@ def print_frame_old():
     for line in printed_frame:
         print(line)
 
+
 def print_frame():
     global printed_frame, stickman_index, character_index, current_character
 
     # Draw the current frame 
-    sys.stdout.write(f"\033[{5}A") # Move cursor up 5 lines
+    sys.stdout.write(f"\033[{len(printed_frame)}A") # Move cursor to the top
     for i in range(0, len(printed_frame)):
         if i == 0:
            sys.stdout.write("")
@@ -56,7 +57,9 @@ def print_frame():
         elif i == 3:
             sys.stdout.write("   /|\\")
         elif i == 4:
-            sys.stdout.write("___/_\\_____________")
+            original_string = "___/_\\_____________"
+            sliced_string = original_string[:character_index] + current_character + original_string[character_index:]
+            sys.stdout.write(sliced_string)
 
         # New line
         sys.stdout.write("\n")
