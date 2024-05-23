@@ -1,6 +1,6 @@
-import os
 import time
 import random
+import sys
 
 CHARACTER_LIST = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
 STEPS = 20
@@ -19,7 +19,7 @@ def print_frame():
         "",
         "",
         "    O  ",
-        "   / \\ ",
+        "   /|\\ ",
         "",
     ]
 
@@ -44,15 +44,22 @@ def choose_random_character():
     current_character = random.choice(CHARACTER_LIST)
     character_index = STEPS # Reset 
 
+print("\n\n\n\n\n")
+print(f"\x1B[38;2;{100};{169};{231}m") # RGB color
 while True:
-    # Clear the console
-    os.system('cls')
-
     # Choose a new character when it moves out of bounds 
     if character_index <= 0:
         choose_random_character()
 
-    print_frame()
+    # print_frame()
+
+    sys.stdout.write(f"\033[{5}A") # Move cursor up 5 lines/rows
+    sys.stdout.write("Row 1\n")
+    sys.stdout.write("Row 2\n")
+    sys.stdout.write("Row 3\n")
+    sys.stdout.write("Row 4\n")
+    sys.stdout.write("Row 5\n")
+
     time.sleep(speed)
     # Decrement the character_index
     character_index -= 1
