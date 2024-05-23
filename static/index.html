@@ -30,7 +30,7 @@
 
             socket.on('console_output', function (msg, cb) {
                 console.log("output:", msg)
-                term.writeln(msg);
+                term.write(msg);
                 term_short_prompt(term);
                 if (cb)
                     cb();
@@ -67,8 +67,8 @@
                     switch (e) {
                         case '\r': // Enter
                             console.log("command entered: ", buffer)
-                            socket.emit('command_entered', buffer);
-                            term_prompt(term);
+                            socket.emit('command_entered', buffer + '\r');
+                            buffer = '';  // Clear the buffer after sending command
                             break;
                         case '\u007F': // Backspace (DEL)
                             // Do not delete the prompt
