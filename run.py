@@ -1,7 +1,6 @@
 import time
 import random
 import sys
-import threading
 
 CHARACTER_LIST = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
 STEPS = 20
@@ -87,12 +86,6 @@ def choose_random_character():
     current_character = random.choice(CHARACTER_LIST)
     character_index = STEPS # Reset 
 
-def get_input():
-    global jumping
-    user_input = sys.stdin.read(1)
-    if user_input == current_character:
-        jumping = True
-
 def start_game():
     global printed_frame, character_index
     # Set color
@@ -102,11 +95,6 @@ def start_game():
         sys.stdout.write("\n")
 
     while True:
-        # Listen to the user input
-        input_thread = threading.Thread(target=get_input)
-        input_thread.daemon = True  # Allow the thread to exit when the main program exits
-        input_thread.start()
-
         # Choose a new character when it moves out of bounds 
         if character_index <= 0:
             choose_random_character()
