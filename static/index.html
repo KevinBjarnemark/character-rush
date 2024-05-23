@@ -25,11 +25,11 @@
 
             socket.on('connect', function () {
                 socket.emit('connection_establish', 'ok');
-                console.log("connected")
+                // console.log("connected")
             });
 
             socket.on('console_output', function (msg, cb) {
-                console.log("output:", msg)
+                // console.log("output:", msg)
                 term.write(msg);
                 term_short_prompt(term);
                 if (cb)
@@ -59,14 +59,14 @@
 
                 term._initialized = true;
 
-                term.writeln('Running your file: run.py');
-                term.writeln('');
-                term_prompt(term);
+                term.write('Running your file: run.py\n\n');
+                term_prompt(term); 
+                term.write('\n\n\n\n\n'); // Create some space 
 
                 term.onData(e => {
                     switch (e) {
                         case '\r': // Enter
-                            console.log("command entered: ", buffer)
+                            // console.log("command entered: ", buffer)
                             socket.emit('command_entered', buffer + '\r');
                             buffer = '';  // Clear the buffer after sending command
                             break;
