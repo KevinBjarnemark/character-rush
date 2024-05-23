@@ -46,16 +46,16 @@ def print_frame():
 
     # Draw the current frame 
     sys.stdout.write(f"\033[{5}A") # Move cursor up 5 lines
-    for i in range(0, len(printed_frame)+1):
+    for i in range(0, len(printed_frame)):
         if i == 0:
            sys.stdout.write("")
-        elif i == 2:
+        elif i == 1:
             sys.stdout.write("")
-        elif i == 3:
+        elif i == 2:
             sys.stdout.write("    O")
-        elif i == 4:
+        elif i == 3:
             sys.stdout.write("   /|\\")
-        elif i == 5:
+        elif i == 4:
             sys.stdout.write("___/_\\_____________")
 
         # New line
