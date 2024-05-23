@@ -81,6 +81,7 @@ def print_frame():
         sys.stdout.write("\033[K")
         # Print and add a new line 
         sys.stdout.write(printed_frame[i] + "\n")
+        sys.stdout.flush() # Flush immediately to ensure DOM rendering
 
 def choose_random_character():
     global current_character, character_index
