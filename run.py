@@ -6,13 +6,14 @@ import threading
 CHARACTER_LIST = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
 STEPS = 20
 JUMPING_RANGE = [8, 9, 10]
-speed = 0.3
+speed = 0.1
 character_index = 20
 current_character = "A"
 stickman_index = 7
 cycle = 0
 printed_frame = ["", "", "", "", ""]
 jumping = False
+frames_jumped = 0
 
 
 def print_frame_old():
@@ -45,7 +46,7 @@ def print_frame_old():
 
 
 def print_frame():
-    global printed_frame, stickman_index, character_index, current_character, jumping
+    global printed_frame, stickman_index, character_index, current_character, jumping, frames_jumped
 
     printed_frame = [""] * len(printed_frame) # Clear the last frame
 
@@ -60,6 +61,11 @@ def print_frame():
         sliced_string = default_string[:character_index] + current_character + default_string[character_index:]
         printed_frame[4] = sliced_string
     else: 
+        if frames_jumped < 5:
+            frames_jumped += 1
+        else:
+            jumping = False
+            frames_jumped = 0
         printed_frame[0] = ""
         printed_frame[1] = "    O  "
         printed_frame[2] = "   /|\\ "
