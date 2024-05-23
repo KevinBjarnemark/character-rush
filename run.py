@@ -45,24 +45,23 @@ def print_frame_old():
 def print_frame():
     global printed_frame, stickman_index, character_index, current_character
 
+    printed_frame = [""] * len(printed_frame) # Clear the last frame
+    
     # Draw the current frame 
+    printed_frame[0] = ""
+    printed_frame[1] = ""
+    printed_frame[2] = "    O  "
+    printed_frame[3] = "   /|\\ "
+    default_string =   "___/_\\_____________"
+    # Add the moving character to the last line
+    sliced_string = default_string[:character_index] + current_character + default_string[character_index:]
+    printed_frame[4] = sliced_string
+
+    # Print the current frame 
     sys.stdout.write(f"\033[{len(printed_frame)}A") # Move cursor to the top
     for i in range(0, len(printed_frame)):
-        if i == 0:
-           sys.stdout.write("")
-        elif i == 1:
-            sys.stdout.write("")
-        elif i == 2:
-            sys.stdout.write("    O")
-        elif i == 3:
-            sys.stdout.write("   /|\\")
-        elif i == 4:
-            original_string = "___/_\\_____________"
-            sliced_string = original_string[:character_index] + current_character + original_string[character_index:]
-            sys.stdout.write(sliced_string)
-
-        # New line
-        sys.stdout.write("\n")
+        # Print and add a new line 
+        sys.stdout.write(printed_frame[i] + "\n")
 
 def choose_random_character():
     global current_character, character_index
