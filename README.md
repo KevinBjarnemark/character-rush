@@ -17,22 +17,6 @@ This is a Python-based dexterity game for practicing keyboard typing.
 ### First version
 At first, my vision was to push the boundaries of what is possible within the Python terminal. I wanted to design a game capable of handling user inputs in real time, and I succeeded in aligning the game with my vision. Unfortunately, I couldn't replicate the user experience in the deployed 'browser terminal'. I entertained the thought of rebuilding the 'browser terminal' myself, but after some consideration, I decided to avoid getting sidetracked on this project. If you want to try it out in a normal python terminal, simply download the python file and run it locally in a terminal of your choise.
 
-Click 
-[HERE](https://github.com/KevinBjarnemark/character-rush/blob/main/first_version.py)
-to navigate to the source code. 
-
-![First version of this project](assets/images/readme/development_process/first_version.gif "Gameplay of a stickman jumping over moving characters")
-
-#### Code
-
-The game is based on the concept of FPS (frames per second). The speed variable controls the rate at which the frames are printed and is set to 0.1 by default.
-
-##### How frames are printed
-
-To print the frames, I decided to use the built-in Python package 'sys'. This package lets us control the cursor and draw in the terminal without printing anything. It is similar to drawing an image, clearing the canvas, and redrawing a new image very quickly. To demonstrate this, watch the flashing cursor in action in the gif image above.
-
-This approach allows us to pre-draw the frames conditionally and then render the predetermined frame on a line-by-line basis.
-
 #### Rules/instructions
 
 The goal is to leap over the moving characters.
@@ -42,6 +26,24 @@ The goal is to leap over the moving characters.
 3. Press enter to jump.
 
 The stickman will jump only when the correct character is submitted. 
+
+Click 
+[HERE](https://github.com/KevinBjarnemark/character-rush/blob/main/first_version.py)
+to navigate to the source code. 
+
+![First version of this project](assets/images/readme/development_process/first_version.gif "Gameplay of a stickman jumping over moving characters")
+
+#### Code
+
+The game is based on the concept of FPS (frames per second). The speed variable controls the rate at which the frames are printed and is set to 0.1 by default. 
+
+The user input runs on it's own thread to prevent the terminal from pausing the script. 
+
+##### How frames are printed
+
+To print the frames, I decided to use the built-in Python package 'sys'. This package lets us control the cursor and draw in the terminal without printing anything. It is similar to drawing an image, clearing the canvas, and redrawing a new image very quickly. To demonstrate this, watch the flashing cursor in action in the gif image above.
+
+This approach allows us to pre-draw the frames conditionally and then render the predetermined frame on a line-by-line basis without creating new lines. Since this is a pre-mature project, it has many problems that needs to be resolved and new lines will be created when the user submits an input. 
 
 #### Initial idea
 
@@ -105,13 +107,10 @@ Here's my 'sketchy' diagrams to envision the foreseen process of this project. T
 - To get the Python console into the browser I used template files provided by Code Institute 
 [Source](https://github.com/Code-Institute-Solutions/love-sandwiches-p5-sourcecode/tree/master/05-deployment/01-deployment-part-1)
 
-##### Third-party libraries <span class="in-line-hint">(listed in the package.json file)</span> 
-
-- xterm 
-
-A library that helps with integrating the terminal into the browser
-
 ## Third-parties
+
+##### [Third party libraries](https://github.com/KevinBjarnemark/character-rush/blob/main/package.json)
+These packages are listed in the package.json file
 
 ##### [Excalidraw](https://excalidraw.com/)
 
