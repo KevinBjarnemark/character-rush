@@ -23,6 +23,16 @@ to navigate to the source code.
 
 ![First version of this project](assets/images/readme/development_process/first_version.gif "Gameplay of a stickman jumping over moving characters")
 
+#### Code
+
+The game is based on the concept of FPS (frames per second). The speed variable controls the rate at which the frames are printed and is set to 0.1 by default.
+
+##### How frames are printed
+
+To print the frames, I decided to use the built-in Python package 'sys'. This package lets us control the cursor and draw in the terminal without printing anything. It is similar to drawing an image, clearing the canvas, and redrawing a new image very quickly. To demonstrate this, watch the flashing cursor in action in the gif image above.
+
+This approach allows us to pre-draw the frames conditionally and then render the predetermined frame on a line-by-line basis.
+
 #### Rules/instructions
 
 The goal is to leap over the moving characters.
@@ -52,7 +62,7 @@ If you want to further develop this project, here are some suggestions of what y
         Speed control
     </summary>
 
-The user should be able to dial in the speed of the moving characters (SPEED variable)
+The user should be able to dial in the speed of the moving characters
 </details>
 
 <details>
