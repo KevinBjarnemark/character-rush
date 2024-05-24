@@ -14,9 +14,18 @@ This is a Python-based dexterity game for practicing keyboard typing.
 
 ## Development process
 
-In this section I will document the development process as it progresses.
+### First version
+At first, my vision was to push the boundaries of what is possible within the Python terminal. I wanted to design a game capable of handling user inputs in real time, and I succeeded in aligning the game with my vision. Unfortunately, I couldn't replicate the user experience in the deployed 'browser terminal'. I entertained the thought of rebuilding the 'browser terminal' myself, but after some consideration, I decided to avoid getting sidetracked on this project. If you want to try it out in a normal python terminal, simply download the pyton file and run in locally a terminal of your choise.
 
-Here's the 'sketchy' diagrams to envision the foreseen process of this project. The initial sketch is on the **left** and the current 'live' document is on the **right**   
+Click 
+[HERE](https://github.com/KevinBjarnemark/character-rush/blob/main/first_version.py)
+to navigate to the source code. 
+
+![A](assets/images/readme/development_process/first_version.gif "A")
+
+
+
+Here's my 'sketchy' diagrams to envision the foreseen process of this project. The initial sketch is on the **left** and the current 'live' document is on the **right**   
 
 | ![A 'sketchy' diagram of the foreseen development process (initial)](assets/images/readme/development_process/project_diagram_1.png "Project diagram") | ![A 'sketchy' diagram of the foreseen development process (current)](assets/images/readme/development_process/project_diagram_2.png "Project diagram") |
 |--------------------------------------------|--------------------------------------------|
