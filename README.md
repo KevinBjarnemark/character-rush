@@ -15,15 +15,74 @@ This is a Python-based dexterity game for practicing keyboard typing.
 ## Development process
 
 ### First version
-At first, my vision was to push the boundaries of what is possible within the Python terminal. I wanted to design a game capable of handling user inputs in real time, and I succeeded in aligning the game with my vision. Unfortunately, I couldn't replicate the user experience in the deployed 'browser terminal'. I entertained the thought of rebuilding the 'browser terminal' myself, but after some consideration, I decided to avoid getting sidetracked on this project. If you want to try it out in a normal python terminal, simply download the pyton file and run in locally a terminal of your choise.
+At first, my vision was to push the boundaries of what is possible within the Python terminal. I wanted to design a game capable of handling user inputs in real time, and I succeeded in aligning the game with my vision. Unfortunately, I couldn't replicate the user experience in the deployed 'browser terminal'. I entertained the thought of rebuilding the 'browser terminal' myself, but after some consideration, I decided to avoid getting sidetracked on this project. If you want to try it out in a normal python terminal, simply download the python file and run it locally in a terminal of your choise.
 
 Click 
 [HERE](https://github.com/KevinBjarnemark/character-rush/blob/main/first_version.py)
 to navigate to the source code. 
 
-![A](assets/images/readme/development_process/first_version.gif "A")
+![First version of this project](assets/images/readme/development_process/first_version.gif "Gameplay of a stickman jumping over moving characters")
 
+#### Rules/instructions
 
+The goal is to leap over the moving characters.
+
+1. Read the moving character.
+2. Type it in on your keyboard.
+3. Press enter to jump.
+
+The stickman will jump only when the correct character is submitted. 
+
+#### Initial idea
+
+Being able to type efficiently on a keyboard is almost mandatory in today's age. Likely, the user who plays this game will soon realize that a higher score can be reached by avoiding looking at the keyboard. Thus, they will unwittingly develop the skill of typing more efficiently and naturally while having fun at the same time.
+
+A more comprehensive and long-term goal would be to target not only people who want to learn how to type on a keyboard but also professionals who seek to sharpen their skills. Perhaps a game like this could be published as a library for developers who want to be stimulated while waiting for a command to finish. This may be a long shot, but imagine running 'npm install' and, while the packages install, the developer can practice their typing skills with the packages installing in the background.
+
+#### Disclaimer!
+
+This game shouldn't be viewed as a finished product, but rather a 'starting point' for a larger project. Many features have not been implemented and the code does not follow best practices in terms of performance, optimization, refactoring, etc.
+
+#### Features to be implemented
+
+If you want to further develop this project, here are some suggestions of what you might want to implement.
+
+<details>
+    <summary>
+        Speed control
+    </summary>
+
+The user should be able to dial in the speed of the moving characters (SPEED variable)
+</details>
+
+<details>
+    <summary>
+        Gameplay
+    </summary>
+
+Right now, if the user jumps too late, the characters will run through the legs, causing a glitchy effect. There's no real need to fix this if a game reset occurs at that point. However, it may be wise to fix this if, for example, a 'practice mode' gets implemented. Perhaps creatively, by making the stickman fall or something similar.
+</details>
+
+<details>
+    <summary>
+        Game modes
+    </summary>
+
+- Increase the speed for every successful jump.
+- Adjust difficulty
+</details>
+
+<details>
+    <summary>
+        More
+    </summary>
+
+- Scoring system and scoreboard.
+- Let the user input custom characters/symbols
+- Add a skateboard
+</details>
+
+### Current version
 
 Here's my 'sketchy' diagrams to envision the foreseen process of this project. The initial sketch is on the **left** and the current 'live' document is on the **right**   
 
@@ -52,4 +111,3 @@ Excalidraw is an online drawing tool that I used for drawing the development dia
 
 For manipulating the terminal (moving the cursor, changing colors, etc.) I've been using this cheatsheet by [ConnerWill](https://gist.github.com/ConnerWill) on GitHub
 [Source](https://gist.github.com/ConnerWill/d4b6c776b509add763e17f9f113fd25b)
-
