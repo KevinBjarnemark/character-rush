@@ -15,7 +15,7 @@ This is a Python-based dexterity game for practicing keyboard typing.
 ## Development process
 
 ### First version
-At first, my vision was to push the boundaries of what is possible within the Python terminal. I wanted to design a game capable of handling user inputs in real time, and I succeeded in aligning the game with my vision. Unfortunately, I couldn't replicate the user experience in the deployed 'browser terminal'. I entertained the thought of rebuilding the 'browser terminal' myself, but after some consideration, I decided to avoid getting sidetracked on this project. If you want to try it out in a normal python terminal, simply download the python file and run it locally in a terminal of your choise.
+Initially, my goal was to explore the limits of what could be achieved within the Python terminal by designing a game that could handle user inputs in real-time. I was able to create a game that matched this vision, but unfortunately, I couldn't replicate the user experience in the deployed 'browser terminal'. I entertained the thought of rebuilding the 'browser terminal' myself, but after some consideration, I decided to avoid getting sidetracked on this project. If you'd like to try it out in a normal Python terminal, you can download the Python file and run it locally in a terminal of your choice.
 
 #### Rules/instructions
 
@@ -33,27 +33,27 @@ to navigate to the source code.
 
 ![First version of this project](assets/images/readme/development_process/first_version.gif "Gameplay of a stickman jumping over moving characters")
 
+#### Disclaimer!
+
+This game shouldn't be viewed as a finished product, but rather a 'starting point' for a larger project. Many features have not been implemented and the code does not follow best practices in terms of performance, optimization, refactoring, etc.
+
 #### Code
 
-The game is based on the concept of FPS (frames per second). The speed variable controls the rate at which the frames are printed and is set to 0.1 by default. 
+The game is based on the concept of FPS (frames per second). The speed variable controls the rate at which the frames are printed and is set to 0.1 by default.
 
-The user input runs on it's own thread to prevent the terminal from pausing the script. 
+The user input runs on its own thread to prevent the terminal from pausing the script.
 
 ##### How frames are printed
 
-To print the frames, I decided to use the built-in Python package 'sys'. This package lets us control the cursor and draw in the terminal without printing anything. It is similar to drawing an image, clearing the canvas, and redrawing a new image very quickly. To demonstrate this, watch the flashing cursor in action in the gif image above.
+To print the frames, I decided to use the built-in Python package 'sys'. This package enables control over the cursor, allowing drawing in the terminal without printing new lines. It's similar to drawing an image, clearing the canvas, and quickly redrawing a new image. To demonstrate this, watch the flashing cursor in action in the gif image above.
 
-This approach allows us to pre-draw the frames conditionally and then render the predetermined frame on a line-by-line basis without creating new lines. Since this is a pre-mature project, it has many problems that needs to be resolved and new lines will be created when the user submits an input. 
+This approach allows us to first, draw the frames conditionally, and then render those frames on a line-by-line basis. Since this is a pre-mature project, it has many problems that need to be resolved and new lines will be created when the user submits an input.
 
 #### Initial idea
 
 Being able to type efficiently on a keyboard is almost mandatory in today's age. Likely, the user who plays this game will soon realize that a higher score can be reached by avoiding looking at the keyboard. Thus, they will unwittingly develop the skill of typing more efficiently and naturally while having fun at the same time.
 
-A more comprehensive and long-term goal would be to target not only people who want to learn how to type on a keyboard but also professionals who seek to sharpen their skills. Perhaps a game like this could be published as a library for developers who want to be stimulated while waiting for a command to finish. This may be a long shot, but imagine running 'npm install' and, while the packages install, the developer can practice their typing skills with the packages installing in the background.
-
-#### Disclaimer!
-
-This game shouldn't be viewed as a finished product, but rather a 'starting point' for a larger project. Many features have not been implemented and the code does not follow best practices in terms of performance, optimization, refactoring, etc.
+A more comprehensive and long-term goal would be to target not only people who want to learn how to type on a keyboard but also professionals who seek to sharpen their skills. Perhaps a game like this could be published as a library for developers who want to be stimulated while waiting for a command to finish. This may be a long shot, but imagine running 'npm install' and, while the packages install, the developer can practice their typing skills with the packages installing in the background, without leaving the terminal.
 
 #### Features to be implemented
 
