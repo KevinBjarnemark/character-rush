@@ -3,10 +3,10 @@ import random
 import sys
 import threading
 
-CHARACTER_LIST = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+character_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
 STEPS = 20
 JUMPING_RANGE = [8, 9, 10]
-speed = 0.1
+speed = 0.3
 character_index = 20
 current_character = "A"
 stickman_index = 7
@@ -14,37 +14,28 @@ cycle = 0
 printed_frame = ["", "", "", "", ""]
 jumping = False
 frames_jumped = 0
+frame_count = 0
 
 def print_frame():
-    global printed_frame, stickman_index, character_index, current_character, jumping, frames_jumped
+    global printed_frame, frame_count, character_list
 
-    printed_frame = [""] * len(printed_frame) # Clear the last frame
+    rows = len(printed_frame)
+    character_amount = len(character_list)
 
+    # Clear the last frame
+    printed_frame = [""] * rows
     # Draw the current frame 
-    if jumping == False:
-        printed_frame[0] = ""
-        printed_frame[1] = ""
-        printed_frame[2] = "    O  "
-        printed_frame[3] = "   /|\\ "
-        default_string =   "___/_\\_____________"
-        # Add the moving character to the last line
-        sliced_string = default_string[:character_index] + current_character + default_string[character_index:]
-        printed_frame[4] = sliced_string
-    else: 
-        if frames_jumped < 5:
-            frames_jumped += 1
-        else:
-            jumping = False
-            frames_jumped = 0
-        printed_frame[0] = ""
-        printed_frame[1] = "    O  "
-        printed_frame[2] = "   /|\\ "
-        printed_frame[3] = "   / \\"
-        default_string =   "____________________"
-        # Add the moving character to the last line
-        sliced_string = default_string[:character_index] + current_character + default_string[character_index:]
-        printed_frame[4] = sliced_string
+    printed_frame[0] = " " * STEPS
+    printed_frame[1] = " " * STEPS
+    printed_frame[2] = "    O              "
+    printed_frame[3] = "   /|\\             "
+    printed_frame[4] = "___/_\\_____________"
     
+    # Matrix rain
+    for i in range(0, rows):
+        sliced = printed_frame[i][:10] + character_list[i] + printed_frame[i][10:]
+        printed_frame[i] = sliced
+
     # Print the current frame 
     sys.stdout.write(f"\033[{len(printed_frame)}A") # Move cursor to the top
     for i in range(0, len(printed_frame)):
@@ -52,10 +43,12 @@ def print_frame():
         # Print and add a new line 
         sys.stdout.write(printed_frame[i] + "\n")
         sys.stdout.flush() # Flush immediately to ensure DOM rendering
+    
+    frame_count =+ 1
 
 def choose_random_character():
     global current_character, character_index
-    current_character = random.choice(CHARACTER_LIST)
+    current_character = random.choice(character_list)
     character_index = STEPS # Reset 
 
 def get_input():
