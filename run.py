@@ -1,6 +1,28 @@
 import time
 import sys
 
+character_bank = {
+    "alphabet": [
+        "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
+        "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
+    ],
+    "numbers": [
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
+    ],
+    "symbols_easy": [
+        "!", "@", "#", "%", ",", ".", "?"
+    ],
+    "symbols_intermediate": [
+        "$", "*", "(", ")", "_", "=", "+", "&", "/"
+    ],
+    "symbols_advanced": [
+        "-", "[", "]", ":"
+    ],
+    "symbols_expert": [
+        "^", "{", "}", ";", "'", "\"", "<", ">", "\\", "|", "~", "`"
+    ],
+}
+
 character_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
 STEPS = 20
 speed = 0.1
@@ -49,6 +71,10 @@ def print_frame():
     
     frame_count += 1
 
+def build_matrix_rain():
+    global printed_frame, character_bank
+
+
 def start_game():
     global printed_frame
     # Set color
@@ -56,6 +82,8 @@ def start_game():
     # Create empty lines to draw on 
     for i in range(0, len(printed_frame)):
         sys.stdout.write("\n")
+
+    build_matrix_rain()
 
     # Game logic
     while True:
