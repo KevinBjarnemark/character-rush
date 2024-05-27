@@ -28,7 +28,7 @@ difficulty = {
     "level": 10, # Temporary
     "character_entries": [], # List of allowed entries in character_bank
 }
-character_list = []
+character_list = [] # List of dictionaries
 STEPS = 20
 speed = 0.1
 cycle = 0
@@ -55,11 +55,12 @@ def print_frame():
     loop_length = frame_count if frame_count < rows else min(character_amount, rows)
     for i in range(0, loop_length):
         y = i # Row position
+        x = character_list[i]["x"]
         # Push 'left-over' characters down
         if frame_count > rows and character_amount > 0:
             y = rows - i - 1 # Inverse
         
-        sliced = printed_frame[y][:10] + character_list[i] + printed_frame[y][10:]
+        sliced = printed_frame[y][:x] + character_list[i]["character"] + printed_frame[y][x:]
         printed_frame[y] = sliced
 
     # Remove the 'bottom-most' character
@@ -96,14 +97,13 @@ def game_setup():
 
 def build_matrix_rain():
     global printed_frame, character_bank, rows, difficulty
-
     entries = difficulty["character_entries"]
-
-    for i in range(0, max(100, rows)):
+    # Note, this system doesn't support fewer characters than the amount of rows
+    for i in range(0, max(100, rows)): 
         random_entry = entries[random.randrange(len(entries))]
         character_bank_entry = character_bank[random_entry]
         random_character = character_bank_entry[random.randrange(len(character_bank_entry))]
-        character_list.append(random_character)
+        character_list.append({"character": random_character, "x": 10 + random.randrange(10)})
 
 def start_game():
     global printed_frame
