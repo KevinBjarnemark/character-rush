@@ -10,7 +10,12 @@ when viewed in a previewer such as eg. VS Code.
 
 ## Introduction
 
-This is a Python-based dexterity game for practicing keyboard typing.
+This is a Python-based memory game with matrix vibes. 
+
+Click 
+[here](https://character-rush-05511809a26b.herokuapp.com/)
+to navigate to the deployed app
+
 
 ## Development process
 

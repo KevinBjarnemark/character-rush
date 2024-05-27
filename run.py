@@ -59,10 +59,10 @@ def print_frame():
         # Push 'left-over' characters down
         if frame_count > rows and character_amount > 0:
             y = rows - i - 1 # Inverse
-        
+        # Insert character in based on x and y
         sliced = printed_frame[y][:x] + character_list[i]["character"] + printed_frame[y][x:]
         printed_frame[y] = sliced
-
+        
     # Remove the 'bottom-most' character
     if frame_count >= rows and character_amount > 0:
         character_list.pop(0)
