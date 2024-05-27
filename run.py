@@ -1,5 +1,6 @@
 import time
 import sys
+import random
 
 character_bank = {
     "alphabet": [
@@ -24,10 +25,10 @@ character_bank = {
 }
 
 difficulty = {
-    "level": 5, # Temporary
+    "level": 10, # Temporary
     "character_entries": [], # List of allowed entries in character_bank
 }
-character_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+character_list = []
 STEPS = 20
 speed = 0.1
 cycle = 0
@@ -80,22 +81,29 @@ def game_setup():
 
     level = difficulty["level"]
     entries = difficulty["character_entries"]
-    if 0 <= level < 2:
+    if level >= 1:
         entries.append("alphabet")
-    if 2 <= level < 4:
+    if level >= 2:
         entries.append("numbers")
-    if 4 <= level < 6:
+    if level >= 4:
         entries.append("symbols_easy")
-    if 6 <= level < 8:
+    if level >= 6:
         entries.append("symbols_intermediate")
-    if 8 <= level < 10:
+    if level >= 9:
         entries.append("symbols_advanced")
     if level >= 10:
         entries.append("symbols_expert")
 
 def build_matrix_rain():
-    global printed_frame, character_bank, rows, difficuty
+    global printed_frame, character_bank, rows, difficulty
 
+    entries = difficulty["character_entries"]
+
+    for i in range(0, max(100, rows)):
+        random_entry = entries[random.randrange(len(entries))]
+        character_bank_entry = character_bank[random_entry]
+        random_character = character_bank_entry[random.randrange(len(character_bank_entry))]
+        character_list.append(random_character)
 
 def start_game():
     global printed_frame
