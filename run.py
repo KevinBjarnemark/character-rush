@@ -29,8 +29,8 @@ difficulty = {
     "character_entries": [], # List of allowed entries in character_bank
 }
 character_list = [] # List of dictionaries
-STEPS = 20
-speed = 0.1
+STEPS = 22
+speed = 0.05
 cycle = 0
 printed_frame = ["", "", "", "", ""]
 frame_count = 0
@@ -46,9 +46,9 @@ def print_frame():
     # Draw the current frame 
     printed_frame[0] = " " * STEPS
     printed_frame[1] = " " * STEPS
-    printed_frame[2] = "    O              "
-    printed_frame[3] = "   /|\\             "
-    printed_frame[4] = "___/_\\_____________"
+    printed_frame[2] = "    O                  "
+    printed_frame[3] = "   /|\\                "
+    printed_frame[4] = "___/_\\________________"
     
     # Matrix rain
     # Calculate loop length
@@ -106,9 +106,7 @@ def build_matrix_rain():
         character_list.append({"character": random_character, "x": 10 + random.randrange(10)})
 
 def start_game():
-    global printed_frame
-    # Set color
-    print(f"\x1B[38;2;{100};{169};{231}m") # RGB color
+    global printed_frame, frame_count
     # Create empty lines to draw on 
     for i in range(0, len(printed_frame)):
         sys.stdout.write("\n")
@@ -118,6 +116,10 @@ def start_game():
 
     # Game logic
     while True:
+        if frame_count % 10 == 0:
+            # Set color
+            sys.stdout.write(f"\x1B[38;2;{random.randrange(40, 140)};{random.randrange(200, 250)};{random.randrange(80, 180)}m") # RGB color
+
         print_frame()
         time.sleep(speed)
 
