@@ -23,17 +23,21 @@ character_bank = {
     ],
 }
 
+difficulty = {
+    "level": 5, # Temporary
+    "character_entries": [], # List of allowed entries in character_bank
+}
 character_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
 STEPS = 20
 speed = 0.1
 cycle = 0
 printed_frame = ["", "", "", "", ""]
 frame_count = 0
+rows = len(printed_frame)
 
 def print_frame():
-    global printed_frame, frame_count, character_list
+    global printed_frame, frame_count, character_list, rows
 
-    rows = len(printed_frame)
     character_amount = len(character_list)
 
     # Clear the last frame
@@ -71,8 +75,26 @@ def print_frame():
     
     frame_count += 1
 
+def game_setup():
+    global difficulty
+
+    level = difficulty["level"]
+    entries = difficulty["character_entries"]
+    if 0 <= level < 2:
+        entries.append("alphabet")
+    if 2 <= level < 4:
+        entries.append("numbers")
+    if 4 <= level < 6:
+        entries.append("symbols_easy")
+    if 6 <= level < 8:
+        entries.append("symbols_intermediate")
+    if 8 <= level < 10:
+        entries.append("symbols_advanced")
+    if level >= 10:
+        entries.append("symbols_expert")
+
 def build_matrix_rain():
-    global printed_frame, character_bank
+    global printed_frame, character_bank, rows, difficuty
 
 
 def start_game():
@@ -83,6 +105,7 @@ def start_game():
     for i in range(0, len(printed_frame)):
         sys.stdout.write("\n")
 
+    game_setup()
     build_matrix_rain()
 
     # Game logic
