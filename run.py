@@ -3,7 +3,7 @@ import sys
 
 character_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
 STEPS = 20
-speed = 0.3
+speed = 0.1
 cycle = 0
 printed_frame = ["", "", "", "", ""]
 frame_count = 0
@@ -28,9 +28,14 @@ def print_frame():
     loop_length = frame_count if frame_count < rows else min(character_amount, rows)
     for i in range(0, loop_length):
         y = i # Row position
-        sliced = printed_frame[y][:10] + character_list[y] + printed_frame[y][10:]
+        # Push 'left-over' characters down
+        if frame_count > rows and character_amount > 0:
+            y = rows - i - 1 # Inverse
+        
+        sliced = printed_frame[y][:10] + character_list[i] + printed_frame[y][10:]
         printed_frame[y] = sliced
 
+    # Remove the 'bottom-most' character
     if frame_count >= rows and character_amount > 0:
         character_list.pop(0)
 
