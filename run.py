@@ -32,9 +32,12 @@ def print_frame():
     printed_frame[4] = "___/_\\_____________"
     
     # Matrix rain
-    for i in range(0, rows):
-        sliced = printed_frame[i][:10] + character_list[i] + printed_frame[i][10:]
-        printed_frame[i] = sliced
+    # Calculate loop length
+    loop_length = frame_count if frame_count < rows else min(character_amount, rows)
+    for i in range(0, loop_length):
+        y = i # Row position
+        sliced = printed_frame[y][:10] + character_list[y] + printed_frame[y][10:]
+        printed_frame[y] = sliced
 
     # Print the current frame 
     sys.stdout.write(f"\033[{len(printed_frame)}A") # Move cursor to the top
@@ -44,7 +47,7 @@ def print_frame():
         sys.stdout.write(printed_frame[i] + "\n")
         sys.stdout.flush() # Flush immediately to ensure DOM rendering
     
-    frame_count =+ 1
+    frame_count += 1
 
 def choose_random_character():
     global current_character, character_index
