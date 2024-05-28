@@ -100,7 +100,17 @@ def check_user_results():
         # TODO Reset game
         print("TODO, reset game")
 
-# Print the current frame
+def print_frame():
+    """Executes the 'frame printing' after that frame has been built"""
+    global printed_frame
+    # Print the current frame 
+    sys.stdout.write(f"\033[{len(printed_frame)}A") # Move cursor to the top
+    for i in range(0, len(printed_frame)):
+        sys.stdout.write("\033[K")
+        # Print and add a new line 
+        sys.stdout.write(printed_frame[i] + "\n")
+        sys.stdout.flush() # Flush immediately to ensure DOM rendering
+
 def build_frame():
     """Builds the current frame (matrix rain).
     1. Sets the color
@@ -108,7 +118,8 @@ def build_frame():
     3. Calculates where to insert characters
     4. Removes characters that are out of bounds
     5. Increments the frame count 
-    6. Checks the user results when all characters are out of bounds"""
+    6. Executes the 'printing of the frame'
+    7. Checks the user results when all characters are out of bounds"""
     global printed_frame, frame_count, character_list, rows, running, character_inc
     # Green color effect
     if frame_count % 5 == 0:
@@ -138,23 +149,13 @@ def build_frame():
         character_list.pop(0)
 
     frame_count += 1
+    print_frame()
 
     # If all characters are out of bounds
     if character_amount <= 0:
         check_user_results()
     else:
         time.sleep(speed) # Limit the 'prinitng speed'
-
-def print_frame():
-    """Executes the 'frame printing' after that frame has been built"""
-    global printed_frame
-    # Print the current frame 
-    sys.stdout.write(f"\033[{len(printed_frame)}A") # Move cursor to the top
-    for i in range(0, len(printed_frame)):
-        sys.stdout.write("\033[K")
-        # Print and add a new line 
-        sys.stdout.write(printed_frame[i] + "\n")
-        sys.stdout.flush() # Flush immediately to ensure DOM rendering
 
 def user_input_welcome():
     """Ask the user what to do and what settings to use"""
@@ -178,7 +179,7 @@ def game_setup():
     # Reset edited variables
     difficulty["level"] = 1
     difficulty["character_entries"] = []
-    
+
     level = difficulty["level"]
     entries = difficulty["character_entries"]
 
@@ -217,7 +218,7 @@ def start_game():
     global printed_frame, frame_count, running
 
     # Create empty lines to draw on 
-    for i in range(0, len(printed_frame)):
+    for i in range(0, len(printed_frame)+1):
         sys.stdout.write("\n")
 
     game_setup()
@@ -228,6 +229,5 @@ def start_game():
     running = True
     while running:
         build_frame()
-        print_frame()
 
 start_game()
