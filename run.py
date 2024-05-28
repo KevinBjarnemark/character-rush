@@ -40,6 +40,9 @@ COLUMNS = 22
 running = False
 # NOTE this system doesn't support fewer characters than the amount of rows
 character_inc = rows-1 # Increased for each 'cycle'
+settings = {
+    "ordered": True # If true, all characters should be memorized in order
+}
 
 # Helpers
 def count_down(num, starting_in = False):
@@ -74,10 +77,18 @@ def clear_canvas():
 def user_answer():
     """Ask the user to submit their answer and examine if the 
     answer is accepted"""
-    global character_list_copy
-    answer = str(input("Type in all characters loosely eg. ABCD123#% \n"))
-    result = all(char["character"] in answer for char in character_list_copy)
+    global character_list_copy, settings
+    user_answer = str(input("Type in all characters loosely eg. ABC123#@ \n"))
+    result = True
 
+    # Calculate result based on settings 
+    if settings["ordered"]:
+        for answer, solution in zip(user_answer, character_list_copy):
+            if not answer == solution["character"]:
+                result = False
+    else:
+        result = all(char["character"] in answer for char in character_list_copy)
+    
     if result:
         print("Good work, you got it right! Starting next round...")
         time.sleep(3) # Give the user some time to read
@@ -161,24 +172,22 @@ def user_input_welcome():
     """Ask the user what to do and what settings to use"""
     global difficulty
 
-    print("Welcome!") 
-    # Choose what to do
-    input_what_to_do = int(input("What do you want to do?\n 1. Play memorizing game\n"))
-    print("Great!")
-    # Choose difficulty 
+    print("Welcome!")
+    time.sleep(1)
+    print("Your mission is to memorize the falling letters.\n")
+    time.sleep(2)
+    # Set difficulty 
     input_difficulty = int(input("How skilled are you at memorizing? \nType in a number between 1-10\n"))
-    # Set difficulty
     difficulty["level"] = input_difficulty
+    setting_ordered = str(input("Would you like to momorize the characters in order? (yes/no)\n"))
+    settings["ordered"] = True if setting_ordered == "yes" else False
+    input("Great! Press enter whenever you're ready to play!")
 
 def game_setup():
     """Reset game settings and declare new settings"""
     global difficulty
 
     user_input_welcome()
-
-    # Reset edited variables
-    difficulty["level"] = 1
-    difficulty["character_entries"] = []
 
     level = difficulty["level"]
     entries = difficulty["character_entries"]
