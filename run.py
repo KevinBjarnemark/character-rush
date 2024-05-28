@@ -47,6 +47,27 @@ def count_down(num):
         print(num - i)
         time.sleep(1)
 
+# Generate a random nuance of green
+def random_green_nuance():
+    r = random.randint(40, 140)
+    g = random.randint(200, 250)
+    b = random.randint(80, 180)
+    return sys.stdout.write(f"\x1B[38;2;{r};{g};{b}m")
+
+# Clear the 'canvas'
+def clear_canvas():
+    """Clears the 'canvas' by drawing the initial scene"""
+    global printed_frame
+    # Clear the last frame
+    printed_frame = [""] * rows
+    # Draw the current frame 
+    printed_frame[0] = " " * COLUMNS
+    printed_frame[1] = " " * COLUMNS
+    printed_frame[2] = "    O                  "
+    printed_frame[3] = "   /|\\                "
+    printed_frame[4] = "___/_\\________________"
+
+# Examine user answers
 def user_answer():
     global character_list_copy
     answer = str(input("Type in all characters loosely eg. ABCD123#% \n"))
@@ -61,27 +82,20 @@ def user_answer():
         input("Press enter to start over.\n")
     return result
 
-def print_frame():
+# Print the current frame
+def build_frame():
     global printed_frame, frame_count, character_list, rows, running, character_inc
+    # Green color effect
+    if frame_count % 5 == 0:
+        random_green_nuance()
 
-    if frame_count % 10 == 0:
-        # Set color
-        sys.stdout.write(f"\x1B[38;2;{random.randrange(40, 140)};{random.randrange(200, 250)};{random.randrange(80, 180)}m") # RGB color
-
+    # Prepare frame printing
+    clear_canvas()
     character_amount = len(character_list)
-
-    # Clear the last frame
-    printed_frame = [""] * rows
-    # Draw the current frame 
-    printed_frame[0] = " " * COLUMNS
-    printed_frame[1] = " " * COLUMNS
-    printed_frame[2] = "    O                  "
-    printed_frame[3] = "   /|\\                "
-    printed_frame[4] = "___/_\\________________"
-    
-    # Matrix rain
     # Calculate loop length
     loop_length = frame_count if frame_count < rows else min(character_amount, rows)
+    
+    # Matrix rain effect
     for i in range(0, loop_length):
         x = character_list[i]["x"]
 
@@ -98,15 +112,8 @@ def print_frame():
     if frame_count >= rows and character_amount > 0:
         character_list.pop(0)
 
-    # Print the current frame 
-    sys.stdout.write(f"\033[{len(printed_frame)}A") # Move cursor to the top
-    for i in range(0, len(printed_frame)):
-        sys.stdout.write("\033[K")
-        # Print and add a new line 
-        sys.stdout.write(printed_frame[i] + "\n")
-        sys.stdout.flush() # Flush immediately to ensure DOM rendering
-    
     frame_count += 1
+    
     if character_amount <= 0:
         running = False
         if user_answer():
@@ -125,6 +132,17 @@ def print_frame():
         
 
     time.sleep(speed) # Limit the 'prinitng speed'
+
+def print_frame():
+    """Executes the 'frame printing' after that frame has been built"""
+    global printed_frame
+    # Print the current frame 
+    sys.stdout.write(f"\033[{len(printed_frame)}A") # Move cursor to the top
+    for i in range(0, len(printed_frame)):
+        sys.stdout.write("\033[K")
+        # Print and add a new line 
+        sys.stdout.write(printed_frame[i] + "\n")
+        sys.stdout.flush() # Flush immediately to ensure DOM rendering
 
 def game_setup():
     global difficulty
@@ -183,6 +201,7 @@ def start_game():
 
     # Game logic
     while running:
+        build_frame()
         print_frame()
 
 start_game()
