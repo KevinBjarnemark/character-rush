@@ -39,26 +39,23 @@ frame_count = 0
 rows = len(printed_frame)
 running = False
 
+# Helpers
+def count_down(num):
+    for i in range(0, num):
+        print(num - i)
+        time.sleep(1)
+
 def user_answer():
     global character_list_copy
     answer = str(input("Type in all characters loosely eg. ABCD123#% \n"))
-    result = True
-    for i in character_list_copy:
-        if not i["character"] in answer:
-            result = False
+    result = all(char["character"] in answer for char in character_list_copy)
 
     if result:
-        print("Good work, you got it right! Starting next round...\n")
+        print("Good work, you got it right! Starting next round...")
         time.sleep(3)
-        print("3")
-        time.sleep(1)
-        print("2")
-        time.sleep(1)
-        print("1")
-        time.sleep(1)
+        count_down(3)
     else:
         print("Oh no, one or more characters were incorrect..")
-        print(character_list_copy)
         input("Press enter to start over.\n")
     return result
 
