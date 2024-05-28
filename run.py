@@ -26,18 +26,20 @@ character_bank = {
 }
 
 difficulty = {
-    "level": 10, # Temporary
+    "level": 1,
     "character_entries": [], # List of allowed entries in character_bank
 }
+speed = 0.7
+
 character_list = [] # List of dictionaries
 character_list_copy = [] # List of dictionaries
-STEPS = 22
-speed = 0.7
-cycle = 0
 printed_frame = ["", "", "", "", ""]
 frame_count = 0
 rows = len(printed_frame)
+COLUMNS = 22
 running = False
+# NOTE this system doesn't support fewer characters than the amount of rows
+character_inc = rows-1 # Increased for each 'cycle'
 
 # Helpers
 def count_down(num):
@@ -60,15 +62,19 @@ def user_answer():
     return result
 
 def print_frame():
-    global printed_frame, frame_count, character_list, rows, running
+    global printed_frame, frame_count, character_list, rows, running, character_inc
+
+    if frame_count % 10 == 0:
+        # Set color
+        sys.stdout.write(f"\x1B[38;2;{random.randrange(40, 140)};{random.randrange(200, 250)};{random.randrange(80, 180)}m") # RGB color
 
     character_amount = len(character_list)
 
     # Clear the last frame
     printed_frame = [""] * rows
     # Draw the current frame 
-    printed_frame[0] = " " * STEPS
-    printed_frame[1] = " " * STEPS
+    printed_frame[0] = " " * COLUMNS
+    printed_frame[1] = " " * COLUMNS
     printed_frame[2] = "    O                  "
     printed_frame[3] = "   /|\\                "
     printed_frame[4] = "___/_\\________________"
@@ -104,16 +110,24 @@ def print_frame():
     if character_amount <= 0:
         running = False
         if user_answer():
+            # Bring in more characters
+            character_inc += 1
+            # Reset values
+            character_list = []
+            frame_count = 0
+            # Build matrix rain
             build_matrix_rain()
+            # Run game
             running = True
-            # TODO Reset game
         else:
             # TODO Reset game
             print("TODO, reset game")
+        
+
+    time.sleep(speed) # Limit the 'prinitng speed'
 
 def game_setup():
     global difficulty
-
     # User interaction
     print("Welcome!") 
     # Choose what to do
@@ -141,11 +155,11 @@ def game_setup():
         entries.append("symbols_expert")
 
 def build_matrix_rain():
-    global printed_frame, character_bank, rows, difficulty, character_list, character_list_copy
+    global printed_frame, character_bank, rows, difficulty, character_list, character_list_copy, character_inc
     entries = difficulty["character_entries"]
 
     # Note, this system doesn't support fewer characters than the amount of rows
-    for i in range(0, max(100, rows)): 
+    for i in range(0, max(character_inc, rows)): 
         random_entry = entries[random.randrange(len(entries))]
         character_bank_entry = character_bank[random_entry]
         random_character = character_bank_entry[random.randrange(len(character_bank_entry))]
@@ -161,15 +175,14 @@ def start_game():
 
     game_setup()
     build_matrix_rain()
+    # User prompt
+    print("Starting in...")
+    count_down(3)
+
     running = True
 
     # Game logic
     while running:
-        if frame_count % 10 == 0:
-            # Set color
-            sys.stdout.write(f"\x1B[38;2;{random.randrange(40, 140)};{random.randrange(200, 250)};{random.randrange(80, 180)}m") # RGB color
-
         print_frame()
-        time.sleep(speed)
 
 start_game()
