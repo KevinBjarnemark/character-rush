@@ -80,6 +80,12 @@ def print_frame():
 def game_setup():
     global difficulty
 
+    print("Welcome!") 
+    input_what_to_do = int(input("What do you wan tot do?\n 1. Play memorizing game\n"))
+    print("Great!") 
+    input_difficulty = int(input("How skilled are you at memorizing? \nType in a number between 1-10\n"))
+    difficulty["level"] = input_difficulty
+
     level = difficulty["level"]
     entries = difficulty["character_entries"]
     if level >= 1:
