@@ -32,7 +32,7 @@ difficulty = {
 character_list = [] # List of dictionaries
 character_list_copy = [] # List of dictionaries
 STEPS = 22
-speed = 0.05
+speed = 0.7
 cycle = 0
 printed_frame = ["", "", "", "", ""]
 frame_count = 0
@@ -77,11 +77,13 @@ def print_frame():
     # Calculate loop length
     loop_length = frame_count if frame_count < rows else min(character_amount, rows)
     for i in range(0, loop_length):
-        y = i # Row position
         x = character_list[i]["x"]
-        # Push 'left-over' characters down
-        if frame_count > rows and character_amount > 0:
-            y = rows - i - 1 # Inverse
+
+        # Push characters down to fill empty space
+        y = rows - i - 1 # Inverse
+        if frame_count < rows and character_amount > 0:
+            y = frame_count-1 - i
+
         # Insert character in based on x and y
         sliced = printed_frame[y][:x] + character_list[i]["character"] + printed_frame[y][x:]
         printed_frame[y] = sliced
@@ -104,7 +106,9 @@ def print_frame():
         if user_answer():
             build_matrix_rain()
             running = True
+            # TODO Reset game
         else:
+            # TODO Reset game
             print("TODO, reset game")
 
 def game_setup():
@@ -140,20 +144,14 @@ def build_matrix_rain():
     global printed_frame, character_bank, rows, difficulty, character_list, character_list_copy
     entries = difficulty["character_entries"]
 
-    character_list = [
-        {"character": "A", "x": 12},
-        {"character": "B", "x": 12},
-        {"character": "C", "x": 12},
-        {"character": "D", "x": 12},
-    ]
-    character_list_copy = copy.deepcopy(character_list)
-
     # Note, this system doesn't support fewer characters than the amount of rows
-    """ for i in range(0, max(100, rows)): 
+    for i in range(0, max(100, rows)): 
         random_entry = entries[random.randrange(len(entries))]
         character_bank_entry = character_bank[random_entry]
         random_character = character_bank_entry[random.randrange(len(character_bank_entry))]
-        character_list.append({"character": random_character, "x": 10 + random.randrange(10)}) """
+        character_list.append({"character": random_character, "x": 10 + random.randrange(10)})
+    
+    character_list_copy = copy.deepcopy(character_list)
 
 def start_game():
     global printed_frame, frame_count, running
