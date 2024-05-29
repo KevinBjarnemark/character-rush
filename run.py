@@ -136,7 +136,7 @@ def user_answer():
     global character_list_copy, settings
     
     neutral_white()
-    user_input = str(input("Type in all characters loosely eg. ABC123#@ \n"))
+    user_input = input("Type in all characters loosely eg. ABC123#@\n")
     result = True
     
     # Calculate result based on settings 
@@ -152,9 +152,9 @@ def user_answer():
     if result:
         print("\nYou got it right!")
         time.sleep(0.5)
-        print(f"Characters memorized: {len(user_input)}")
+        print(f"Characters memorized: {len(user_input)}\n")
         time.sleep(1)
-        str(input("\nPress enter to start the next round"))
+        input("Press enter to start the next round\n")
         count_down(3, True)
     else:
         print("Oh no, one or more characters were incorrect..\n")
@@ -162,7 +162,7 @@ def user_answer():
         print(f"Your answer   : {user_input}")
         print(f"Correct answer: {correct_answer}\n")
         time.sleep(1)
-        str(input("Press enter to start over."))
+        input("Press enter to start over.\n")
     return result
 
 def check_user_results():
@@ -255,7 +255,7 @@ def user_input_welcome():
     setting_ordered_data = {"type": "str", "match_strings": ["yes", "Yes", "no", "No"]}
     setting_ordered = validated_input("Would you like to momorize the characters in order? (yes/no)\n", setting_ordered_data)
     settings["ordered"] = True if setting_ordered == "yes" else False
-    str(input("\nGreat! Press enter whenever you're ready to play!"))
+    input("\nGreat! Press enter whenever you're ready to play!\n")
 
 def game_setup():
     """Reset game settings and declare new settings"""
