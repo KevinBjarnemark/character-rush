@@ -60,6 +60,10 @@ def random_green_nuance():
     b = random.randint(80, 180)
     return sys.stdout.write(f"\x1B[38;2;{r};{g};{b}m")
 
+def neutral_white():
+    """Change the terminal color to neutral white"""
+    return sys.stdout.write(f"\x1B[38;2;{255};{255};{255}m")
+
 # Clear the 'canvas'
 def clear_canvas():
     """Clears the 'canvas' by drawing the initial scene"""
@@ -73,17 +77,19 @@ def clear_canvas():
     printed_frame[3] = "   /|\\                "
     printed_frame[4] = "___/_\\________________"
 
-
 def user_answer():
     """Ask the user to submit their answer and examine if the 
     answer is accepted"""
     global character_list_copy, settings
+    neutral_white()
     user_answer = str(input("Type in all characters loosely eg. ABC123#@ \n"))
     result = True
+    correct_answer = ""
 
     # Calculate result based on settings 
     if settings["ordered"]:
         for answer, solution in zip(user_answer, character_list_copy):
+            correct_answer += solution["character"]
             if not answer == solution["character"]:
                 result = False
     else:
@@ -94,8 +100,12 @@ def user_answer():
         time.sleep(3) # Give the user some time to read
         count_down(3)
     else:
-        print("Oh no, one or more characters were incorrect..")
-        input("Press enter to start over.\n")
+        print("Oh no, one or more characters were incorrect..\n")
+        time.sleep(1)
+        print(f"Your answer   : {user_answer}")
+        print(f"Correct answer: {correct_answer}\n")
+        time.sleep(1)
+        input("Press enter to start over.")
     return result
 
 def check_user_results():
