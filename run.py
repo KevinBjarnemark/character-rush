@@ -80,14 +80,15 @@ def user_answer():
     """Ask the user to submit their answer and examine if the 
     answer is accepted"""
     global character_list_copy, settings
+    
     neutral_white()
-    user_answer = str(input("Type in all characters loosely eg. ABC123#@ \n"))
+    user_input = str(input("Type in all characters loosely eg. ABC123#@ \n"))
     result = True
-    correct_answer = ""
-
+    
     # Calculate result based on settings 
+    correct_answer = ""
     if settings["ordered"]:
-        for answer, solution in zip(user_answer, character_list_copy):
+        for answer, solution in zip(user_input, character_list_copy):
             correct_answer += solution["character"]
             if not answer == solution["character"]:
                 result = False
@@ -95,13 +96,16 @@ def user_answer():
         result = all(char["character"] in answer for char in character_list_copy)
     
     if result:
-        print("Good work, you got it right! Starting next round...")
-        time.sleep(3) # Give the user some time to read
-        count_down(3)
+        print("\nYou got it right!")
+        time.sleep(0.5)
+        print(f"Characters memorized: {len(user_input)}")
+        time.sleep(1)
+        input("\nPress enter to start the next round")
+        count_down(3, True)
     else:
         print("Oh no, one or more characters were incorrect..\n")
         time.sleep(1)
-        print(f"Your answer   : {user_answer}")
+        print(f"Your answer   : {user_input}")
         print(f"Correct answer: {correct_answer}\n")
         time.sleep(1)
         input("Press enter to start over.")
@@ -141,6 +145,7 @@ def build_frame():
     6. Executes the 'printing of the frame'
     7. Checks the user results when all characters are out of bounds"""
     global printed_frame, frame_count, character_list, rows, running, character_inc
+
     # Green color effect
     if frame_count % 5 == 0:
         random_green_nuance()
@@ -223,6 +228,7 @@ def build_matrix_rain():
     """Choose which characters that will be included in the matrix rain 
     and append those to the character_list"""
     global rows, difficulty, character_list, character_list_copy, character_inc
+    
     # Reset previously edited variable
     character_list = []
     # Get the entries based on the difficulty level
