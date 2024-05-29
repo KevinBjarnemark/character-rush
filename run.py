@@ -45,37 +45,55 @@ def count_down(num, starting_in = False):
         print(num - i)
         time.sleep(1)
 
-def validated_input_number(input_type, message, min_val=None, max_val=None):
+def validated_input(message, data=None):
     """
-    Validates the user input based on the specified type and range.
+    Validates the user input based on the specified data.
     Note that the input is wrapped in a string to work as expected 
     in the deployed version.
 
     Parameters:
-    input_type (str): The expected type of the input ("int" or "float").
     message (str): The message to display to the user.
-    min_val (int or float, optional): The minimum allowable value for the input.
-    max_val (int or float, optional): The maximum allowable value for the input.
+    data (dictionary): The specified rules that should be tested + info. Example below:
+
+    {
+        "type" (str): "int", "float", or "str"
+        "min" (number): (optional) --> Only allow inputs above this number
+        "max" (number): (optional) --> Only allow inputs below this number
+        "match_strings" (list): (optional) --> Only allow strings that exists in this list
+    }
 
     Returns:
-    int or float: The validated user input.
+    int, float, or str: The validated user input.
     """
+
     while True:
         user_input = str(input(message))
 
         try:
-            if input_type == "int":
-                user_input = int(user_input)
-            elif input_type == "float":
-                user_input = float(user_input)
-            else:
-                raise ValueError("Invalid input type specified. Only 'int' or 'float' are allowed.")
-            
-            if min_val is not None and user_input < min_val:
-                raise ValueError(f"Input must be at least {min_val}.")
-            if max_val is not None and user_input > max_val:
-                raise ValueError(f"Input must be at most {max_val}.")
-            
+            is_number = data["type"] == "int" or data["type"] == "float"
+            if is_number:
+                if data["type"] == "int":
+                    user_input = int(user_input)
+                elif data["type"] == "float":
+                    user_input = float(user_input)
+
+                # Limit to min and max values when the input is a number
+                if data["min"] is not None and user_input < data["min"]:
+                    raise ValueError(f"Input must be at least {data["min"]}.")
+                if data["max"] is not None and user_input > data["max"]:
+                    raise ValueError(f"Input must be at most {data["max"]}.")
+                
+            elif data["type"] == "str":
+                # If the input has to match any specified strings
+                if data["match_strings"] is not None and user_input in data["match_strings"]:
+                    pass
+                else:
+                    # Avoid embedding the alternatives here since they may be 'secret'
+                    raise ValueError("Invalid input: Please try again.")
+            else: 
+                # Dev error
+                raise ValueError("Invalid input type specified. Only 'int', 'float' or 'str' are allowed.")
+
             return user_input
         
         except ValueError: # Avoid adding 'as e' here to keep the interaction user friendly
@@ -231,9 +249,11 @@ def user_input_welcome():
         time.sleep(2)
 
     # Set difficulty 
-    input_difficulty = validated_input_number("int", "Set difficulty (type in a number between 1-10)\n", 1, 10)
+    input_difficulty_data = {"type": "int", "min": 1, "max": 10}
+    input_difficulty = validated_input("Set difficulty (type in a number between 1-10)\n", input_difficulty_data)
     difficulty["level"] = input_difficulty
-    setting_ordered = str(input("Would you like to momorize the characters in order? (yes/no)\n"))
+    setting_ordered_data = {"type": "str", "match_strings": ["yes", "Yes", "no", "No"]}
+    setting_ordered = validated_input("Would you like to momorize the characters in order? (yes/no)\n", setting_ordered_data)
     settings["ordered"] = True if setting_ordered == "yes" else False
     str(input("\nGreat! Press enter whenever you're ready to play!"))
 
