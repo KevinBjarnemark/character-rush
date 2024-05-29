@@ -45,6 +45,42 @@ def count_down(num, starting_in = False):
         print(num - i)
         time.sleep(1)
 
+def validated_input_number(input_type, message, min_val=None, max_val=None):
+    """
+    Validates the user input based on the specified type and range.
+    Note that the input is wrapped in a string to work as expected 
+    in the deployed version.
+
+    Parameters:
+    input_type (str): The expected type of the input ("int" or "float").
+    message (str): The message to display to the user.
+    min_val (int or float, optional): The minimum allowable value for the input.
+    max_val (int or float, optional): The maximum allowable value for the input.
+
+    Returns:
+    int or float: The validated user input.
+    """
+    while True:
+        user_input = str(input(message))
+
+        try:
+            if input_type == "int":
+                user_input = int(user_input)
+            elif input_type == "float":
+                user_input = float(user_input)
+            else:
+                raise ValueError("Invalid input type specified. Only 'int' or 'float' are allowed.")
+            
+            if min_val is not None and user_input < min_val:
+                raise ValueError(f"Input must be at least {min_val}.")
+            if max_val is not None and user_input > max_val:
+                raise ValueError(f"Input must be at most {max_val}.")
+            
+            return user_input
+        
+        except ValueError: # Avoid adding 'as e' here to keep the interaction user friendly
+            print(f"\nInvalid input: Please try again.")
+
 def reset_variables():
     global default_values, difficulty, character_inc, frame_count
 
@@ -100,7 +136,7 @@ def user_answer():
         time.sleep(0.5)
         print(f"Characters memorized: {len(user_input)}")
         time.sleep(1)
-        input_empty = input("\nPress enter to start the next round")
+        str(input("\nPress enter to start the next round"))
         count_down(3, True)
     else:
         print("Oh no, one or more characters were incorrect..\n")
@@ -108,7 +144,7 @@ def user_answer():
         print(f"Your answer   : {user_input}")
         print(f"Correct answer: {correct_answer}\n")
         time.sleep(1)
-        input_empty = input("Press enter to start over.")
+        str(input("Press enter to start over."))
     return result
 
 def check_user_results():
@@ -181,7 +217,7 @@ def build_frame():
         check_user_results()
     else:
         time.sleep(speed) # Limit the 'prinitng speed'
-
+    
 def user_input_welcome():
     """Ask the user what to do and what settings to use"""
     global difficulty, first_render
@@ -195,11 +231,11 @@ def user_input_welcome():
         time.sleep(2)
 
     # Set difficulty 
-    input_difficulty = int(input("Set difficulty (type in a number between 1-10)\n"))
+    input_difficulty = validated_input_number("int", "Set difficulty (type in a number between 1-10)\n", 1, 10)
     difficulty["level"] = input_difficulty
     setting_ordered = str(input("Would you like to momorize the characters in order? (yes/no)\n"))
     settings["ordered"] = True if setting_ordered == "yes" else False
-    input_empty = input("\nGreat! Press enter whenever you're ready to play!")
+    str(input("\nGreat! Press enter whenever you're ready to play!"))
 
 def game_setup():
     """Reset game settings and declare new settings"""
