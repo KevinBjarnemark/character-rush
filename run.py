@@ -2,33 +2,12 @@ import time
 import sys
 import random
 import copy
-
-# Character groups chosen based on the difficulty level
-character_bank = {
-    "alphabet": [
-        "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
-        "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
-    ],
-    "numbers": [
-        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
-    ],
-    "symbols_easy": [
-        "!", "@", "#", "%", ",", ".", "?"
-    ],
-    "symbols_intermediate": [
-        "$", "*", "(", ")", "_", "=", "+", "&", "/"
-    ],
-    "symbols_advanced": [
-        "-", "[", "]", ":"
-    ],
-    "symbols_expert": [
-        "^", "{", "}", ";", "'", "\"", "<", ">", "\\", "|", "~", "`"
-    ],
-}
+from assets.python.character_groups import CHARACTER_GROUPS
 
 difficulty = {
     "level": 1,
-    "character_entries": [], # List of allowed entries in character_bank
+    # CHARACTER_GROUPS entries, these will be included in the matrix rain
+    "character_entries": [], 
 }
 speed = 0.7
 character_list = [] # List of dictionaries
@@ -219,7 +198,7 @@ def game_setup():
 def build_matrix_rain():
     """Choose which characters that will be included in the matrix rain 
     and append those to the character_list"""
-    global character_bank, rows, difficulty, character_list, character_list_copy, character_inc
+    global rows, difficulty, character_list, character_list_copy, character_inc
     # Reset previously edited variable
     character_list = []
     # Get the entries based on the difficulty level
@@ -227,8 +206,8 @@ def build_matrix_rain():
     # Choose random characters in random predetermined entries
     for i in range(0, max(character_inc, rows)): 
         random_entry = entries[random.randrange(len(entries))]
-        character_bank_entry = character_bank[random_entry]
-        random_character = character_bank_entry[random.randrange(len(character_bank_entry))]
+        character_groups_entry = CHARACTER_GROUPS[random_entry]
+        random_character = character_groups_entry[random.randrange(len(character_groups_entry))]
         character_list.append({"character": random_character, "x": 10 + random.randrange(10)})
     
     character_list_copy = copy.deepcopy(character_list)
