@@ -14,7 +14,8 @@ default_values = {
         "character_entries": [], 
     },
     # NOTE this system doesn't support fewer characters than the amount of rows
-    "character_inc": 0 # Increased for each 'round'
+    "character_inc": 0, # Increased for each 'round'
+    "frame_count": 0,
 }
 
 printed_frame = ["", "", "", "", ""]
@@ -25,10 +26,10 @@ default_values["character_inc"] = rows
 
 difficulty = default_values["difficulty"]
 character_inc = default_values["character_inc"]
+frame_count = default_values["frame_count"]
 settings = {
     "ordered": True # If true, all characters should be memorized in order
 }
-frame_count = 0
 speed = 0.7
 character_list = [] # List of dictionaries
 character_list_copy = [] # List of dictionaries
@@ -42,6 +43,13 @@ def count_down(num, starting_in = False):
     for i in range(0, num):
         print(num - i)
         time.sleep(1)
+
+def reset_variables():
+    global default_values, difficulty, character_inc, frame_count
+
+    difficulty = default_values["difficulty"]
+    character_inc = default_values["character_inc"]
+    frame_count = default_values["frame_count"]
 
 def random_green_nuance():
     """Generates a random nuance of green"""
@@ -108,8 +116,8 @@ def check_user_results():
         build_matrix_rain()
         running = True # Run game
     else:
-        # TODO Reset game
-        print("TODO, reset game")
+        reset_variables()
+        start_game()
 
 def print_frame():
     """Executes the 'frame printing' after that frame has been built"""
