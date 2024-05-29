@@ -100,7 +100,7 @@ def user_answer():
         time.sleep(0.5)
         print(f"Characters memorized: {len(user_input)}")
         time.sleep(1)
-        input("\nPress enter to start the next round")
+        input_empty = input("\nPress enter to start the next round")
         count_down(3, True)
     else:
         print("Oh no, one or more characters were incorrect..\n")
@@ -108,7 +108,7 @@ def user_answer():
         print(f"Your answer   : {user_input}")
         print(f"Correct answer: {correct_answer}\n")
         time.sleep(1)
-        input("Press enter to start over.")
+        input_empty = input("Press enter to start over.")
     return result
 
 def check_user_results():
@@ -199,7 +199,7 @@ def user_input_welcome():
     difficulty["level"] = input_difficulty
     setting_ordered = str(input("Would you like to momorize the characters in order? (yes/no)\n"))
     settings["ordered"] = True if setting_ordered == "yes" else False
-    input("\nGreat! Press enter whenever you're ready to play!")
+    input_empty = input("\nGreat! Press enter whenever you're ready to play!")
 
 def game_setup():
     """Reset game settings and declare new settings"""
