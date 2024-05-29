@@ -4,24 +4,35 @@ import random
 import copy
 from assets.python.character_groups import CHARACTER_GROUPS
 
-difficulty = {
-    "level": 1,
-    # CHARACTER_GROUPS entries, these will be included in the matrix rain
-    "character_entries": [], 
+"""A dictionary of default values. 
+Entries are named after the given variable.
+Only add the ones that may need a reset at some point """
+default_values = {
+    "difficulty": {
+        "level": 1,
+        # CHARACTER_GROUPS entries, these will be included in the matrix rain
+        "character_entries": [], 
+    },
+    # NOTE this system doesn't support fewer characters than the amount of rows
+    "character_inc": 0 # Increased for each 'round'
 }
-speed = 0.7
-character_list = [] # List of dictionaries
-character_list_copy = [] # List of dictionaries
+
 printed_frame = ["", "", "", "", ""]
-frame_count = 0
 rows = len(printed_frame)
 COLUMNS = 22
-running = False
-# NOTE this system doesn't support fewer characters than the amount of rows
-character_inc = rows-1 # Increased for each 'cycle'
+# Set default value
+default_values["character_inc"] = rows
+
+difficulty = default_values["difficulty"]
+character_inc = default_values["character_inc"]
 settings = {
     "ordered": True # If true, all characters should be memorized in order
 }
+frame_count = 0
+speed = 0.7
+character_list = [] # List of dictionaries
+character_list_copy = [] # List of dictionaries
+running = False
 
 # Helpers
 def count_down(num, starting_in = False):
