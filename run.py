@@ -34,6 +34,7 @@ speed = 0.7
 character_list = [] # List of dictionaries
 character_list_copy = [] # List of dictionaries
 running = False
+first_render = True
 
 # Helpers
 def count_down(num, starting_in = False):
@@ -178,18 +179,22 @@ def build_frame():
 
 def user_input_welcome():
     """Ask the user what to do and what settings to use"""
-    global difficulty
+    global difficulty, first_render
 
-    print("Welcome!")
-    time.sleep(1)
-    print("Your mission is to memorize the falling letters.\n")
-    time.sleep(2)
+    if first_render:
+        print("Welcome!")
+        time.sleep(1)
+        print("This game aims to improve your memorizing skills!")
+        time.sleep(2)
+        print("Before we start, let's configure some settings.\n")
+        time.sleep(2)
+
     # Set difficulty 
-    input_difficulty = int(input("How skilled are you at memorizing? \nType in a number between 1-10\n"))
+    input_difficulty = int(input("Set difficulty (type in a number between 1-10)\n"))
     difficulty["level"] = input_difficulty
     setting_ordered = str(input("Would you like to momorize the characters in order? (yes/no)\n"))
     settings["ordered"] = True if setting_ordered == "yes" else False
-    input("Great! Press enter whenever you're ready to play!")
+    input("\nGreat! Press enter whenever you're ready to play!")
 
 def game_setup():
     """Reset game settings and declare new settings"""
@@ -232,7 +237,7 @@ def build_matrix_rain():
     character_list_copy = copy.deepcopy(character_list)
 
 def start_game():
-    global printed_frame, frame_count, running
+    global printed_frame, frame_count, running, first_render
 
     # Create empty lines to draw on 
     for i in range(0, len(printed_frame)+1):
@@ -241,6 +246,7 @@ def start_game():
     game_setup()
     build_matrix_rain()
     count_down(3, True)
+    first_render = False
 
     # Run game
     running = True
