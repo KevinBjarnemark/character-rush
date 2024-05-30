@@ -28,7 +28,7 @@ difficulty = default_values["difficulty"]
 character_inc = default_values["character_inc"]
 frame_count = default_values["frame_count"]
 settings = {
-    "ordered": True # If true, all characters should be memorized in order
+    "speed": "automatic"
 }
 speed = 0.7
 character_list = [] # List of dictionaries
@@ -139,16 +139,13 @@ def user_answer():
     user_input = input("Type in all characters loosely eg. ABC123#@\n")
     result = True
     
-    # Calculate result based on settings 
+    # Calculate result
     correct_answer = ""
-    if settings["ordered"]:
-        for answer, solution in zip(user_input, character_list_copy):
-            correct_answer += solution["character"]
-            if not answer == solution["character"]:
-                result = False
-    else:
-        result = all(char["character"] in answer for char in character_list_copy)
-    
+    for answer, solution in zip(user_input, character_list_copy):
+        correct_answer += solution["character"]
+        if not answer == solution["character"]:
+            result = False
+
     if result:
         print("\nYou got it right!")
         time.sleep(0.5)
@@ -238,7 +235,7 @@ def build_frame():
     
 def user_input_welcome():
     """Ask the user what to do and what settings to use"""
-    global difficulty, first_render
+    global difficulty, first_render, speed
 
     if first_render:
         print("Welcome!")
@@ -252,9 +249,19 @@ def user_input_welcome():
     input_difficulty_data = {"type": "int", "min": 1, "max": 10}
     input_difficulty = validated_input("Set difficulty (type in a number between 1-10)\n", input_difficulty_data)
     difficulty["level"] = input_difficulty
-    setting_ordered_data = {"type": "str", "match_strings": ["yes", "Yes", "no", "No"]}
-    setting_ordered = validated_input("Would you like to momorize the characters in order? (yes/no)\n", setting_ordered_data)
-    settings["ordered"] = True if setting_ordered == "yes" else False
+    setting_game_speed = {"type": "str", "match_strings": ["yes", "Yes", "no", "No"]}
+    input_game_speed = validated_input("Would you like to set the game speed automatically? (yes/no)\n", setting_game_speed)
+    """Set the speed variable.
+    Note that the validated_input() forces an approved response, therefore 
+    'elif' is not needed""" 
+    settings["speed"] = "automatic" if input_game_speed == "yes" else "manual"
+    if settings["speed"] == "manual":
+        input_manual_speed_data = {"type": "int", "min": 1, "max": 10}
+        input_manual_speed = validated_input("Set the speed manually (type in a number between 1-10)\n", input_manual_speed_data)
+        speed = 1 / input_manual_speed 
+    else:
+        speed = 1 / difficulty["level"]  
+
     input("\nGreat! Press enter whenever you're ready to play!\n")
 
 def game_setup():
