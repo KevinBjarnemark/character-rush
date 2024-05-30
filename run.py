@@ -57,8 +57,12 @@ def validated_input(message, data=None):
 
     {
         "type" (str): "int", "float", or "str"
-        "min" (number): (optional) --> Only allow inputs above this number
-        "max" (number): (optional) --> Only allow inputs below this number
+        "min" (number): (optional) --> Limit the input 
+            When type is str: The amount of characters submitted cannot be below than this number.
+            When type is int or float: The submittend number cannot be below that what is specified.
+        "max" (number): (optional) --> Limit the input 
+            When type is str: The amount of characters submitted cannot be above than this number.
+            When type is int or float: The submittend number cannot be above that what is specified.
         "match_strings" (list): (optional) --> Only allow strings that exists in this list
     }
 
@@ -70,34 +74,54 @@ def validated_input(message, data=None):
         user_input = str(input(message))
 
         try:
+            error_message = ""
+            optional_min = data.get("min")
+            optional_max = data.get("max")
             is_number = data["type"] == "int" or data["type"] == "float"
+
             if is_number:
                 if data["type"] == "int":
                     user_input = int(user_input)
                 elif data["type"] == "float":
                     user_input = float(user_input)
 
-                # Limit to min and max values when the input is a number
-                if data["min"] is not None and user_input < data["min"]:
-                    raise ValueError(f"Input must be at least {data["min"]}.")
-                if data["max"] is not None and user_input > data["max"]:
-                    raise ValueError(f"Input must be at most {data["max"]}.")
-                
+                # Limit the number
+                if optional_min is not None:
+                    if user_input < optional_min:
+                        error_message = f"Input must be at least {optional_min}"
+                        raise ValueError()
+                if optional_max is not None:
+                    if user_input > optional_max:
+                        error_message = f"Input must be at most {optional_max}"
+                        raise ValueError()
             elif data["type"] == "str":
-                # If the input has to match any specified strings
-                if data["match_strings"] is not None and user_input in data["match_strings"]:
-                    pass
-                else:
+                optional_match_strings = data.get("match_strings")
+                # Match any specified strings
+                if optional_match_strings is not None and not user_input in optional_match_strings:
                     # Avoid embedding the alternatives here since they may be 'secret'
-                    raise ValueError("Invalid input: Please try again.")
+                    error_message ="Invalid input: Couln't recognize your input correctly"
+                    raise ValueError()
+                # Limit the amount of characters
+                if optional_min is not None:
+                    if len(user_input) < optional_min:
+                        error_message = f"Input must be at least {optional_min} character(s)"
+                        raise ValueError()
+                if optional_max is not None:
+                    if len(user_input) > optional_max:
+                        error_message = f"Input must be at most {optional_max} character(s)"
+                        raise ValueError()
             else: 
                 # Dev error
-                raise ValueError("Invalid input type specified. Only 'int', 'float' or 'str' are allowed.")
+                error_message = "(Dev error) Only 'int', 'float' or 'str' are allowed."
+                raise ValueError()
 
             return user_input
-        
-        except ValueError: # Avoid adding 'as e' here to keep the interaction user friendly
-            print(f"\nInvalid input: Please try again.")
+        # Avoid exposing the 'dev error' here to keep the UI user-friendly
+        except ValueError: 
+            if len(error_message) > 0:
+                print(f"\nInvalid input: {error_message}, please try again.")
+            else:
+                print(f"\nInvalid input: Please try again.")
 
 def reset_variables():
     global default_values, difficulty, character_inc, frame_count
@@ -136,7 +160,8 @@ def user_answer():
     global character_list_copy, settings
     
     neutral_white()
-    user_input = input("Type in all characters loosely eg. ABC123#@\n")
+    user_input_data = {"type": "str", "min": 1}
+    user_input = validated_input("Type in all characters loosely eg. ABC123#@\n", user_input_data)
     result = True
     
     # Calculate result
