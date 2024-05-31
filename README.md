@@ -19,6 +19,20 @@ to navigate to the deployed app
 
 ## Development process
 
+When I started working on this project, I wanted to craft a game inside the Python terminal that could respond to user inputs in real time. I was able to match this vision, but unfortunately, I couldn't replicate the user experience in the deployed 'browser terminal'. I entertained the thought of rebuilding the 'browser terminal' myself, but after some consideration, I decided to avoid getting sidetracked on this project. Therefore, the development process consists of two parts. 
+
+1. Developing a starting point for the first project idea.
+2. Developing the current version of the project.
+
+Luckily, I was able to reuse some previously written code and I didn't find it to be that decremental. I've also documented the first project further down in this document.
+
+##### Project diagrams
+For this project I prepared myself with project diagrams. The process of crafting a 'map' to visually and logically prepare myself was very helpful. Even though I didn't end up following perfectly, it worked as a guiding hand. It helped me to stay on track with my project goals. Sometimes, I feel that it can be alluring to prioritize features that may only 'enhance' the project rather than finishing it. In these moments, I used the project diagrams to steer me in the right direction. 
+
+![A 'sketchy' diagram of the foreseen development process (current version)](assets/images/readme/development_process/current_version/diagram_project.png "Project diagram") |
+
+![A 'sketchy' diagram of the foreseen development process (current version)](assets/images/readme/development_process/current_version/diagram_code.png "Project diagram") |
+
 ### First version
 Initially, my goal was to explore the limits of what could be achieved within the Python terminal by designing a game that could handle user inputs in real-time. I was able to match this vision, but unfortunately, I couldn't replicate the user experience in the deployed 'browser terminal'. I entertained the thought of rebuilding the 'browser terminal' myself, but after some consideration, I decided to avoid getting sidetracked on this project. If you'd like to try it out in a normal Python terminal, you can download the Python file and run it locally in a terminal of your choice.
 
@@ -101,16 +115,6 @@ Right now, if the user jumps too late, the characters will run through the legs,
 - Let the user input custom characters/symbols
 - Add a skateboard
 </details>
-
-### Current version
-
-Now, let's take a look at the current version of this project! To avoid the intricacies of live user inputs, I decided to keep the 'frame-printing', but let the user interact only when all frames are printed. This game is similar to the first version, and luckily, I was able to reuse some of the previously written code.
-
-##### Project diagram
-![A 'sketchy' diagram of the foreseen development process (current version)](assets/images/readme/development_process/current_version/diagram_project.png "Project diagram") |
-
-![A 'sketchy' diagram of the foreseen development process (current version)](assets/images/readme/development_process/current_version/diagram_code.png "Project diagram") |
-
 
 ## Code
 
