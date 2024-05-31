@@ -1,4 +1,4 @@
-
+"""A storage for different types od characters"""
 # Character groups chosen based on the difficulty level
 CHARACTER_GROUPS = {
     "alphabet": [

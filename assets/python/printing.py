@@ -1,3 +1,4 @@
+"""Modules"""
 import sys
 import random
 
@@ -17,8 +18,8 @@ def print_frame(frame_reference):
 
     # Print the current frame
     sys.stdout.write(f"\033[{len(frame_reference)}A") # Move cursor to the top
-    for i in range(0, len(frame_reference)):
+    for i in frame_reference:
         sys.stdout.write("\033[K")
         # Print and add a new line
-        sys.stdout.write(frame_reference[i] + "\n")
+        sys.stdout.write(i + "\n")
         sys.stdout.flush() # Flush immediately to ensure DOM rendering

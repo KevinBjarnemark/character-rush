@@ -29,9 +29,9 @@ class CharacterRush:
         # Set default value
         self.default_values["character_inc"] = self.rows
 
-        self.difficulty = self.default_values["difficulty"]
-        self.character_inc = self.default_values["character_inc"]
-        self.frame_count = self.default_values["frame_count"]
+        self.difficulty = copy.deepcopy(self.default_values["difficulty"])
+        self.character_inc = copy.deepcopy(self.default_values["character_inc"])
+        self.frame_count = copy.deepcopy(self.default_values["frame_count"])
         self.settings = {
             "speed": "automatic"
         }
@@ -44,9 +44,9 @@ class CharacterRush:
     def reset_variables(self):
         """Resets the dynamic variables to their default state"""
 
-        self.difficulty = self.default_values["difficulty"]
-        self.character_inc = self.default_values["character_inc"]
-        self.frame_count = self.default_values["frame_count"]
+        self.difficulty = copy.deepcopy(self.default_values["difficulty"])
+        self.character_inc = copy.deepcopy(self.default_values["character_inc"])
+        self.frame_count = copy.deepcopy(self.default_values["frame_count"])
 
     def clear_canvas(self):
         """Clears the 'canvas' by drawing the initial scene"""

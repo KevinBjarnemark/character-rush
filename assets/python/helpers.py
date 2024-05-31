@@ -1,4 +1,5 @@
-import time 
+"""Modules"""
+import time
 
 def count_down(num, starting_in = False):
     """Counts down in seconds"""
