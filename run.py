@@ -1,12 +1,13 @@
+"""Modules"""
 import time
 import sys
 import random
 import copy
 from assets.python.character_groups import CHARACTER_GROUPS
 
-"""A dictionary of default values. 
-Entries are named after the given variable.
-Only add the ones that may need a reset at some point """
+# A dictionary of default values.
+# Entries are named after the given variable.
+# Only add the ones that may need a reset at some point
 default_values = {
     "difficulty": {
         "level": 1,
@@ -72,9 +73,10 @@ def validated_input(message, data=None):
 
     while True:
         user_input = str(input(message))
+        error_message = ""
 
         try:
-            error_message = ""
+            error_message = "" # Reset
             optional_min = data.get("min")
             optional_max = data.get("max")
             is_number = data["type"] == "int" or data["type"] == "float"
@@ -110,21 +112,22 @@ def validated_input(message, data=None):
                     if len(user_input) > optional_max:
                         error_message = f"Input must be at most {optional_max} character(s)"
                         raise ValueError()
-            else: 
+            else:
                 # Dev error
                 error_message = "(Dev error) Only 'int', 'float' or 'str' are allowed."
                 raise ValueError()
 
             return user_input
         # Avoid exposing the 'dev error' here to keep the UI user-friendly
-        except ValueError: 
+        except ValueError:
             if len(error_message) > 0:
                 print(f"\nInvalid input: {error_message}, please try again.")
             else:
-                print(f"\nInvalid input: Please try again.")
+                print("\nInvalid input: Please try again.")
 
 def reset_variables():
-    global default_values, difficulty, character_inc, frame_count
+    """Resets the dynamic variables to their default state"""
+    global difficulty, character_inc, frame_count
 
     difficulty = default_values["difficulty"]
     character_inc = default_values["character_inc"]
@@ -144,26 +147,28 @@ def neutral_white():
 # Clear the 'canvas'
 def clear_canvas():
     """Clears the 'canvas' by drawing the initial scene"""
-    global printed_frame
-    # Clear the last frame
-    printed_frame = [""] * rows
-    # Draw the current frame 
-    printed_frame[0] = " " * COLUMNS
-    printed_frame[1] = " " * COLUMNS
-    printed_frame[2] = "    O                  "
-    printed_frame[3] = "   /|\\                "
-    printed_frame[4] = "___/_\\________________"
+
+    # Create empty lines
+    new_frame = [""] * rows
+
+    # Draw the current frame
+    new_frame[0] = " " * COLUMNS
+    new_frame[1] = " " * COLUMNS
+    new_frame[2] = "    O                  "
+    new_frame[3] = "   /|\\                "
+    new_frame[4] = "___/_\\________________"
+
+    return new_frame
 
 def user_answer():
     """Ask the user to submit their answer and examine if the 
     answer is accepted"""
-    global character_list_copy, settings
-    
+
     neutral_white()
     user_input_data = {"type": "str", "min": 1}
     user_input = validated_input("Type in all characters loosely eg. ABC123#@\n", user_input_data)
     result = True
-    
+
     # Calculate result
     correct_answer = ""
     for answer, solution in zip(user_input, character_list_copy):
@@ -202,12 +207,12 @@ def check_user_results():
 
 def print_frame():
     """Executes the 'frame printing' after that frame has been built"""
-    global printed_frame
-    # Print the current frame 
+
+    # Print the current frame
     sys.stdout.write(f"\033[{len(printed_frame)}A") # Move cursor to the top
     for i in range(0, len(printed_frame)):
         sys.stdout.write("\033[K")
-        # Print and add a new line 
+        # Print and add a new line
         sys.stdout.write(printed_frame[i] + "\n")
         sys.stdout.flush() # Flush immediately to ensure DOM rendering
 
@@ -220,18 +225,19 @@ def build_frame():
     5. Increments the frame count 
     6. Executes the 'printing of the frame'
     7. Checks the user results when all characters are out of bounds"""
-    global printed_frame, frame_count, character_list, rows, running, character_inc
+    global printed_frame, frame_count
 
     # Green color effect
     if frame_count % 5 == 0:
         random_green_nuance()
 
     # Prepare frame printing
-    clear_canvas()
+    printed_frame = clear_canvas()
+
     character_amount = len(character_list)
     # Calculate loop length
     loop_length = frame_count if frame_count < rows else min(character_amount, rows)
-    
+
     # Matrix rain effect
     for i in range(0, loop_length):
         x = character_list[i]["x"]
@@ -244,7 +250,7 @@ def build_frame():
         # Insert character based on x and y
         sliced = printed_frame[y][:x] + character_list[i]["character"] + printed_frame[y][x:]
         printed_frame[y] = sliced
-        
+
     # Remove the 'bottom-most' character
     if frame_count >= rows and character_amount > 0:
         character_list.pop(0)
@@ -257,10 +263,10 @@ def build_frame():
         check_user_results()
     else:
         time.sleep(speed) # Limit the 'prinitng speed'
-    
+
 def user_input_welcome():
     """Ask the user what to do and what settings to use"""
-    global difficulty, first_render, speed
+    global speed
 
     if first_render:
         print("Welcome!")
@@ -270,28 +276,33 @@ def user_input_welcome():
         print("Before we start, let's configure some settings.\n")
         time.sleep(2)
 
-    # Set difficulty 
+    # Set difficulty
     input_difficulty_data = {"type": "int", "min": 1, "max": 10}
-    input_difficulty = validated_input("Set difficulty (type in a number between 1-10)\n", input_difficulty_data)
+    input_difficulty = validated_input(
+        "Set difficulty (type in a number between 1-10)\n", 
+        input_difficulty_data)
     difficulty["level"] = input_difficulty
     setting_game_speed = {"type": "str", "match_strings": ["yes", "Yes", "no", "No"]}
-    input_game_speed = validated_input("Would you like to set the game speed automatically? (yes/no)\n", setting_game_speed)
-    """Set the speed variable.
-    Note that the validated_input() forces an approved response, therefore 
-    'elif' is not needed""" 
+    input_game_speed = validated_input(
+        "Would you like to set the game speed automatically? (yes/no)\n", 
+        setting_game_speed)
+    # Set the speed variable.
+    # Note that the validated_input() forces an approved response, therefore
+    # 'elif' is not needed"""
     settings["speed"] = "automatic" if input_game_speed == "yes" else "manual"
     if settings["speed"] == "manual":
         input_manual_speed_data = {"type": "int", "min": 1, "max": 10}
-        input_manual_speed = validated_input("Set the speed manually (type in a number between 1-10)\n", input_manual_speed_data)
-        speed = 1 / input_manual_speed 
+        input_manual_speed = validated_input(
+            "Set the speed manually (type in a number between 1-10)\n", 
+            input_manual_speed_data)
+        speed = 1 / input_manual_speed
     else:
-        speed = 1 / difficulty["level"]  
+        speed = 1 / difficulty["level"]
 
     input("\nGreat! Press enter whenever you're ready to play!\n")
 
 def game_setup():
     """Reset game settings and declare new settings"""
-    global difficulty
 
     user_input_welcome()
 
@@ -315,26 +326,30 @@ def game_setup():
 def build_matrix_rain():
     """Choose which characters that will be included in the matrix rain 
     and append those to the character_list"""
-    global rows, difficulty, character_list, character_list_copy, character_inc
-    
+    global character_list, character_list_copy
+
     # Reset previously edited variable
     character_list = []
     # Get the entries based on the difficulty level
     entries = difficulty["character_entries"]
     # Choose random characters in random predetermined entries
-    for i in range(0, max(character_inc, rows)): 
+    for _ in range(0, max(character_inc, rows)):
         random_entry = entries[random.randrange(len(entries))]
         character_groups_entry = CHARACTER_GROUPS[random_entry]
         random_character = character_groups_entry[random.randrange(len(character_groups_entry))]
         character_list.append({"character": random_character, "x": 10 + random.randrange(10)})
-    
+
     character_list_copy = copy.deepcopy(character_list)
 
 def start_game():
-    global printed_frame, frame_count, running, first_render
+    """Starts the game. Here's what it does specifically.
+    1. Runs the game_setup and lets the user configure settings.
+    2. Builds the matrix rain
+    3. Runs the build_frame to 'paint' the matrix rain effect"""
+    global running, first_render
 
-    # Create empty lines to draw on 
-    for i in range(0, len(printed_frame)+1):
+    # Create empty lines to draw on
+    for _ in range(0, len(printed_frame)+1):
         sys.stdout.write("\n")
 
     game_setup()

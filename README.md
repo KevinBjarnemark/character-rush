@@ -54,7 +54,7 @@ The stickman will jump only when the correct character is submitted.
 
 This game shouldn't be viewed as a finished product, but rather a 'starting point' for a larger project. Many features have not been implemented and the code does not follow best practices in terms of performance, optimization, refactoring, etc.
 
-#### Introduction
+#### Project Incentive
 
 Being able to type efficiently on a keyboard is almost mandatory in today's age. Likely, the user who plays this game will soon realize that a higher score can be reached by avoiding looking at the keyboard. Thus, they will unwittingly develop the skill of typing more efficiently and naturally while having fun at the same time.
 
@@ -65,7 +65,7 @@ A more comprehensive and long-term goal would be to target not only people who w
 ##### Initial sketch
 ![A 'sketchy' diagram of the foreseen development process (initial)](assets/images/readme/development_process/first_version/project_diagram.png "Project diagram")
 
-The user input runs on its own thread to prevent the terminal from pausing the script.
+Most of the implemented concepts have already been explained in this document. One distinction though, is that the user input runs on its own thread. This is to prevent the terminal from pausing the script when the user has to submit a character in order to jump.
 
 #### Features to be implemented
 
@@ -108,22 +108,12 @@ Right now, if the user jumps too late, the characters will run through the legs,
 
 ## Code
 
-The game is based on the concept of FPS (frames per second). The speed variable controls the rate at which the frames are printed and is set to 0.1 by default.
 
 ##### How frames are printed
 
-To print the frames, I decided to use the built-in Python package 'sys'. This package enables control over the cursor, allowing drawing in the terminal without printing new lines. It's similar to drawing an image, clearing the canvas, and quickly redrawing a new image. To demonstrate this, watch the flashing cursor in action in the gameplay video above (gif).
+The game is based on the concept of FPS (frames per second). The speed variable controls the rate at which the frames are printed and is set to 0.1 by default. To print the frames, I decided to use the built-in Python package 'sys'. This package enables control over the cursor, allowing drawing in the terminal without printing new lines. It's similar to drawing an image, clearing the canvas, and quickly redrawing a new image. To demonstrate this, watch the flashing cursor in action in any of the gameplay videos above.
 
-This approach allows us to first, draw the frames conditionally, and then render those frames on a line-by-line basis. Since this is a pre-mature project, it has many problems that need to be resolved and new lines will be created when the user submits an input.
-
-## Third-parties
-
-##### [Third party libraries](https://github.com/KevinBjarnemark/character-rush/blob/main/package.json)
-These packages are listed in the package.json file and requirements.txt
-
-##### [Excalidraw](https://excalidraw.com/)
-
-Excalidraw is an online drawing tool that I used for drawing the development diagram.
+This approach allows us to first, draw the frames conditionally, and then render those frames on a line-by-line basis.
 
 ## Credits
 
@@ -135,3 +125,12 @@ To get the Python console into the browser I used template files provided by Cod
 
 For manipulating the terminal (moving the cursor, changing colors, etc.) I've been using this cheatsheet by [ConnerWill](https://gist.github.com/ConnerWill) on GitHub
 [Source](https://gist.github.com/ConnerWill/d4b6c776b509add763e17f9f113fd25b)
+
+## Third-parties
+
+##### [Third party libraries](https://github.com/KevinBjarnemark/character-rush/blob/main/package.json)
+These packages are listed in the package.json file and requirements.txt
+
+##### [Excalidraw](https://excalidraw.com/)
+
+Excalidraw is an online drawing tool that I used for drawing the development diagram.
