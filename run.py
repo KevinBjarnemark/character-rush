@@ -1,10 +1,9 @@
 """Modules"""
 import time
-import sys
 import random
 import copy
 from assets.python.character_groups import CHARACTER_GROUPS
-from assets.python.printing import neutral_white, random_green_nuance, print_frame
+from assets.python.printing import neutral_white, random_green_nuance, print_frame, create_empty_lines
 from assets.python.helpers import count_down, validated_input
 
 class CharacterRush:
@@ -104,9 +103,11 @@ class CharacterRush:
             self.character_inc += 1 # Introduce more characters
             self.frame_count = 0 # Reset frame_count
             self.build_matrix_rain()
+            create_empty_lines(self.rows+1)
             self.running = True # Run game
         else:
             self.reset_variables()
+            create_empty_lines(self.rows+1)
             self.start_game()
 
     def build_frame(self):
@@ -253,16 +254,12 @@ class CharacterRush:
         2. Builds the matrix rain
         3. Runs the build_frame to 'paint' the matrix rain effect"""
 
-        # Create empty lines to draw on
-        # TODO Needs attention
-        for _ in range(0, len(self.printed_frame)+1):
-            sys.stdout.write("\n")
-
         self.game_setup()
         self.build_matrix_rain()
         count_down(3, True)
         self.first_render = False
 
+        create_empty_lines(self.rows+1)
         # Run game
         self.running = True
         while self.running:

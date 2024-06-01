@@ -24,3 +24,8 @@ def print_frame(frame_reference):
         # Print and add a new line
         sys.stdout.write(i + "\n")
         sys.stdout.flush() # Flush immediately to ensure DOM rendering
+
+def create_empty_lines(amount):
+    """Creates newlines in the terminal with sys"""
+    for _ in range(0, amount):
+        sys.stdout.write("\n")
