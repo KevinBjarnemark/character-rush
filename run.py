@@ -120,8 +120,8 @@ class CharacterRush:
         6. Executes the 'printing of the frame'
         7. Checks the user results when all characters are out of bounds"""
 
-        # Green color effect
-        if self.frame_count % 5 == 0:
+        # Green color effect, throttle when the speed is high
+        if self.speed > 0.2 and self.frame_count % 5 == 0:
             random_green_nuance()
 
         # Prepare frame printing
