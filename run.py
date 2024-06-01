@@ -36,7 +36,7 @@ class CharacterRush:
         }
         self.speed = 0.7
         self.character_list = [] # List of dictionaries
-        self.character_list_copy = [] # List of dictionaries
+        self.correct_answer = ""
         self.running = False
         self.first_render = True
 
@@ -71,14 +71,7 @@ class CharacterRush:
         user_input = validated_input(
             "Type in all characters loosely eg. ABC123#@\n", 
             user_input_data)
-        result = True
-
-        # Calculate result
-        correct_answer = ""
-        for answer, solution in zip(user_input, self.character_list_copy):
-            correct_answer += solution["character"]
-            if not answer == solution["character"]:
-                result = False
+        result = user_input == self.correct_answer
 
         if result:
             print("\nYou got it right!")
@@ -91,7 +84,7 @@ class CharacterRush:
             print("Oh no, one or more characters were incorrect..\n")
             time.sleep(1)
             print(f"Your answer   : {user_input}")
-            print(f"Correct answer: {correct_answer}\n")
+            print(f"Correct answer: {self.correct_answer}\n")
             time.sleep(1)
             input("Press enter to start over.\n")
         return result
@@ -227,8 +220,9 @@ class CharacterRush:
         """Choose which characters that will be included in the matrix rain 
         and append those to the character_list"""
 
-        # Reset previously edited variable
+        # Reset previously edited variables
         self.character_list = []
+        self.correct_answer = ""
         # Get the entries based on the difficulty level
         entries = self.difficulty["character_entries"]
         # Choose random characters in random predetermined entries
@@ -245,8 +239,7 @@ class CharacterRush:
                     "x": 10 + random.randrange(10)
                 }
             )
-        # Since the character_list will be purged, we need a deep copy for testing the results
-        self.character_list_copy = copy.deepcopy(self.character_list)
+            self.correct_answer += random_character
 
     def start_game(self):
         """Starts the game. Here's what it does specifically.
