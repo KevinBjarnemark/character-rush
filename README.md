@@ -10,7 +10,9 @@ when viewed in a previewer such as eg. VS Code.
 
 ## Introduction
 
-This is a Python-based memory game with matrix vibes. 
+This is a Python-based in-terminal game designed to enhance one's memory. Having a sharp memory can be beneficial in many ways. Have you ever dreamed of being able to count cards? In a deck, there are 52 cards, and if you can remember all of them, you will undoubtedly be better off. This game is all about memorizing characters, and if you manage to surpass 52 characters, arguably, you might have a chance at counting cards! Now that this game has been introduced powerfully, let's break down the intended audience and some less supernatural examples. 
+
+Since this game exists inside the Python terminal, it is supposed to be used by developers. The matrix is an icon for coding, and this project is heavily inspired by it. Having a sharp short-term memory as a developer can be crucial for many reasons. For example, when writing a function, you may need to keep track of multiple variables simultaneously. If you manage to do so, you won't need to repeatedly check variables (their state, their type, what they do, etc.), allowing you to work more efficiently.
 
 Click 
 [here](https://character-rush-05511809a26b.herokuapp.com/)
@@ -130,7 +132,7 @@ The characters get inserted by first, measuring the distance to the ground (rows
 
 It gets a bit more complicated in the first couple of frames. If the first character that enters the frame gets subtracted by the number of rows, it ends up at the bottom. Therefore, before the first characters have reached the ground, they all have to be pushed incrementally. Instead of creating and managing a new variable to handle increments, this system uses the already managed 'frame_count' variable. 
 
-If the frame_count is less than the number of rows, meaning if the characters haven't reached the ground yet, the algorithm subtracts the character index by the frame_count instead of the rows, so that y = **(frame_count -1 - i)**. if frame_count = 1, and i = 0, y will be **(1 - 1 - 0)** placing it at the top. The next frame y will be **(2 - 1 - 0)**, placing it on the second row. In other words, the frame_count will push the characters down with each frame. As soon as the frames surpass the number of rows, we don't need to push the characters anymore.
+If the frame_count is less than the number of rows, meaning, if the characters haven't reached the ground yet, the algorithm subtracts the character index by the frame_count instead of the rows, so that y = **(frame_count -1 - i)**. if frame_count = 1, and i = 0, y will be **(1 - 1 - 0)** placing it at the top. The next frame y will be **(2 - 1 - 0)**, placing it on the second row. In other words, the frame_count will push the characters down with each frame. As soon as the frame_count surpass the number of rows, we don't need to push the characters anymore.
 
 By the time a character moves out of bounds, the top-most character in the list will be removed, ensuring the rain effect continues seamlessly.
 
