@@ -129,7 +129,11 @@ class CharacterRush:
         character_amount = len(self.character_list)
         # Calculate loop length
         # Eg. if it's the 3:rd frame and there are 5 rows, it will only loop 3 times
-        loop_length = self.frame_count if self.frame_count < self.rows else min(character_amount, self.rows)
+        loop_length = (
+            self.frame_count
+            if self.frame_count < self.rows
+            else min(character_amount, self.rows)
+        )
         # Matrix rain, insert characters at calculaed positions
         for i in range(0, loop_length):
             x = self.character_list[i]["x"]
@@ -140,7 +144,11 @@ class CharacterRush:
                 y = self.rows-1 - i
 
             # Insert character based on x and y
-            sliced = self.printed_frame[y][:x] + self.character_list[i]["character"] + self.printed_frame[y][x:]
+            sliced = (
+                self.printed_frame[y][:x] +
+                self.character_list[i]["character"] +
+                self.printed_frame[y][x:]
+            )
             self.printed_frame[y] = sliced
 
         # Remove the 'bottom-most' character
@@ -224,13 +232,18 @@ class CharacterRush:
         entries = self.difficulty["character_entries"]
         # Choose random characters in random predetermined entries
         for _ in range(0, max(self.character_inc, self.rows)):
-            # Choose a random predetermined entry 
+            # Choose a random predetermined entry
             random_entry = entries[random.randrange(len(entries))]
             character_groups_entry = CHARACTER_GROUPS[random_entry]
             # Choose a random character inside that entry
             random_character = character_groups_entry[random.randrange(len(character_groups_entry))]
             # Append character and set the x position randomly
-            self.character_list.append({"character": random_character, "x": 10 + random.randrange(10)})
+            self.character_list.append(
+                {
+                    "character": random_character, 
+                    "x": 10 + random.randrange(10)
+                }
+            )
         # Since the character_list will be purged, we need a deep copy for testing the results
         self.character_list_copy = copy.deepcopy(self.character_list)
 

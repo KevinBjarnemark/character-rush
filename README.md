@@ -126,9 +126,7 @@ Imagine our 'printing press' just starting up (with an infinite amount of paper)
 
 To insert the characters, the printing press would look at the distance to the ground (rows) and subtract it from the character index (i). In practice, the printing press will be prepared to read eg. 5 rows. Then it subtracts 5 by the character index eg. 5, giving us 0. This makes sense because the fifth character should be placed at the top since it is the last character falling down. 
 
-It gets a bit more complicated in the first couple of frames, here we'll need to visit the inverse realm. 
-
-To exemplify this, if frame_count = 1 and i = 0 y will be **(1 - 1 - 0)** placing it at the top. The next frame y  will be **(2 - 1 - 0)**, placing it on the second row. In other words, the frame_count will push the characters down with each frame. As soon as the frames surpass the number of rows, we don't need to push the characters anymore.
+It gets a bit more complicated in the first couple of frames. Before the first characters have reached the ground, we'll need to 'push' them incrementally. To exemplify this, if frame_count = 1 and i = 0 y will be **(1 - 1 - 0)** placing it at the top. The next frame y  will be **(2 - 1 - 0)**, placing it on the second row. In other words, the frame_count will push the characters down with each frame. As soon as the frames surpass the number of rows, we don't need to push the characters anymore.
 
 By the time a character moves out of bounds, the top-most character in the list will be removed, ensuring the rain effect continues seamlessly. 
 
