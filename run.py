@@ -63,7 +63,9 @@ class CharacterRush:
 
     def user_answer(self):
         """Ask the user to submit their answer and examine if the 
-        answer is accepted"""
+        answer is accepted. 
+
+        Returns True if the answer is accepted"""
 
         neutral_white() # Set terminal color
         user_input_data = {"type": "str", "min": 1}
@@ -126,16 +128,16 @@ class CharacterRush:
 
         character_amount = len(self.character_list)
         # Calculate loop length
+        # Eg. if it's the 3:rd frame and there are 5 rows, it will only loop 3 times
         loop_length = self.frame_count if self.frame_count < self.rows else min(character_amount, self.rows)
-
-        # Matrix rain effect
+        # Matrix rain, insert characters at calculaed positions
         for i in range(0, loop_length):
             x = self.character_list[i]["x"]
-
-            # Push characters down to fill empty space
-            y = self.rows - i - 1 # Inverse
-            if self.frame_count < self.rows and character_amount > 0:
+            # README #1 Simulate 'rain effect' by calculating in reverse
+            if self.frame_count < self.rows:
                 y = self.frame_count-1 - i
+            else:
+                y = self.rows-1 - i
 
             # Insert character based on x and y
             sliced = self.printed_frame[y][:x] + self.character_list[i]["character"] + self.printed_frame[y][x:]
@@ -222,11 +224,14 @@ class CharacterRush:
         entries = self.difficulty["character_entries"]
         # Choose random characters in random predetermined entries
         for _ in range(0, max(self.character_inc, self.rows)):
+            # Choose a random predetermined entry 
             random_entry = entries[random.randrange(len(entries))]
             character_groups_entry = CHARACTER_GROUPS[random_entry]
+            # Choose a random character inside that entry
             random_character = character_groups_entry[random.randrange(len(character_groups_entry))]
+            # Append character and set the x position randomly
             self.character_list.append({"character": random_character, "x": 10 + random.randrange(10)})
-
+        # Since the character_list will be purged, we need a deep copy for testing the results
         self.character_list_copy = copy.deepcopy(self.character_list)
 
     def start_game(self):
@@ -236,6 +241,7 @@ class CharacterRush:
         3. Runs the build_frame to 'paint' the matrix rain effect"""
 
         # Create empty lines to draw on
+        # TODO Needs attention
         for _ in range(0, len(self.printed_frame)+1):
             sys.stdout.write("\n")
 
