@@ -114,7 +114,10 @@ class CharacterRush:
         7. Checks the user results when all characters are out of bounds"""
 
         # Green color effect, throttle when the speed is high
-        if self.speed > 0.2 and self.frame_count % 5 == 0:
+        if self.speed > 0.2:
+            if self.frame_count % 5 == 0:
+                random_green_nuance()
+        else: 
             random_green_nuance()
 
         # Prepare frame printing
@@ -226,12 +229,16 @@ class CharacterRush:
         # Get the entries based on the difficulty level
         entries = self.difficulty["character_entries"]
         # Choose random characters in random predetermined entries
-        for _ in range(0, max(self.character_inc, self.rows)):
+        for _ in range(0, max(self.character_inc*50, self.rows)):
             # Choose a random predetermined entry
             random_entry = entries[random.randrange(len(entries))]
             character_groups_entry = CHARACTER_GROUPS[random_entry]
             # Choose a random character inside that entry
             random_character = character_groups_entry[random.randrange(len(character_groups_entry))]
+            # Mix lower and uppercase letters
+            if self.difficulty["level"] > 8 and random_entry == "alphabet":
+                if random.randrange(2) == 1:
+                    random_character = random_character.upper()
             # Append character and set the x position randomly
             self.character_list.append(
                 {
