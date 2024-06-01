@@ -136,10 +136,9 @@ class CharacterRush:
             x = self.character_list[i]["x"]
             # README #2 Simulate 'rain effect' by calculating in reverse
             if self.frame_count < self.rows:
-                y = self.frame_count-1 - i
+                y = self.frame_count -1 - i
             else:
-                y = self.rows-1 - i
-
+                y = self.rows -1 - i
             # Insert character based on x and y
             sliced = (
                 self.printed_frame[y][:x] +
