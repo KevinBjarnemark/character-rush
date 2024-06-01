@@ -133,7 +133,7 @@ class CharacterRush:
         # Matrix rain, insert characters at calculaed positions
         for i in range(0, loop_length):
             x = self.character_list[i]["x"]
-            # README #1 Simulate 'rain effect' by calculating in reverse
+            # README #2 Simulate 'rain effect' by calculating in reverse
             if self.frame_count < self.rows:
                 y = self.frame_count-1 - i
             else:

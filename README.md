@@ -108,12 +108,29 @@ Right now, if the user jumps too late, the characters will run through the legs,
 
 ## Code
 
-
+### #1
 ##### How frames are printed
 
 The game is based on the concept of FPS (frames per second). The speed variable controls the rate at which the frames are printed and is set to 0.1 by default. To print the frames, I decided to use the built-in Python package 'sys'. This package enables control over the cursor, allowing drawing in the terminal without printing new lines. It's similar to drawing an image, clearing the canvas, and quickly redrawing a new image. To demonstrate this, watch the flashing cursor in action in any of the gameplay videos above.
 
 This approach allows us to first, draw the frames conditionally, and then render those frames on a line-by-line basis.
+
+### #2
+##### How y is calculated
+
+Imagine our 'printing press' just starting up (with an infinite amount of paper) and the task is to print the 'current frame'. The only part of the frame that is changing is the raining characters, so we need to surgically insert them in the correct row (y) per frame. The amount of characters can vary so we'll read them top-down, insert them in a falling matter, then delete the top-most character as soon as the character at hand is out of bounds. In this way, it'll be the same 'rap' in the next iteration. 
+
+1. Read the characters top-down
+2. Insert character (i) in the correct row (y)
+3. Delete the top-most character (when it is out of bounds)
+
+To insert the characters, the printing press would look at the distance to the ground (rows) and subtract it from the character index (i). In practice, the printing press will be prepared to read eg. 5 rows. Then it subtracts 5 by the character index eg. 5, giving us 0. This makes sense because the fifth character should be placed at the top since it is the last character falling down. 
+
+It gets a bit more complicated in the first couple of frames, here we'll need to visit the inverse realm. 
+
+To exemplify this, if frame_count = 1 and i = 0 y will be **(1 - 1 - 0)** placing it at the top. The next frame y  will be **(2 - 1 - 0)**, placing it on the second row. In other words, the frame_count will push the characters down with each frame. As soon as the frames surpass the number of rows, we don't need to push the characters anymore.
+
+By the time a character moves out of bounds, the top-most character in the list will be removed, ensuring the rain effect continues seamlessly. 
 
 ## Credits
 

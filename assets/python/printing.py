@@ -15,6 +15,7 @@ def random_green_nuance():
 
 def print_frame(frame_reference):
     """Prints a previously built 'frame' with sys"""
+    # README #1
 
     # Print the current frame
     sys.stdout.write(f"\033[{len(frame_reference)}A") # Move cursor to the top
