@@ -117,7 +117,7 @@ class CharacterRush:
         if self.speed > 0.2:
             if self.frame_count % 5 == 0:
                 random_green_nuance()
-        else: 
+        else:
             random_green_nuance()
 
         # Prepare frame printing
@@ -219,6 +219,22 @@ class CharacterRush:
         if level >= 10:
             entries.append("symbols_expert")
 
+    def get_group_depth(self, group_length):
+        """Returns a reduced length of all character groups based 
+        on the difficulty[level] setting."""
+        
+        # Only allow 20 % of the group's characters to pass through
+        if self.difficulty["level"] <= 1:
+            return int(group_length*0.3)
+        # Allow 50 % to pass through
+        elif self.difficulty["level"] <= 3:
+            return int(group_length*0.5)
+        # Allow 80 % to pass through
+        elif self.difficulty["level"] <= 6:
+            return int(group_length*0.8)
+        # Otherwise, allow all characters to pass through
+        return group_length
+        
     def build_matrix_rain(self):
         """Choose which characters that will be included in the matrix rain 
         and append those to the character_list"""
@@ -229,12 +245,14 @@ class CharacterRush:
         # Get the entries based on the difficulty level
         entries = self.difficulty["character_entries"]
         # Choose random characters in random predetermined entries
-        for _ in range(0, max(self.character_inc*50, self.rows)):
+        for _ in range(0, max(self.character_inc, self.rows)):
             # Choose a random predetermined entry
             random_entry = entries[random.randrange(len(entries))]
             character_groups_entry = CHARACTER_GROUPS[random_entry]
             # Choose a random character inside that entry
-            random_character = character_groups_entry[random.randrange(len(character_groups_entry))]
+            group_length = self.get_group_depth(len(character_groups_entry))
+
+            random_character = character_groups_entry[random.randrange(group_length)]
             # Mix lower and uppercase letters
             if self.difficulty["level"] > 8 and random_entry == "alphabet":
                 if random.randrange(2) == 1:
