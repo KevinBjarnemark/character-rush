@@ -1,7 +1,7 @@
 """Modules"""
 import sys
 import random
-
+import time
 
 def neutral_white():
     """Change the terminal color to neutral white"""
@@ -33,3 +33,17 @@ def create_empty_lines(amount):
     """Creates newlines in the terminal with sys"""
     for _ in range(0, amount):
         sys.stdout.write("\n")
+
+def sys_print(text, simulate_writing=False):
+    """A sys version of 'print', set the second 
+    parameter to True if you want to simulate writing"""
+    if simulate_writing:
+        for char in text:
+            sys_print(char)
+            if random.randrange(10) > 8: # 10%
+                time.sleep(random.randrange(10, 50)/100)
+            else:
+                time.sleep(random.randrange(1, 5)/100)
+    else:
+        sys.stdout.write(text)
+        sys.stdout.flush()

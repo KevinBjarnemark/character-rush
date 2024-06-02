@@ -7,8 +7,9 @@ from assets.python.printing import neutral_white
 from assets.python.printing import random_green_nuance
 from assets.python.printing import print_frame
 from assets.python.printing import create_empty_lines
+from assets.python.printing import sys_print
 from assets.python.helpers import count_down, validated_input
-
+from assets.python.static_assets import GAME_EXPLANATION
 
 class CharacterRush:
     """A game used for memory training"""
@@ -91,19 +92,19 @@ class CharacterRush:
         result = user_input == self.correct_answer
 
         if result:
-            print("\nYou got it right!")
-            time.sleep(0.5)
-            print(f"Characters memorized: {len(user_input)}\n")
-            time.sleep(1)
-            input("Press enter to start the next round\n")
+            sys_print("\nYou got it right!\n", True)
+            sys_print(f"Characters memorized: {len(user_input)}\n", True)
+
+            sys_print("Press enter to start the next round", True)
+            input("\n")
             count_down(3, True)
         else:
-            print("Oh no, one or more characters were incorrect..\n")
-            time.sleep(1)
-            print(f"Your answer   : {user_input}")
-            print(f"Correct answer: {self.correct_answer}\n")
-            time.sleep(1)
-            input("Press enter to start over.\n")
+            sys_print("Oh no, one or more characters were incorrect..\n\n", True)
+            sys_print(f"Your answer   : {user_input}\n", True)
+            sys_print(f"Correct answer: {self.correct_answer}\n\n", True)
+
+            sys_print("Press enter to start over.")
+            input("\n")
         return result
 
     def check_user_results(self):
@@ -178,16 +179,8 @@ class CharacterRush:
         else:
             time.sleep(self.speed)  # Limit the 'prinitng speed'
 
-    def user_input_welcome(self):
+    def configure_settings(self):
         """Ask the user what to do and what settings to use"""
-
-        if self.first_render:
-            print("Welcome!")
-            time.sleep(1)
-            print("This game aims to improve your memorizing skills!")
-            time.sleep(2)
-            print("Before we start, let's configure some settings.\n")
-            time.sleep(2)
 
         # Set difficulty
         input_difficulty_data = {"type": "int", "min": 1, "max": 10}
@@ -206,7 +199,7 @@ class CharacterRush:
         # Note that the validated_input() forces an approved
         # response, therefore 'elif' is not needed
         self.settings["speed"] = (
-            "automatic" if input_game_speed == "yes" else "manual"
+            "automatic" if input_game_speed in ["Yes", "yes"] else "manual"
         )
         if self.settings["speed"] == "manual":
             input_manual_speed_data = {"type": "int", "min": 1, "max": 10}
@@ -217,16 +210,38 @@ class CharacterRush:
         else:
             self.speed = 1 / self.difficulty["level"]
 
-        input("\nGreat! Press enter whenever you're ready to play!\n")
+        sys_print("Great! Press enter whenever you're ready to play!")
+        input("\n")
 
     def game_setup(self):
         """Reset game settings and declare new settings"""
 
-        self.user_input_welcome()
+        # Show welcome screen
+        if self.first_render:
+            sys_print("Welcome! 😀\n", True)
+            time.sleep(1)
+            sys_print("This game aims to improve your memorizing skills!\n", True)
+            # Ask if they want to know how it works
+            explain_rules_data = {
+                "type": "str",
+                "match_strings": ["yes", "Yes", "no", "No"]
+            }
+            explain_rules = validated_input(
+                "Would you like to know how it works? (yes/no)\n",
+                explain_rules_data
+            )
+            if explain_rules in ["Yes", "yes"]:
+                sys_print(GAME_EXPLANATION, True)
+                sys_print("Press enter to continue", True)
+                input("\n")
 
+            sys_print("Before we start, let's configure some settings.\n", True)
+
+        # Allow the user to configure their settings
+        self.configure_settings()
+        # Refactor settings
         level = self.difficulty["level"]
         entries = self.difficulty["character_entries"]
-
         # Add the entries to character groups based on difficulty level
         if level >= 1:
             entries.append("alphabet")

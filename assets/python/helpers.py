@@ -1,6 +1,6 @@
 """Modules"""
 import time
-
+from assets.python.printing import sys_print
 
 def count_down(num, starting_in=False):
     """Counts down in seconds"""
@@ -41,9 +41,9 @@ def validated_input(message, data=None):
     Returns:
     int, float, or str: The validated user input.
     """
-
+    sys_print(message, True)
     while True:
-        user_input = str(input(message))
+        user_input = str(input())
         error_message = ""
 
         try:
@@ -73,14 +73,14 @@ def validated_input(message, data=None):
                 optional_match_strings = data.get("match_strings")
                 # Match any specified strings
                 match_strings_exists = optional_match_strings is not None
-                input_not_recognized = user_input not in optional_match_strings
-                if match_strings_exists and input_not_recognized:
-                    # Avoid embedding the alternatives here
-                    # since they may be 'secret'
-                    error_message = (
-                        "Invalid input: Couln't recognize your input correctly"
-                    )
-                    raise ValueError()
+                if match_strings_exists:
+                    if user_input not in optional_match_strings:
+                        # Avoid embedding the alternatives here
+                        # since they may be 'secret'
+                        error_message = (
+                            "Invalid input: Couln't recognize your input correctly"
+                        )
+                        raise ValueError()
                 # Limit the amount of characters
                 if optional_min is not None:
                     if len(user_input) < optional_min:
@@ -107,6 +107,6 @@ def validated_input(message, data=None):
         # Avoid exposing the 'dev error' here to keep the UI user-friendly
         except ValueError:
             if len(error_message) > 0:
-                print(f"\nInvalid input: {error_message}, please try again.")
+                sys_print(f"\nInvalid input: {error_message}, please try again.", True)
             else:
-                print("\nInvalid input: Please try again.")
+                sys_print("\nInvalid input: Please try again.", True)
