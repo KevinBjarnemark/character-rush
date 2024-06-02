@@ -30,7 +30,7 @@ The goal is to memorize as many characters as you possibly can. Before starting 
 
 ## Development process
 
-When I started working on this project, I wanted to craft a game inside the Python terminal that could respond to user inputs in real time. I was able to match this vision, but unfortunately, I couldn't replicate the user experience in the deployed 'browser terminal'. I entertained the thought of rebuilding the 'browser terminal' myself, but after some consideration, I decided to avoid getting sidetracked on this project. Therefore, the development process consists of two parts. 
+When I started working on this project, I wanted to create a game inside the Python terminal that could respond to user inputs in real time. I was able to bring this vision to life, but unfortunately, I couldn't replicate the user experience in the deployed 'browser terminal'. I entertained the thought of rebuilding the 'browser terminal' myself, but after some consideration, I decided to avoid getting sidetracked on this project. Therefore, the development process consists of two parts. 
 
 1. Developing a starting point for the first project idea.
 2. Developing the current version of the project.
@@ -38,15 +38,21 @@ When I started working on this project, I wanted to craft a game inside the Pyth
 Luckily, I was able to reuse some previously written code and I didn't find it to be that decremental. I've also documented the first project further down in this document.
 
 ##### Project diagrams
-The first step was to prepare myself with project diagrams. The process of crafting a 'map' to visually and logically prepare myself was very helpful. Even though I didn't end up following it perfectly, it worked as a guiding hand. It helped me to stay on track with my project goals. Sometimes, I feel that it can be alluring to prioritize features that may only 'enhance' the project rather than finishing it. In these moments, I used the project diagrams to steer me in the right direction.
+The first step was to prepare myself with project diagrams. The process of crafting a 'map' to visually and logically prepare myself was very helpful. Even though I didn't end up following it perfectly, it worked as a guiding hand. It helped me to stay on track with my project goals. Sometimes, I feel that it can be alluring to prioritize features that may only 'enhance' the project rather than finishing it. In these moments, I used the project diagrams to steer me in the right direction. 
 
-![A 'sketchy' diagram of the foreseen development process (current version)](assets/images/readme/development_process/current_version/diagram_project.png "Project diagram") |
+The diagrams below are the initial diagrams, but with edited colors to better fit in this document. 
 
-![A 'sketchy' diagram of the foreseen development process (current version)](assets/images/readme/development_process/current_version/diagram_code.png "Project diagram") |
+![A 'sketchy' diagram of the foreseen development process (current version)](assets/images/readme/development_process/current_version/diagram_project.webp "Project diagram") |
+
+![A 'sketchy' diagram of the foreseen development process (current version)](assets/images/readme/development_process/current_version/diagram_code.webp "Project diagram") |
 
 ## First version
 
-Now, let's explore the first version of this project! If you'd like to try it out in a normal Python terminal, feel free to download the Python file and run it locally in a terminal of your choice. Click 
+Now, let's explore the 
+<span class="em">first version </span>
+of this project
+<span class="em">!</span>
+If you'd like to try it out in a normal Python terminal, feel free to download the Python file and run it locally in a terminal of your choice. Click 
 [HERE](https://github.com/KevinBjarnemark/character-rush/blob/main/first_version.py)
 to navigate to the source code. 
 
@@ -75,7 +81,7 @@ A more comprehensive and long-term goal would be to target not only people who w
 #### Development
 
 ##### Initial sketch
-![A 'sketchy' diagram of the foreseen development process (initial)](assets/images/readme/development_process/first_version/project_diagram.png "Project diagram")
+![A 'sketchy' diagram of the foreseen development process (initial)](assets/images/readme/development_process/first_version/project_diagram.webp "Project diagram")
 
 Most of the implemented concepts have already been explained in this document. One distinction though, is that the user input runs on its own thread. This is to prevent the terminal from pausing the script when the user has to submit a character in order to jump.
 
@@ -125,9 +131,7 @@ In-code readme references are declared as "README #id" througout the source code
 ### #1
 ##### How frames are printed
 
-The game is based on the concept of FPS (frames per second). The speed variable controls the rate at which the frames are printed and is set to 0.1 by default. To print the frames, I decided to use the built-in Python package 'sys'. This package enables control over the cursor, allowing drawing in the terminal without printing new lines. It's similar to drawing an image, clearing the canvas, and quickly redrawing a new image. To demonstrate this, watch the flashing cursor in action in any of the gameplay videos above.
-
-This approach allows us to first, draw the frames conditionally, and then render those frames on a line-by-line basis.
+The game is based on the concept of FPS (frames per second). The speed variable controls the rate at which the frames are printed. To print the frames, I decided to use the built-in Python package 'sys'. This package enables control over the cursor, allowing drawing in the terminal without printing new lines. It's similar to drawing an image, clearing the canvas, and quickly redrawing a new image. To demonstrate this, watch the flashing cursor in action in any of the gameplay videos above. This approach allows us to first, draw the frames conditionally, and then render those frames on a line-by-line basis.
 
 ### #2
 ##### How y is calculated
@@ -142,17 +146,24 @@ The characters get inserted by first, measuring the distance to the ground (rows
 
 It gets a bit more complicated in the first couple of frames. If the first character that enters the frame gets subtracted by the number of rows, it ends up at the bottom. Therefore, before the first characters have reached the ground, they all have to be pushed incrementally. Instead of creating and managing a new variable to handle increments, this system uses the already managed 'frame_count' variable. 
 
-If the frame_count is less than the number of rows, meaning, if the characters haven't reached the ground yet, the algorithm subtracts the character index by the frame_count instead of the rows, so that y = **(frame_count -1 - i)**. if frame_count = 1, and i = 0, y will be **(1 - 1 - 0)** placing it at the top. The next frame y will be **(2 - 1 - 0)**, placing it on the second row. In other words, the frame_count will push the characters down with each frame. As soon as the frame_count surpass the number of rows, we don't need to push the characters anymore.
+If the frame_count is less than the number of rows, meaning, if the characters haven't reached the ground yet, the algorithm subtracts the character index by the frame_count instead of the rows, so that y = **(frame_count - 1 - i)**. if frame_count = 1, and i = 0, y will be **(1 - 1 - 0)** placing it at the top. The next frame y will be **(2 - 1 - 0)**, placing it on the second row. In other words, the frame_count will push the characters down with each frame. As soon as the frame_count surpass the number of rows, we don't need to push the characters anymore.
 
 By the time a character moves out of bounds, the top-most character in the list will be removed, ensuring the rain effect continues seamlessly.
 
 ## Credits
 
-##### Template
+#### Template
 To get the Python console into the browser I used template files provided by Code Institute 
 [Source](https://github.com/Code-Institute-Solutions/love-sandwiches-p5-sourcecode/tree/master/05-deployment/01-deployment-part-1)
 
-##### External sources
+### Fonts
+
+The fonts listed below are used in this project and all of them are [Google fonts](https://fonts.google.com/).
+
+- [Tilt Neon](https://fonts.google.com/specimen/Tilt+Neon)
+- [Luckiest Guy](https://fonts.google.com/specimen/Luckiest+Guy)
+
+### External sources
 
 For manipulating the terminal (moving the cursor, changing colors, etc.) I've been using this cheatsheet by [ConnerWill](https://gist.github.com/ConnerWill) on GitHub
 [Source](https://gist.github.com/ConnerWill/d4b6c776b509add763e17f9f113fd25b)
