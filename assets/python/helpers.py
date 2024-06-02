@@ -34,7 +34,7 @@ def validated_input(message, experimental, data=None):
     # Simulate writing only when experimental is True
     sys_print(message, experimental, experimental)
     while True:
-        user_input = str(input())
+        user_input = str(input("\n"))
         error_message = ""
 
         try:
