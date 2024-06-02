@@ -26,7 +26,33 @@ to navigate to the deployed app.
 
 ## Instructions
 
-The goal is to memorize as many characters as you possibly can. Before starting a game, you'll be able to configure settings such as difficulty and speed. When the game starts, try to remember all the characters in order. The number of characters will increase for each round, but to get to the next round you need to submit the correct answer. In the first round, you'll have to memorize 5 characters.
+The goal is to memorize as many characters as you possibly can. Before starting a game, you'll be able to configure settings such as difficulty and speed. When the game starts, try to remember all the characters in order. The number of characters will increase for each round, and to get to the next round you need to submit the correct answer. In the first round, you'll have to memorize 5 characters.
+
+## Code
+
+In-code readme references are declared as 'README #id' througout the source code. 
+
+### #1
+##### How frames are printed
+
+The game is based on the concept of FPS (frames per second). The speed variable controls the rate at which the frames are printed. To print the frames, I decided to use the built-in Python package 'sys'. This package enables control over the cursor, allowing drawing in the terminal without printing new lines. It's similar to drawing an image, clearing the canvas, and quickly redrawing a new image. To demonstrate this, watch the flashing cursor in action in the gameplay video above. This approach allows us to first, draw the frames conditionally, and then render those frames on a line-by-line basis.
+
+### #2
+##### How y is calculated
+
+This algorithm builds the 'current frame' by 'surgically' inserting the character at hand at the correct position, meaning the column (x) and row (y). It 'paints' the initial scene and redraws only the changing elements. Since the number of characters can vary, it reads them top-down, then it inserts them in a falling matter, and lastly, it removes the top-most character as soon as a character moves out of bounds. In this way, it'll be the same 'rap' in the next iteration.
+
+1. Read the characters top-down
+2. Insert character (i) in the correct row (y)
+3. Delete the top-most character (when it is out of bounds)
+
+The characters get inserted by first, measuring the distance to the ground (rows) and then, subtracting the full distance from the character index (i). In practice, if the distance (rows) is equal to 5, it subtracts 5 by the character index eg. 5, giving us 0. This makes sense because the fifth character should be placed at the top since it is the last falling character. Remember that the length of the loop is restricted so that it won't keep calculating into 'uncharted territory'. 
+
+It gets a bit more complicated in the first couple of frames. If the first character that enters the frame gets subtracted by the number of rows, it ends up at the bottom. Therefore, before the first characters have reached the ground, they all have to be pushed incrementally. Instead of creating and managing a new variable to handle increments, this system uses the already managed 'frame_count' variable. 
+
+If the frame_count is less than the number of rows, meaning, if the characters haven't reached the ground yet, the algorithm subtracts the character index by the frame_count instead of the rows, so that y = **(frame_count - 1 - i)**. if frame_count = 1, and i = 0, y will be **(1 - 1 - 0)** placing it at the top. The next frame y will be **(2 - 1 - 0)**, placing it on the second row. In other words, the frame_count will push the characters down with each frame. As soon as the frame_count surpass the number of rows, we don't need to push the characters anymore.
+
+By the time a character moves out of bounds, the top-most character in the list will be removed, ensuring the rain effect continues seamlessly.
 
 ## Development process
 
@@ -48,13 +74,12 @@ The diagrams below are the initial diagrams, but with edited colors to better fi
 
 ## Future implementations
 
-
 <details>
     <summary>
         Make it more child-friendly
     </summary>
 
-Right now, this system doesn't support fewer characters than the number of rows. Which could create an overwhelming first impression of the game. The easiest mode should start with a single character to remember, this would allow a wider audience to participate.
+Right now, this system doesn't support fewer characters than the number of rows. Which could create an overwhelming first impression of the game. The easiest mode should start with a single character to remember, this would allow a wider audience to participate. 
 </details>
 
 <details>
@@ -62,7 +87,26 @@ Right now, this system doesn't support fewer characters than the number of rows.
         More customization
     </summary>
 
-The user should be able to choose how many characters they want to memorize. 
+- The user should be able to choose how many characters they want to memorize. 
+</details>
+
+<details>
+    <summary>
+        More settings
+    </summary>
+
+- Prevent characters from showing up twice in the same round
+- Choose which type of characters that should be included, numbers, symbols, etc.
+</details>
+
+<details>
+    <summary>
+        Modernize
+    </summary>
+
+Consider building this game in a language that is more welcoming to DOM rendering and customized graphics. Personally, I feel that realism isn't always better, and there's something intriguing about glitchy games in low resolution. This has also been proven on a large scale with examples like 
+[Minecraft](https://www.minecraft.net) and 
+[Roblox](https://www.roblox.com/).
 </details>
 
 <details>
@@ -113,7 +157,7 @@ The stickman will jump only when the correct character is submitted.
 
 #### Disclaimer!
 
-This 'first version' game shouldn't be viewed as a finished product, but rather a 'starting point' for a larger project. Many features have not been implemented and the code does not follow best practices in terms of performance, optimization, refactoring, etc.
+This 'first version' game shouldn't be viewed as a finished product, but rather a starting point for a larger project. Many features have not been implemented and the code does not follow best practices in terms of performance, optimization, refactoring, etc.
 
 #### Project Incentive
 
@@ -166,32 +210,6 @@ Right now, if the user jumps too late, the characters will run through the legs,
 - Let the user input custom characters/symbols
 - Add a skateboard
 </details>
-
-## Code
-
-In-code readme references are declared as "README #id" througout the source code. 
-
-### #1
-##### How frames are printed
-
-The game is based on the concept of FPS (frames per second). The speed variable controls the rate at which the frames are printed. To print the frames, I decided to use the built-in Python package 'sys'. This package enables control over the cursor, allowing drawing in the terminal without printing new lines. It's similar to drawing an image, clearing the canvas, and quickly redrawing a new image. To demonstrate this, watch the flashing cursor in action in any of the gameplay videos above. This approach allows us to first, draw the frames conditionally, and then render those frames on a line-by-line basis.
-
-### #2
-##### How y is calculated
-
-This algorithm builds the 'current frame' by 'surgically' inserting the character at hand at the correct position, meaning the column (x) and row (y). It 'paints' the initial scene and redraws only the changing elements. Since the number of characters can vary, it reads them top-down, then it inserts them in a falling matter, and lastly, it removes the top-most character as soon as a character moves out of bounds. In this way, it'll be the same 'rap' in the next iteration.
-
-1. Read the characters top-down
-2. Insert character (i) in the correct row (y)
-3. Delete the top-most character (when it is out of bounds)
-
-The characters get inserted by first, measuring the distance to the ground (rows) and then, subtracting the full distance from the character index (i). In practice, if the distance (rows) is equal to 5, it subtracts 5 by the character index eg. 5, giving us 0. This makes sense because the fifth character should be placed at the top since it is the last falling character. Remember that the length of the loop is restricted so that it won't keep calculating into 'uncharted territory'. 
-
-It gets a bit more complicated in the first couple of frames. If the first character that enters the frame gets subtracted by the number of rows, it ends up at the bottom. Therefore, before the first characters have reached the ground, they all have to be pushed incrementally. Instead of creating and managing a new variable to handle increments, this system uses the already managed 'frame_count' variable. 
-
-If the frame_count is less than the number of rows, meaning, if the characters haven't reached the ground yet, the algorithm subtracts the character index by the frame_count instead of the rows, so that y = **(frame_count - 1 - i)**. if frame_count = 1, and i = 0, y will be **(1 - 1 - 0)** placing it at the top. The next frame y will be **(2 - 1 - 0)**, placing it on the second row. In other words, the frame_count will push the characters down with each frame. As soon as the frame_count surpass the number of rows, we don't need to push the characters anymore.
-
-By the time a character moves out of bounds, the top-most character in the list will be removed, ensuring the rain effect continues seamlessly.
 
 ## Credits
 
