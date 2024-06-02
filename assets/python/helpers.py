@@ -1,7 +1,8 @@
 """Modules"""
 import time
 
-def count_down(num, starting_in = False):
+
+def count_down(num, starting_in=False):
     """Counts down in seconds"""
     if starting_in:
         print("Starting in...")
@@ -9,25 +10,32 @@ def count_down(num, starting_in = False):
         print(num - i)
         time.sleep(1)
 
+
 def validated_input(message, data=None):
     """
     Validates the user input based on the specified data.
-    Note that the input is wrapped in a string to work as expected 
+    Note that the input is wrapped in a string to work as expected
     in the deployed version.
 
     Parameters:
     message (str): The message to display to the user.
-    data (dictionary): The specified rules that should be tested + info. Example below:
+    data (dictionary): The specified rules that should be tested +
+    info. Example below:
 
     {
         "type" (str): "int", "float", or "str"
-        "min" (number): (optional) --> Limit the input 
-            When type is str: The amount of characters submitted cannot be below than this number.
-            When type is int or float: The submittend number cannot be below that what is specified.
-        "max" (number): (optional) --> Limit the input 
-            When type is str: The amount of characters submitted cannot be above than this number.
-            When type is int or float: The submittend number cannot be above that what is specified.
-        "match_strings" (list): (optional) --> Only allow strings that exists in this list
+        "min" (number): (optional) --> Limit the input
+            When type is str: The amount of characters submitted
+            cannot be below than this number.
+            When type is int or float: The submittend number
+            cannot be below that what is specified.
+        "max" (number): (optional) --> Limit the input
+            When type is str: The amount of characters submitted
+            cannot be above than this number.
+            When type is int or float: The submittend number
+            cannot be above that what is specified.
+        "match_strings" (list): (optional) --> Only allow strings
+        that exists in this list
     }
 
     Returns:
@@ -39,7 +47,7 @@ def validated_input(message, data=None):
         error_message = ""
 
         try:
-            error_message = "" # Reset
+            error_message = ""  # Reset
             optional_min = data.get("min")
             optional_max = data.get("max")
             is_number = data["type"] == "int" or data["type"] == "float"
@@ -53,7 +61,9 @@ def validated_input(message, data=None):
                 # Limit the number
                 if optional_min is not None:
                     if user_input < optional_min:
-                        error_message = f"Input must be at least {optional_min}"
+                        error_message = (
+                            f"Input must be at least {optional_min}"
+                        )
                         raise ValueError()
                 if optional_max is not None:
                     if user_input > optional_max:
@@ -62,22 +72,35 @@ def validated_input(message, data=None):
             elif data["type"] == "str":
                 optional_match_strings = data.get("match_strings")
                 # Match any specified strings
-                if optional_match_strings is not None and not user_input in optional_match_strings:
-                    # Avoid embedding the alternatives here since they may be 'secret'
-                    error_message ="Invalid input: Couln't recognize your input correctly"
+                match_strings_exists = optional_match_strings is not None
+                input_not_recognized = user_input not in optional_match_strings
+                if match_strings_exists and input_not_recognized:
+                    # Avoid embedding the alternatives here
+                    # since they may be 'secret'
+                    error_message = (
+                        "Invalid input: Couln't recognize your input correctly"
+                    )
                     raise ValueError()
                 # Limit the amount of characters
                 if optional_min is not None:
                     if len(user_input) < optional_min:
-                        error_message = f"Input must be at least {optional_min} character(s)"
+                        error_message = (
+                            "Input must be at least " +
+                            f"{optional_min} character(s)"
+                        )
                         raise ValueError()
                 if optional_max is not None:
                     if len(user_input) > optional_max:
-                        error_message = f"Input must be at most {optional_max} character(s)"
+                        error_message = (
+                            "Input must be at most " +
+                            f"{optional_max} character(s)"
+                        )
                         raise ValueError()
             else:
                 # Dev error
-                error_message = "(Dev error) Only 'int', 'float' or 'str' are allowed."
+                error_message = (
+                    "(Dev error) Only 'int', 'float' or 'str' are allowed."
+                )
                 raise ValueError()
 
             return user_input

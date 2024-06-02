@@ -3,8 +3,12 @@ import time
 import random
 import copy
 from assets.python.character_groups import CHARACTER_GROUPS
-from assets.python.printing import neutral_white, random_green_nuance, print_frame, create_empty_lines
+from assets.python.printing import neutral_white
+from assets.python.printing import random_green_nuance
+from assets.python.printing import print_frame
+from assets.python.printing import create_empty_lines
 from assets.python.helpers import count_down, validated_input
+
 
 class CharacterRush:
     """A game used for memory training"""
@@ -14,10 +18,12 @@ class CharacterRush:
         self.default_values = {
             "difficulty": {
                 "level": 1,
-                # CHARACTER_GROUPS entries, these will be included in the matrix rain
+                # CHARACTER_GROUPS entries
+                # These will be included in the matrix rain
                 "character_entries": [],
             },
-            # NOTE this system doesn't support fewer characters than the amount of rows
+            # NOTE this system doesn't support fewer characters
+            # than the amount of rows
             "character_inc": 0,
             "frame_count": 0,
         }
@@ -25,17 +31,22 @@ class CharacterRush:
         self.printed_frame = ["", "", "", "", ""]
         self.rows = len(self.printed_frame)
         self.columns = 22
-        # Set default value
+        # Set default values
         self.default_values["character_inc"] = self.rows
-
-        self.difficulty = copy.deepcopy(self.default_values["difficulty"])
-        self.character_inc = copy.deepcopy(self.default_values["character_inc"])
-        self.frame_count = copy.deepcopy(self.default_values["frame_count"])
+        self.difficulty = copy.deepcopy(
+            self.default_values["difficulty"]
+        )
+        self.character_inc = copy.deepcopy(
+            self.default_values["character_inc"]
+        )
+        self.frame_count = copy.deepcopy(
+            self.default_values["frame_count"]
+        )
         self.settings = {
             "speed": "automatic"
         }
         self.speed = 0.7
-        self.character_list = [] # List of dictionaries
+        self.character_list = []  # List of dictionaries
         self.correct_answer = ""
         self.running = False
         self.first_render = True
@@ -43,9 +54,15 @@ class CharacterRush:
     def reset_variables(self):
         """Resets the dynamic variables to their default state"""
 
-        self.difficulty = copy.deepcopy(self.default_values["difficulty"])
-        self.character_inc = copy.deepcopy(self.default_values["character_inc"])
-        self.frame_count = copy.deepcopy(self.default_values["frame_count"])
+        self.difficulty = copy.deepcopy(
+            self.default_values["difficulty"]
+        )
+        self.character_inc = copy.deepcopy(
+            self.default_values["character_inc"]
+        )
+        self.frame_count = copy.deepcopy(
+            self.default_values["frame_count"]
+        )
 
     def clear_canvas(self):
         """Clears the 'canvas' by drawing the initial scene"""
@@ -61,15 +78,15 @@ class CharacterRush:
         self.printed_frame[4] = "___/_\\________________"
 
     def user_answer(self):
-        """Ask the user to submit their answer and examine if the 
-        answer is accepted. 
+        """Ask the user to submit their answer and examine if the
+        answer is accepted.
 
         Returns True if the answer is accepted"""
 
-        neutral_white() # Set terminal color
+        neutral_white()  # Set terminal color
         user_input_data = {"type": "str", "min": 1}
         user_input = validated_input(
-            "Type in all characters loosely eg. ABC123#@\n", 
+            "Type in all characters loosely eg. ABC123#@\n",
             user_input_data)
         result = user_input == self.correct_answer
 
@@ -90,14 +107,14 @@ class CharacterRush:
         return result
 
     def check_user_results(self):
-        """Checks the user answer, resets edited variables and 
+        """Checks the user answer, resets edited variables and
         choses 'path' based on the user results"""
         if self.user_answer():
-            self.character_inc += 1 # Introduce more characters
-            self.frame_count = 0 # Reset frame_count
+            self.character_inc += 1  # Introduce more characters
+            self.frame_count = 0  # Reset frame_count
             self.build_matrix_rain()
             create_empty_lines(self.rows+1)
-            self.running = True # Run game
+            self.running = True  # Run game
         else:
             self.reset_variables()
             create_empty_lines(self.rows+1)
@@ -109,7 +126,7 @@ class CharacterRush:
         2. Clears the canvas
         3. Calculates where to insert characters
         4. Removes characters that are out of bounds
-        5. Increments the frame count 
+        5. Increments the frame count
         6. Executes the 'printing of the frame'
         7. Checks the user results when all characters are out of bounds"""
 
@@ -125,7 +142,8 @@ class CharacterRush:
 
         character_amount = len(self.character_list)
         # Calculate loop length
-        # Eg. if it's the 3:rd frame and there are 5 rows, it will only loop 3 times
+        # Eg. if it's the 3:rd frame and there are
+        # 5 rows, it will only loop 3 times
         loop_length = (
             self.frame_count
             if self.frame_count < self.rows
@@ -136,9 +154,9 @@ class CharacterRush:
             x = self.character_list[i]["x"]
             # README #2 Simulate 'rain effect' by calculating in reverse
             if self.frame_count < self.rows:
-                y = self.frame_count -1 - i
+                y = self.frame_count - 1 - i
             else:
-                y = self.rows -1 - i
+                y = self.rows - 1 - i
             # Insert character based on x and y
             sliced = (
                 self.printed_frame[y][:x] +
@@ -158,7 +176,7 @@ class CharacterRush:
         if character_amount <= 0:
             self.check_user_results()
         else:
-            time.sleep(self.speed) # Limit the 'prinitng speed'
+            time.sleep(self.speed)  # Limit the 'prinitng speed'
 
     def user_input_welcome(self):
         """Ask the user what to do and what settings to use"""
@@ -174,21 +192,26 @@ class CharacterRush:
         # Set difficulty
         input_difficulty_data = {"type": "int", "min": 1, "max": 10}
         input_difficulty = validated_input(
-            "Set difficulty (type in a number between 1-10)\n", 
+            "Set difficulty (type in a number between 1-10)\n",
             input_difficulty_data)
         self.difficulty["level"] = input_difficulty
-        setting_game_speed = {"type": "str", "match_strings": ["yes", "Yes", "no", "No"]}
+        setting_game_speed = {
+            "type": "str",
+            "match_strings": ["yes", "Yes", "no", "No"]
+        }
         input_game_speed = validated_input(
-            "Would you like to set the game speed automatically? (yes/no)\n", 
+            "Would you like to set the game speed automatically? (yes/no)\n",
             setting_game_speed)
         # Set the speed variable.
-        # Note that the validated_input() forces an approved response, therefore
-        # 'elif' is not needed"""
-        self.settings["speed"] = "automatic" if input_game_speed == "yes" else "manual"
+        # Note that the validated_input() forces an approved
+        # response, therefore 'elif' is not needed
+        self.settings["speed"] = (
+            "automatic" if input_game_speed == "yes" else "manual"
+        )
         if self.settings["speed"] == "manual":
             input_manual_speed_data = {"type": "int", "min": 1, "max": 10}
             input_manual_speed = validated_input(
-                "Set the speed manually (type in a number between 1-10)\n", 
+                "Set the speed manually (type in a number between 1-10)\n",
                 input_manual_speed_data)
             self.speed = 1 / input_manual_speed
         else:
@@ -219,9 +242,9 @@ class CharacterRush:
             entries.append("symbols_expert")
 
     def get_group_depth(self, group_length):
-        """Returns a reduced length of all character groups based 
+        """Returns a reduced length of all character groups based
         on the difficulty[level] setting."""
-        
+
         # Only allow 20 % of the group's characters to pass through
         if self.difficulty["level"] <= 1:
             return int(group_length*0.3)
@@ -233,9 +256,9 @@ class CharacterRush:
             return int(group_length*0.8)
         # Otherwise, allow all characters to pass through
         return group_length
-        
+
     def build_matrix_rain(self):
-        """Choose which characters that will be included in the matrix rain 
+        """Choose which characters that will be included in the matrix rain
         and append those to the character_list"""
 
         # Reset previously edited variables
@@ -251,7 +274,9 @@ class CharacterRush:
             # Choose a random character inside that entry
             group_length = self.get_group_depth(len(character_groups_entry))
 
-            random_character = character_groups_entry[random.randrange(group_length)]
+            random_character = (
+                character_groups_entry[random.randrange(group_length)]
+            )
             # Mix lower and uppercase letters
             if self.difficulty["level"] > 8 and random_entry == "alphabet":
                 if random.randrange(2) == 1:
@@ -259,7 +284,7 @@ class CharacterRush:
             # Append character and set the x position randomly
             self.character_list.append(
                 {
-                    "character": random_character, 
+                    "character": random_character,
                     "x": 10 + random.randrange(10)
                 }
             )
@@ -281,6 +306,7 @@ class CharacterRush:
         self.running = True
         while self.running:
             self.build_frame()
+
 
 game = CharacterRush()
 game.start_game()
