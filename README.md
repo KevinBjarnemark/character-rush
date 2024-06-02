@@ -42,9 +42,52 @@ The first step was to prepare myself with project diagrams. The process of craft
 
 The diagrams below are the initial diagrams, but with edited colors to better fit in this document. 
 
-![A 'sketchy' diagram of the foreseen development process (current version)](assets/images/readme/development_process/current_version/diagram_project.webp "Project diagram") |
+![A 'sketchy' diagram of the foreseen development process (current version)](assets/images/readme/development_process/current_version/diagram_project.webp "Project diagram")
 
-![A 'sketchy' diagram of the foreseen development process (current version)](assets/images/readme/development_process/current_version/diagram_code.webp "Project diagram") |
+![A 'sketchy' diagram of the foreseen development process (current version)](assets/images/readme/development_process/current_version/diagram_code.webp "Project diagram")
+
+## Future implementations
+
+
+<details>
+    <summary>
+        Make it more child-friendly
+    </summary>
+
+Right now, this system doesn't support fewer characters than the number of rows. Which could create an overwhelming first impression of the game. The easiest mode should start with a single character to remember, this would allow a wider audience to participate.
+</details>
+
+<details>
+    <summary>
+        More customization
+    </summary>
+
+The user should be able to choose how many characters they want to memorize. 
+</details>
+
+<details>
+    <summary>
+        Remember settings
+    </summary>
+
+If the user loses a round, ask them if they want to keep the settings instead of having to go through the game setup once again. This would improve the user experience.
+</details>
+
+<details>
+    <summary>
+        Health
+    </summary>
+
+Implement a health system to give the player an extra chance. If the player loses a round, instead of having to start over, they should be given an extra chance to memorize the characters. The amount of 'health units' should be a global variable that is carried over across rounds.  
+</details>
+
+<details>
+    <summary>
+        More
+    </summary>
+
+- Scoreboard
+</details>
 
 ## First version
 
