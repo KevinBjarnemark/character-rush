@@ -10,13 +10,23 @@ when viewed in a previewer such as eg. VS Code.
 
 ## Introduction
 
-This is a Python-based in-terminal game designed to enhance one's memory. Having a sharp memory can be beneficial in many ways. Have you ever dreamed of being able to count cards? In a deck, there are 52 cards, and if you can remember all of them, you will undoubtedly be better off. This game is all about memorizing characters, and if you manage to surpass 52 characters, arguably, you might have a chance at counting cards! Now that this game has been introduced powerfully, let's break down the intended audience and some less supernatural examples. 
+This is a Python-based in-terminal game designed to enhance one's memory. Having a sharp memory can be beneficial in many ways. Have you ever dreamed of being able to count cards? In a deck, there are 
+<span class="em">52</span>
+cards, and if you can remember all of them, you will undoubtedly be better off. This game is all about memorizing characters, and if you manage to surpass 52 characters, arguably, you might have a chance at 
+<span class="em">counting cards!</span>
+ Now that this game has been introduced powerfully, let's break down the intended audience and some less supernatural examples. 
 
 Since this game exists inside the Python terminal, it is supposed to be used by developers. The matrix is an icon for coding, and this project is heavily inspired by it. Having a sharp short-term memory as a developer can be crucial for many reasons. For example, when writing a function, you may need to keep track of multiple variables simultaneously. If you manage to do so, you won't need to repeatedly check variables (their state, their type, what they do, etc.), allowing you to work more efficiently.
 
 Click 
 [here](https://character-rush-05511809a26b.herokuapp.com/)
-to navigate to the deployed app
+to navigate to the deployed app.
+
+![Gameplay](assets/images/readme/gameplay.gif "A stickman standing next to a matrix rain")
+
+## Instructions
+
+The goal is to memorize as many characters as you possibly can. Before starting a game, you'll be able to configure settings such as difficulty and speed. When the game starts, try to remember all the characters in order. The number of characters will increase for each round, but to get to the next round you need to submit the correct answer. In the first round, you'll have to memorize 5 characters.
 
 ## Development process
 
@@ -28,7 +38,7 @@ When I started working on this project, I wanted to craft a game inside the Pyth
 Luckily, I was able to reuse some previously written code and I didn't find it to be that decremental. I've also documented the first project further down in this document.
 
 ##### Project diagrams
-The first step was to prepare myself with project diagrams. The process of crafting a 'map' to visually and logically prepare myself was very helpful. Even though I didn't end up following perfectly, it worked as a guiding hand. It helped me to stay on track with my project goals. Sometimes, I feel that it can be alluring to prioritize features that may only 'enhance' the project rather than finishing it. In these moments, I used the project diagrams to steer me in the right direction.
+The first step was to prepare myself with project diagrams. The process of crafting a 'map' to visually and logically prepare myself was very helpful. Even though I didn't end up following it perfectly, it worked as a guiding hand. It helped me to stay on track with my project goals. Sometimes, I feel that it can be alluring to prioritize features that may only 'enhance' the project rather than finishing it. In these moments, I used the project diagrams to steer me in the right direction.
 
 ![A 'sketchy' diagram of the foreseen development process (current version)](assets/images/readme/development_process/current_version/diagram_project.png "Project diagram") |
 
@@ -54,7 +64,7 @@ The stickman will jump only when the correct character is submitted.
 
 #### Disclaimer!
 
-This game shouldn't be viewed as a finished product, but rather a 'starting point' for a larger project. Many features have not been implemented and the code does not follow best practices in terms of performance, optimization, refactoring, etc.
+This 'first version' game shouldn't be viewed as a finished product, but rather a 'starting point' for a larger project. Many features have not been implemented and the code does not follow best practices in terms of performance, optimization, refactoring, etc.
 
 #### Project Incentive
 
@@ -128,7 +138,7 @@ This algorithm builds the 'current frame' by 'surgically' inserting the characte
 2. Insert character (i) in the correct row (y)
 3. Delete the top-most character (when it is out of bounds)
 
-The characters get inserted by first, measuring the distance to the ground (rows) and then, subtracting the full distance from the character index (i). In practice, if the distance (rows) is equal to 5, it subtracts 5 by the character index eg. 5, giving us 0. This makes sense because the fifth character should be placed at the top since it is the last character falling. Remember that the length of the loop is restricted so that it won't keep calculating into 'uncharted territory'. 
+The characters get inserted by first, measuring the distance to the ground (rows) and then, subtracting the full distance from the character index (i). In practice, if the distance (rows) is equal to 5, it subtracts 5 by the character index eg. 5, giving us 0. This makes sense because the fifth character should be placed at the top since it is the last falling character. Remember that the length of the loop is restricted so that it won't keep calculating into 'uncharted territory'. 
 
 It gets a bit more complicated in the first couple of frames. If the first character that enters the frame gets subtracted by the number of rows, it ends up at the bottom. Therefore, before the first characters have reached the ground, they all have to be pushed incrementally. Instead of creating and managing a new variable to handle increments, this system uses the already managed 'frame_count' variable. 
 
