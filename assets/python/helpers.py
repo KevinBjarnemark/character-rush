@@ -1,17 +1,7 @@
 """Modules"""
-import time
 from assets.python.printing import sys_print
 
-def count_down(num, starting_in=False):
-    """Counts down in seconds"""
-    if starting_in:
-        print("Starting in...")
-    for i in range(0, num):
-        print(num - i)
-        time.sleep(1)
-
-
-def validated_input(message, data=None):
+def validated_input(message, experimental, data=None):
     """
     Validates the user input based on the specified data.
     Note that the input is wrapped in a string to work as expected
@@ -41,7 +31,8 @@ def validated_input(message, data=None):
     Returns:
     int, float, or str: The validated user input.
     """
-    sys_print(message, True)
+    # Simulate writing only when experimental is True
+    sys_print(message, experimental, experimental)
     while True:
         user_input = str(input())
         error_message = ""
@@ -107,6 +98,6 @@ def validated_input(message, data=None):
         # Avoid exposing the 'dev error' here to keep the UI user-friendly
         except ValueError:
             if len(error_message) > 0:
-                sys_print(f"\nInvalid input: {error_message}, please try again.", True)
+                sys_print(f"\nInvalid input: {error_message}, please try again.", experimental, True)
             else:
-                sys_print("\nInvalid input: Please try again.", True)
+                sys_print("\nInvalid input: Please try again.", experimental, True)

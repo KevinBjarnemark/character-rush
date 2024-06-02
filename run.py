@@ -8,7 +8,8 @@ from assets.python.printing import random_green_nuance
 from assets.python.printing import print_frame
 from assets.python.printing import create_empty_lines
 from assets.python.printing import sys_print
-from assets.python.helpers import count_down, validated_input
+from assets.python.printing import count_down
+from assets.python.helpers import validated_input
 from assets.python.static_assets import GAME_EXPLANATION
 
 class CharacterRush:
@@ -51,6 +52,9 @@ class CharacterRush:
         self.correct_answer = ""
         self.running = False
         self.first_render = True
+        # When experimental is True, include features that may 
+        # not work in the browser terminal
+        self.experimental = False  
 
     def reset_variables(self):
         """Resets the dynamic variables to their default state"""
@@ -88,22 +92,23 @@ class CharacterRush:
         user_input_data = {"type": "str", "min": 1}
         user_input = validated_input(
             "Type in all characters loosely eg. ABC123#@\n",
+            self.experimental,
             user_input_data)
         result = user_input == self.correct_answer
 
         if result:
-            sys_print("\nYou got it right!\n", True)
-            sys_print(f"Characters memorized: {len(user_input)}\n", True)
+            sys_print("\nYou got it right!\n", self.experimental, True)
+            sys_print(f"Characters memorized: {len(user_input)}\n", self.experimental, True)
 
             sys_print("Press enter to start the next round", True)
             input("\n")
             count_down(3, True)
         else:
-            sys_print("Oh no, one or more characters were incorrect..\n\n", True)
-            sys_print(f"Your answer   : {user_input}\n", True)
-            sys_print(f"Correct answer: {self.correct_answer}\n\n", True)
+            sys_print("Oh no, one or more characters were incorrect..\n\n", self.experimental, True)
+            sys_print(f"Your answer   : {user_input}\n", self.experimental, True)
+            sys_print(f"Correct answer: {self.correct_answer}\n\n", self.experimental, True)
 
-            sys_print("Press enter to start over.")
+            sys_print("Press enter to start over.", self.experimental, True)
             input("\n")
         return result
 
@@ -186,6 +191,7 @@ class CharacterRush:
         input_difficulty_data = {"type": "int", "min": 1, "max": 10}
         input_difficulty = validated_input(
             "Set difficulty (type in a number between 1-10)\n",
+            self.experimental,
             input_difficulty_data)
         self.difficulty["level"] = input_difficulty
         setting_game_speed = {
@@ -194,6 +200,7 @@ class CharacterRush:
         }
         input_game_speed = validated_input(
             "Would you like to set the game speed automatically? (yes/no)\n",
+            self.experimental,
             setting_game_speed)
         # Set the speed variable.
         # Note that the validated_input() forces an approved
@@ -205,37 +212,60 @@ class CharacterRush:
             input_manual_speed_data = {"type": "int", "min": 1, "max": 10}
             input_manual_speed = validated_input(
                 "Set the speed manually (type in a number between 1-10)\n",
+                self.experimental,
                 input_manual_speed_data)
             self.speed = 1 / input_manual_speed
         else:
             self.speed = 1 / self.difficulty["level"]
 
-        sys_print("Great! Press enter whenever you're ready to play!")
+        sys_print("Great! Press enter whenever you're ready to play!", self.experimental, True)
         input("\n")
+
+    def set_experimental_variable(self):
+        """Asks the user if they want to use experimental 
+        features. Eg. when something is not fully compatible in 
+        the deployed browser terminal"""
+
+        setting_experimental_data = {
+            "type": "str",
+            "match_strings": ["yes", "Yes", "no", "No"]
+        }
+
+        setting_experimental = validated_input(
+            "Are you running this script in a browser? (yes/no)\n(Your answer will optimize rendering)\n",
+            False,
+            setting_experimental_data
+        )
+        if setting_experimental in ["Yes", "yes"]:
+            self.experimental = False
+        else:
+            self.experimental = True
 
     def game_setup(self):
         """Reset game settings and declare new settings"""
 
         # Show welcome screen
         if self.first_render:
-            sys_print("Welcome! 😀\n", True)
-            time.sleep(1)
-            sys_print("This game aims to improve your memorizing skills!\n", True)
-            # Ask if they want to know how it works
-            explain_rules_data = {
+            self.set_experimental_variable()
+
+            sys_print("\nWelcome! \n", self.experimental, True)
+            sys_print("This game aims to improve your memorizing skills!\n", self.experimental, True)
+            # Ask if the user want to know how the game works
+            explain_rules_input_data = {
                 "type": "str",
                 "match_strings": ["yes", "Yes", "no", "No"]
             }
             explain_rules = validated_input(
                 "Would you like to know how it works? (yes/no)\n",
-                explain_rules_data
+                self.experimental,
+                explain_rules_input_data
             )
             if explain_rules in ["Yes", "yes"]:
-                sys_print(GAME_EXPLANATION, True)
-                sys_print("Press enter to continue", True)
+                sys_print(GAME_EXPLANATION, self.experimental, True)
+                sys_print("Press enter to continue", self.experimental, True)
                 input("\n")
 
-            sys_print("Before we start, let's configure some settings.\n", True)
+            sys_print("Before we start, let's configure some settings.\n", self.experimental, True)
 
         # Allow the user to configure their settings
         self.configure_settings()
