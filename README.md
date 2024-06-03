@@ -104,6 +104,14 @@ Right now, this system doesn't support fewer characters than the number of rows.
 
 <details>
     <summary>
+        Incorporate diversity
+    </summary>
+
+This project shouldn't be limited to the matrix rain game and the user should be able to choose which game they want to play. The first version of this project could be one of those games listed.
+</details>
+
+<details>
+    <summary>
         More customization
     </summary>
 
@@ -257,3 +265,14 @@ These packages are listed in the package.json file and requirements.txt
 ##### [Excalidraw](https://excalidraw.com/)
 
 Excalidraw is an online drawing tool that I used for drawing the development diagram.
+
+## Deploy
+
+This project has been deployed with 
+[Heroku](https://www.heroku.com/), 
+a service that allows apps to be deployed by connecting the project's GitHub repository. The following build packs have been added (configured in settings).
+
+- heroku/python
+- heroku/nodejs
+
+After a project has been created and is connected to a GitHub repository, you can navigate to the deploy tab and click 'Deploy Branch' to deploy your app.
