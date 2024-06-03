@@ -2,6 +2,7 @@
 import time
 import random
 import copy
+from inspirational_quotes import quote
 from assets.python.character_groups import CHARACTER_GROUPS
 from assets.python.printing import neutral_white
 from assets.python.printing import random_green_nuance
@@ -12,6 +13,42 @@ from assets.python.printing import count_down
 from assets.python.helpers import validated_input
 from assets.python.static_assets import GAME_EXPLANATION
 
+def get_inspirational_quote():
+    """Third party library with custom logic!"""
+    random_quote = quote()
+    author = random_quote['author']
+    fetched_quote = random_quote['quote']
+
+    leading_in = [
+        "A wise person named", 
+        "If it cheers you up,", 
+        "Remember what",
+        "As the great",
+    ]
+    inbetween = [
+        "once said", 
+        "famously remarked",
+        "reminded us of",
+        "wisely pointed out",
+        "beautifully stated",
+    ]
+    ending = [
+        "I hope this will cheer you up!", 
+        "I hope you find this uplifting.",
+    ]
+
+    # Quote
+    q = {
+        "leading_in": random.choice(leading_in),
+        "inbetween": random.choice(inbetween),
+        "ending": random.choice(ending),
+    }
+
+    out = f"{q["leading_in"]} {author} {q["inbetween"]}, '{fetched_quote}' {q["ending"]}"
+
+    print(out)
+
+get_inspirational_quote()
 
 class CharacterRush:
     """A game used for memory training"""
