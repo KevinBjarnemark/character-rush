@@ -1,6 +1,7 @@
 """Modules"""
 from assets.python.printing import sys_print
 
+
 def validated_input(message, experimental, data=None):
     """
     Validates the user input based on the specified data.
@@ -69,7 +70,8 @@ def validated_input(message, experimental, data=None):
                         # Avoid embedding the alternatives here
                         # since they may be 'secret'
                         error_message = (
-                            "Invalid input: Couln't recognize your input correctly"
+                            "Invalid input: Couln't recognize " +
+                            "your input correctly"
                         )
                         raise ValueError()
                 # Limit the amount of characters
@@ -98,6 +100,14 @@ def validated_input(message, experimental, data=None):
         # Avoid exposing the 'dev error' here to keep the UI user-friendly
         except ValueError:
             if len(error_message) > 0:
-                sys_print(f"\nInvalid input: {error_message}, please try again.", experimental, True)
+                sys_print(
+                    f"\nInvalid input: {error_message}, please try again.",
+                    experimental,
+                    True
+                )
             else:
-                sys_print("\nInvalid input: Please try again.", experimental, True)
+                sys_print(
+                    "\nInvalid input: Please try again.",
+                    experimental,
+                    True
+                )

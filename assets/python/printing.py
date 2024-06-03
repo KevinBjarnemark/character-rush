@@ -3,6 +3,7 @@ import sys
 import random
 import time
 
+
 def neutral_white():
     """Change the terminal color to neutral white"""
     return sys.stdout.write(f"\x1B[38;2;{255};{255};{255}m")
@@ -15,6 +16,7 @@ def random_green_nuance():
     b = random.randint(80, 180)
     return sys.stdout.write(f"\x1B[38;2;{r};{g};{b}m")
 
+
 def count_down(num, starting_in=False):
     """Counts down in seconds"""
     if starting_in:
@@ -24,6 +26,7 @@ def count_down(num, starting_in=False):
         sys.stdout.write(f"{num - i}\n")
         sys.stdout.flush()
         time.sleep(1)
+
 
 def print_frame(frame_reference):
     """Prints a previously built 'frame' with sys"""
@@ -45,14 +48,14 @@ def create_empty_lines(amount):
 
 
 def sys_print(text, experimental, simulate_writing=False):
-    """A sys version of 'print', set the second 
+    """A sys version of 'print', set the second
     parameter to True if you want to simulate writing
-    
+
     Parameters:
     text (str): The message to display in the terminal.
-    experimental (bool): Since the browser DOM rendering 
-    relies on newlines, this will simulate writing by printing 
-    lines instead of the individual characters when True.  
+    experimental (bool): Since the browser DOM rendering
+    relies on newlines, this will simulate writing by printing
+    lines instead of the individual characters when True.
     """
 
     if simulate_writing:

@@ -12,6 +12,7 @@ from assets.python.printing import count_down
 from assets.python.helpers import validated_input
 from assets.python.static_assets import GAME_EXPLANATION
 
+
 class CharacterRush:
     """A game used for memory training"""
     def __init__(self):
@@ -52,9 +53,9 @@ class CharacterRush:
         self.correct_answer = ""
         self.running = False
         self.first_render = True
-        # When experimental is True, include features that may 
+        # When experimental is True, include features that may
         # not work in the browser terminal
-        self.experimental = False  
+        self.experimental = False
 
     def reset_variables(self):
         """Resets the dynamic variables to their default state"""
@@ -98,15 +99,31 @@ class CharacterRush:
 
         if result:
             sys_print("\nYou got it right!\n", self.experimental, True)
-            sys_print(f"Characters memorized: {len(user_input)}\n", self.experimental, True)
+            sys_print(
+                f"Characters memorized: {len(user_input)}\n",
+                self.experimental,
+                True
+            )
 
             sys_print("Press enter to start the next round", True)
             input("\n")
             count_down(3, True)
         else:
-            sys_print("Oh no, one or more characters were incorrect..\n\n", self.experimental, True)
-            sys_print(f"Your answer   : {user_input}\n", self.experimental, True)
-            sys_print(f"Correct answer: {self.correct_answer}\n\n", self.experimental, True)
+            sys_print(
+                "Oh no, one or more characters were incorrect..\n\n",
+                self.experimental,
+                True
+            )
+            sys_print(
+                f"Your answer   : {user_input}\n",
+                self.experimental,
+                True
+            )
+            sys_print(
+                f"Correct answer: {self.correct_answer}\n\n",
+                self.experimental,
+                True
+            )
 
             sys_print("Press enter to start over.", self.experimental, True)
             input("\n")
@@ -218,12 +235,16 @@ class CharacterRush:
         else:
             self.speed = 1 / self.difficulty["level"]
 
-        sys_print("Great! Press enter whenever you're ready to play!", self.experimental, True)
+        sys_print(
+            "Great! Press enter whenever you're ready to play!",
+            self.experimental,
+            True
+        )
         input("\n")
 
     def set_experimental_variable(self):
-        """Asks the user if they want to use experimental 
-        features. Eg. when something is not fully compatible in 
+        """Asks the user if they want to use experimental
+        features. Eg. when something is not fully compatible in
         the deployed browser terminal"""
 
         setting_experimental_data = {
@@ -232,7 +253,8 @@ class CharacterRush:
         }
 
         setting_experimental = validated_input(
-            "Are you running this script in a browser? (yes/no)\n(Your answer will optimize rendering)\n",
+            "Are you running this script in a browser? (yes/no)" +
+            "\n(Your answer will optimize rendering)\n",
             False,
             setting_experimental_data
         )
@@ -249,7 +271,11 @@ class CharacterRush:
             self.set_experimental_variable()
 
             sys_print("\nWelcome! \n", self.experimental, True)
-            sys_print("This game aims to improve your memorizing skills!\n", self.experimental, True)
+            sys_print(
+                "This game aims to improve your memorizing skills!\n",
+                self.experimental,
+                True
+            )
             # Ask if the user want to know how the game works
             explain_rules_input_data = {
                 "type": "str",
@@ -265,7 +291,11 @@ class CharacterRush:
                 sys_print("Press enter to continue", self.experimental, True)
                 input("\n")
 
-            sys_print("Before we start, let's configure some settings.\n", self.experimental, True)
+            sys_print(
+                "Before we start, let's configure some settings.\n",
+                self.experimental,
+                True
+            )
 
         # Allow the user to configure their settings
         self.configure_settings()
