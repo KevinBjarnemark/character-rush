@@ -30,9 +30,26 @@ def get_inspirational_quote():
 
     5 Ending (I hope this will cheer you up!)
     """
-    random_quote = quote()
-    author = random_quote['author']
-    fetched_quote = random_quote['quote']
+    def get_error_message():
+        """Returns a custom error message. This is a nested function 
+        to improve performance."""
+        try:
+            static_quotes = [
+                "Angels fly because they take themselves lightly - Unknown",
+                "If you do what you've always done you will get what you've always gotten - Anthony Roberts",
+                "It's how you deal with everyday challenges that ultimately will determine your success - Liveral Johnsson",
+            ]
+            return f"I encountered an error when trying to provide you a quote...\n Here's a quote that I have stored in my system:\n{random.choice(static_quotes)}\nYou might want to refresh the page."
+        except Exception:
+            return "I encountered an error when trying to provide you a quote... \nYou might want to refresh the page."
+
+    try:
+        random_quote = quote()
+        author = random_quote['author']
+        fetched_quote = random_quote['quote']
+    # Avoid exposing 'e' to the user and keep the app user-friendly
+    except Exception:
+        return get_error_message()
 
     leading_in = [
         "A wise person named", 
@@ -52,30 +69,33 @@ def get_inspirational_quote():
         "I hope you find this uplifting.",
     ]
 
-    # Embedded quote
-    q = {
-        "leading_in": random.choice(leading_in),
-        "inbetween": random.choice(inbetween),
-        "ending": random.choice(ending),
-    }
+    try:
+        # Embedded quote
+        q = {
+            "leading_in": random.choice(leading_in),
+            "inbetween": random.choice(inbetween),
+            "ending": random.choice(ending),
+        }
 
-    out = f"{q["leading_in"]} {author} {q["inbetween"]}, '{fetched_quote}' {q["ending"]}"
-    accumulate = ""
-    result = ""
-    if len(out) >= 60:
-        for index, word in enumerate(out.split()):
-            accumulate += word + " "
-            # Add a newline
-            if len(accumulate) >= 60:
-                result += accumulate + "\n"
-                accumulate = ""
-            # Last iteration
-            if index == len(out.split())-1:
-                result += accumulate
+        out = f"{q["leading_in"]} {author} {q["inbetween"]}, '{fetched_quote}' {q["ending"]}"
+        accumulate = ""
+        result = ""
+        if len(out) >= 60:
+            for index, word in enumerate(out.split()):
+                accumulate += word + " "
+                # Add a newline
+                if len(accumulate) >= 60:
+                    result += accumulate + "\n"
+                    accumulate = ""
+                # Last iteration
+                if index == len(out.split())-1:
+                    result += accumulate
 
-    print(result + "\n")
+        return result
+    except Exception:
+        return get_error_message()
 
-get_inspirational_quote()
+print(get_inspirational_quote())
 
 class CharacterRush:
     """A game used for memory training"""
