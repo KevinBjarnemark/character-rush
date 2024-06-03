@@ -14,7 +14,22 @@ from assets.python.helpers import validated_input
 from assets.python.static_assets import GAME_EXPLANATION
 
 def get_inspirational_quote():
-    """Third party library with custom logic!"""
+    """Uses a third-party library to fetch quotes mixed with 
+    custom logic. It attempts to create a more realistic 
+    conversation by embedding the fetched quotes into the 
+    conversation. Here's a visualization of how the quotes 
+    are embedded:
+
+    1 Leading in (A wise man named)
+
+    2 Author (Albert Einstein)
+
+    3 Inbetween (once said)
+
+    4 Quote (Life is like riding a bicycle.......)
+
+    5 Ending (I hope this will cheer you up!)
+    """
     random_quote = quote()
     author = random_quote['author']
     fetched_quote = random_quote['quote']
@@ -37,7 +52,7 @@ def get_inspirational_quote():
         "I hope you find this uplifting.",
     ]
 
-    # Quote
+    # Embedded quote
     q = {
         "leading_in": random.choice(leading_in),
         "inbetween": random.choice(inbetween),
@@ -45,8 +60,20 @@ def get_inspirational_quote():
     }
 
     out = f"{q["leading_in"]} {author} {q["inbetween"]}, '{fetched_quote}' {q["ending"]}"
+    accumulate = ""
+    result = ""
+    if len(out) >= 60:
+        for index, word in enumerate(out.split()):
+            accumulate += word + " "
+            # Add a newline
+            if len(accumulate) >= 60:
+                result += accumulate + "\n"
+                accumulate = ""
+            # Last iteration
+            if index == len(out.split())-1:
+                result += accumulate
 
-    print(out)
+    print(result + "\n")
 
 get_inspirational_quote()
 
