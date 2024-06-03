@@ -28,6 +28,26 @@ to navigate to the deployed app.
 
 The goal is to memorize as many characters as you possibly can. Before starting a game, you'll be able to configure settings such as difficulty and speed. When the game starts, try to remember all the characters in order. The number of characters will increase for each round, and to get to the next round you need to submit the correct answer. In the first round, you'll have to memorize 5 characters.
 
+## Features
+
+This section presents most of this project's features to give you an idea of what it is all about. Below is a screenshot of the deployed app.
+
+![Screenshot](assets/images/readme/screenshot.webp "A stickman standing next to a matrix rain displayed on a screen")
+
+### Game setup
+
+In this part of the game, the user is allowed to configure settings such as difficulty, speed, etc. The inputs are validated with precaution and errors are handled gracefully.
+
+### Simulated writing
+
+Simulated writing has been implemented to prevent large chunks of text from overwhelming the user. Since the browser terminal primarily relies on newlines for rendering, there's an implemented system that simulates writing line by line instead of rendering each character. The video below shows simulated writing in a normal Python terminal.
+
+![Simulated writing](assets/images/readme/simulated_writing.gif "A video of the simulated writing system shown in a Python terminal")
+
+### Matrix rain
+
+The matrix rain is the main part of this project and it has been explained in great detail throughout this document.
+
 ## Code
 
 In-code readme references are declared as 'README #id' througout the source code. 
