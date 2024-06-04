@@ -76,8 +76,44 @@ class CharacterRush:
             self.default_values["frame_count"]
         )
 
-    def clear_canvas(self):
-        """Clears the 'canvas' by drawing the initial scene"""
+    def inspirational_quote(self):
+        """Asks the user if they want to include inspirational 
+        quotes moving forward and sets the quotes variable 
+        appropriately. 
+        
+        If the user wants to incorporate quotes, 
+        it prints the quote with the sys_print function to the 
+        terminal. 
+        
+        NOTE This is using the get_inspirational_quote which uses a 
+        third-party library indirectly."""
+
+        if self.quotes is None:
+            setting_quotes_data = {
+                "type": "str",
+                "match_strings": ["yes", "Yes", "no", "No"]
+            }
+            setting_quotes = validated_input(
+                "Would you like me to provide an inspirational quote\n" 
+                "whenever facing adversity? (yes/no)\n",
+                self.browser_terminal,
+                setting_quotes_data
+            )
+            if setting_quotes in ["Yes", "yes"]:
+                self.quotes = True
+            else:
+                self.quotes = False
+
+        if self.quotes is True:
+            sys_print(
+                get_inspirational_quote() + "\n",
+                self.browser_terminal,
+                True
+            )
+
+    def draw_initial_scene(self):
+        """Clears the 'canvas' and 'draws' the initial scene
+        without the matrix rain"""
 
         # Create empty lines
         self.printed_frame = [""] * self.rows
@@ -95,14 +131,15 @@ class CharacterRush:
 
         Returns True if the answer is accepted"""
 
-        neutral_white()  # Set terminal color
+        neutral_white()
+        # Ask the user to type in the correct characters
         user_input_data = {"type": "str", "min": 1}
         user_input = validated_input(
             "Type in all characters loosely eg. ABC123#@\n",
             self.browser_terminal,
             user_input_data)
         result = user_input == self.correct_answer
-
+        # Summarize results
         if result:
             sys_print("\nYou got it right!\n", self.browser_terminal, True)
             sys_print(
@@ -110,7 +147,11 @@ class CharacterRush:
                 self.browser_terminal,
                 True
             )
-            sys_print("Press enter to start the next round", True)
+            sys_print(
+                "Press enter to start the next round", 
+                self.browser_terminal,
+                True
+            )
             input("\n")
             count_down(3, True)
         else:
@@ -129,25 +170,9 @@ class CharacterRush:
                 self.browser_terminal,
                 True
             )
-            # Help the user to maintain a positive mindset
-            if self.quotes is None:
-                setting_quotes_data = {
-                    "type": "str",
-                    "match_strings": ["yes", "Yes", "no", "No"]
-                }
-                setting_quotes = validated_input(
-                    "Would you like me to provide an inspirational quote\n" 
-                    "whenever facing adversity? (yes/no)\n",
-                    self.browser_terminal,
-                    setting_quotes_data
-                )
-                if setting_quotes in ["Yes", "yes"]:
-                    self.quotes = True
-                else:
-                    self.quotes = False
-
-            if self.quotes is True:
-                sys_print(get_inspirational_quote() + "\n", True)
+            # Help the user to maintain a positive mindset with
+            # an inspirational quote
+            self.inspirational_quote()
 
             sys_print("Press enter to start over.", self.browser_terminal, True)
             input("\n")
@@ -156,6 +181,7 @@ class CharacterRush:
     def check_user_results(self):
         """Checks the user answer, resets edited variables and
         choses 'path' based on the user results"""
+
         if self.user_answer():
             self.character_inc += 1  # Introduce more characters
             self.frame_count = 0  # Reset frame_count
@@ -185,7 +211,7 @@ class CharacterRush:
             random_green_nuance()
 
         # Prepare frame printing
-        self.clear_canvas()
+        self.draw_initial_scene()
 
         character_amount = len(self.character_list)
         # Calculate loop length
@@ -394,6 +420,7 @@ class CharacterRush:
         2. Builds the matrix rain
         3. Runs the build_frame to 'paint' the matrix rain effect"""
 
+        neutral_white()
         self.game_setup()
         self.build_matrix_rain()
         count_down(3, True)
