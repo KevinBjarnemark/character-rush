@@ -95,7 +95,6 @@ def get_inspirational_quote():
     except Exception:
         return get_error_message()
 
-print(get_inspirational_quote())
 
 class CharacterRush:
     """A game used for memory training"""
@@ -140,6 +139,7 @@ class CharacterRush:
         # When experimental is True, include features that may
         # not work in the browser terminal
         self.experimental = False
+        self.quotes = None
 
     def reset_variables(self):
         """Resets the dynamic variables to their default state"""
@@ -188,7 +188,6 @@ class CharacterRush:
                 self.experimental,
                 True
             )
-
             sys_print("Press enter to start the next round", True)
             input("\n")
             count_down(3, True)
@@ -208,6 +207,25 @@ class CharacterRush:
                 self.experimental,
                 True
             )
+            # Help the user to maintain a positive mindset
+            if self.quotes is None:
+                setting_quotes_data = {
+                    "type": "str",
+                    "match_strings": ["yes", "Yes", "no", "No"]
+                }
+                setting_quotes = validated_input(
+                    "Would you like me to provide an inspirational quote\n" 
+                    "whenever facing adversity? (yes/no)\n",
+                    self.experimental,
+                    setting_quotes_data
+                )
+                if setting_quotes in ["Yes", "yes"]:
+                    self.quotes = True
+                else:
+                    self.quotes = False
+
+            if self.quotes is True:
+                sys_print(get_inspirational_quote() + "\n", True)
 
             sys_print("Press enter to start over.", self.experimental, True)
             input("\n")
