@@ -2,7 +2,7 @@
 from assets.python.printing import sys_print
 
 
-def validated_input(message, experimental, data=None):
+def validated_input(message, browser_terminal, data=None):
     """
     Validates the user input based on the specified data.
     Note that the input is wrapped in a string to work as expected
@@ -32,8 +32,8 @@ def validated_input(message, experimental, data=None):
     Returns:
     int, float, or str: The validated user input.
     """
-    # Simulate writing only when experimental is True
-    sys_print(message, experimental, experimental)
+
+    sys_print(message, browser_terminal, browser_terminal)
     while True:
         user_input = str(input("\n"))
         error_message = ""
@@ -102,12 +102,12 @@ def validated_input(message, experimental, data=None):
             if len(error_message) > 0:
                 sys_print(
                     f"\nInvalid input: {error_message}, please try again.",
-                    experimental,
+                    browser_terminal,
                     True
                 )
             else:
                 sys_print(
                     "\nInvalid input: Please try again.",
-                    experimental,
+                    browser_terminal,
                     True
                 )

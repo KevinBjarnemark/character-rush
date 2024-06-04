@@ -47,22 +47,23 @@ def create_empty_lines(amount):
         sys.stdout.write("\n")
 
 
-def sys_print(text, experimental, simulate_writing=False):
+def sys_print(text, browser_terminal, simulate_writing=False):
     """A sys version of 'print', set the second
     parameter to True if you want to simulate writing
 
     Parameters:
     text (str): The message to display in the terminal.
-    experimental (bool): Since the browser DOM rendering
-    relies on newlines, this will simulate writing by printing
-    lines instead of the individual characters when True.
+    browser_terminal (bool): Since the browser DOM rendering
+    primarily relies on newlines, this will simulate writing 
+    by printing lines instead of the individual characters 
+    when True.
     """
 
     if simulate_writing:
         # Note that print(text, end="") would also work
         # but since flush is needed, I decided to use
         # sys.stdout here
-        if experimental:
+        if browser_terminal:
             for char in text:
                 sys.stdout.write(char)
                 sys.stdout.flush()
