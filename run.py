@@ -36,19 +36,26 @@ def get_inspirational_quote():
         try:
             static_quotes = [
                 "Angels fly because they take themselves lightly - Unknown",
-                "If you do what you've always done you will get what you've always gotten - Anthony Roberts",
-                "It's how you deal with everyday challenges that ultimately will determine your success - Liveral Johnsson",
+                "If you do what you've always done you will get what you've "
+                "always gotten - Anthony Roberts",
+                "It's how you deal with everyday challenges that ultimately "
+                "will determine your success - Liveral Johnsson",
             ]
-            return f"I encountered an error when trying to provide you a quote...\n Here's a quote that I have stored in my system:\n{random.choice(static_quotes)}\nYou might want to refresh the page."
-        except Exception:
-            return "I encountered an error when trying to provide you a quote... \nYou might want to refresh the page."
+            error_message = ("I encountered an error when trying to provide "
+                "you a quote...")
+            stored_quote = (f"Here's a quote that I have stored in my system:"
+                f"\n{random.choice(static_quotes)}\nYou might want to refresh "
+                "the page.")
+            return f"{error_message}\n{stored_quote}"
+        except RuntimeError:
+            return f"{error_message}\nYou might want to refresh the page."
 
     try:
         random_quote = quote()
         author = random_quote['author']
         fetched_quote = random_quote['quote']
-    # Avoid exposing 'e' to the user and keep the app user-friendly
-    except Exception:
+    # Avoid exposing 'e' to the user and keep the app user friendly
+    except RuntimeError:
         return get_error_message()
 
     leading_in = [
@@ -92,7 +99,7 @@ def get_inspirational_quote():
                     result += accumulate
 
         return result
-    except Exception:
+    except RuntimeError:
         return get_error_message()
 
 
