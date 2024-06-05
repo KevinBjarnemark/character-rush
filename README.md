@@ -48,6 +48,16 @@ Simulated writing has been implemented to prevent large chunks of text from over
 
 The matrix rain is the main part of this project and it has been explained in great detail throughout this document.
 
+### Inspirational quotes
+
+To add some diversity and to prevent the game from feeling too 'monotonic' and predictable, I've included a third-party package 
+['Inspirational quotes'](https://github.com/saip007/inspirational_quotes)
+made by 
+[saip007](https://github.com/saip007)
+. This package allows developers to simply 'grab' a random inspirational quote and include it in their app. 
+
+I've used this package to help the user to maintain a positive mindset during phases of adversity. It can be challenging and tiresome to memorize during long periods, and when facing a loss, this app lets the user choose if they want to bring in some light in the form of inspirational words. Also, the user likely leaves the app after facing a loss, and this could improve their 'last impression' and increase the chances of them coming back some other day.
+
 ## Code
 
 In-code readme references are declared as 'README #id' througout the source code. 
@@ -260,7 +270,7 @@ For manipulating the terminal (moving the cursor, changing colors, etc.) I've be
 ## Third-parties
 
 ##### [Third party libraries](https://github.com/KevinBjarnemark/character-rush/blob/main/package.json)
-These packages are listed in the package.json file and requirements.txt
+All of these packages are listed in the package.json file and requirements.txt
 
 ##### [Excalidraw](https://excalidraw.com/)
 
