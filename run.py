@@ -89,21 +89,14 @@ class CharacterRush:
         third-party library indirectly."""
 
         if self.quotes is None:
-            setting_quotes_data = {
-                "type": "str",
-                "match_strings": ["yes", "Yes", "no", "No"]
-            }
-            setting_quotes = validated_input(
+            # Set the quotes variable
+            self.quotes = validated_input(
                 "Would you like me to provide an inspirational quote\n" 
                 "whenever facing adversity? (yes/no)\n",
                 self.browser_terminal,
-                setting_quotes_data
+                None,
+                True
             )
-            if setting_quotes in ["Yes", "yes"]:
-                self.quotes = True
-            else:
-                self.quotes = False
-
         if self.quotes is True:
             sys_print(
                 get_inspirational_quote() + "\n",
@@ -261,19 +254,17 @@ class CharacterRush:
             self.browser_terminal,
             input_difficulty_data)
         self.difficulty["level"] = input_difficulty
-        setting_game_speed = {
-            "type": "str",
-            "match_strings": ["yes", "Yes", "no", "No"]
-        }
         input_game_speed = validated_input(
             "Would you like to set the game speed automatically? (yes/no)\n",
             self.browser_terminal,
-            setting_game_speed)
+            None,
+            True
+        )
         # Set the speed variable.
         # Note that the validated_input() forces an approved
         # response, therefore 'elif' is not needed
         self.settings["speed"] = (
-            "automatic" if input_game_speed in ["Yes", "yes"] else "manual"
+            "automatic" if input_game_speed else "manual"
         )
         if self.settings["speed"] == "manual":
             input_manual_speed_data = {"type": "int", "min": 1, "max": 10}
@@ -296,18 +287,14 @@ class CharacterRush:
         """Asks the user if they're using the browser terminal
         with limited functionality"""
 
-        setting_browser_terminal_data = {
-            "type": "str",
-            "match_strings": ["yes", "Yes", "no", "No"]
-        }
-
         setting_browser_terminal = validated_input(
             "Are you running this script in a browser? (yes/no)" +
             "\n(Your answer will optimize rendering)\n",
             False,
-            setting_browser_terminal_data
+            None,
+            True
         )
-        if setting_browser_terminal in ["Yes", "yes"]:
+        if setting_browser_terminal:
             self.browser_terminal = False
         else:
             self.browser_terminal = True
@@ -326,16 +313,13 @@ class CharacterRush:
                 True
             )
             # Ask if the user want to know how the game works
-            explain_rules_input_data = {
-                "type": "str",
-                "match_strings": ["yes", "Yes", "no", "No"]
-            }
             explain_rules = validated_input(
                 "Would you like to know how it works? (yes/no)\n",
                 self.browser_terminal,
-                explain_rules_input_data
+                None,
+                True
             )
-            if explain_rules in ["Yes", "yes"]:
+            if explain_rules:
                 sys_print(GAME_EXPLANATION, self.browser_terminal, True)
                 sys_print("Press enter to continue", self.browser_terminal, True)
                 input("\n")
