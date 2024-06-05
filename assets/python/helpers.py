@@ -2,17 +2,24 @@
 from assets.python.printing import sys_print
 
 
-def validated_input(message, browser_terminal, data=None):
+def validated_input(message, browser_terminal, data=None, bool_question=False):
     """
     Validates the user input based on the specified data.
     Note that the input is wrapped in a string to work as expected
-    in the deployed version.
+    in the deployed version. If an error occurs, the user will 
+    be 'stuck' inside this function.
 
     Parameters:
     message (str): The message to display to the user.
+    browser_terminal (boolean): When True, the script is being run 
+    inside a browser terminal on the web.
     data (dictionary): The specified rules that should be tested +
     info. Example below:
+    bool_question (boolena): Set this to True if it is a yes/no 
+    question. The data parameter should be set to None and if the 
+    user types 'yes' or 'Yes', this function return True.  
 
+    data parameter example:
     {
         "type" (str): "int", "float", or "str"
         "min" (number): (optional) --> Limit the input
@@ -30,8 +37,16 @@ def validated_input(message, browser_terminal, data=None):
     }
 
     Returns:
-    int, float, or str: The validated user input.
+    int, float, str, or boolean: If the bool_question parameter is 
+    True, it returns a booelan, otherwise the validated user input.
     """
+
+    # Handle boolean questions
+    if bool_question:
+        data = {
+            "type": "str",
+            "match_strings": ["yes", "Yes", "no", "No"]
+        }
 
     sys_print(message, browser_terminal, browser_terminal)
     while True:
@@ -96,7 +111,14 @@ def validated_input(message, browser_terminal, data=None):
                 )
                 raise ValueError()
 
-            return user_input
+            # Return a boolean if it is a yes/no question
+            if bool_question:
+                if user_input in ["Yes", "yes"]:
+                    return True
+                else:
+                    return False
+            else:
+                return user_input
         # Avoid exposing the 'dev error' here to keep the UI user-friendly
         except ValueError:
             if len(error_message) > 0:
