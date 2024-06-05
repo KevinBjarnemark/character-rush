@@ -47,18 +47,13 @@ def get_inspirational_quote():
 
     try:
         random_quote = quote()
+        # NOTE author could also be a description
         author = random_quote['author']
         fetched_quote = random_quote['quote']
     # Avoid exposing 'e' to the user and keep the app user friendly
     except RuntimeError:
         return get_error_message()
 
-    leading_in = [
-        "A wise person named",
-        "If it cheers you up,",
-        "Remember what",
-        "As the great",
-    ]
     inbetween = [
         "once said",
         "famously remarked",
@@ -69,18 +64,21 @@ def get_inspirational_quote():
     ending = [
         "I hope this will cheer you up!",
         "I hope you find this uplifting.",
+        "may these words lighten up your day",
+        "perhaps this mantra could send you on the right path.",
+        "with this in mind, the force may be with you!",
+        "carry these words into your next game, and a record may be broken!"
     ]
 
     try:
         # Embedded quote
         q = {
-            "leading_in": random.choice(leading_in),
             "inbetween": random.choice(inbetween),
             "ending": random.choice(ending),
         }
 
         out = (
-            f"{q["leading_in"]} {author} {q["inbetween"]}, "
+            f"{author} {q["inbetween"]}, "
             f"'{fetched_quote}' {q["ending"]}"
         )
         accumulate = ""

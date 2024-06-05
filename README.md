@@ -254,7 +254,8 @@ Right now, if the user jumps too late, the characters will run through the legs,
 The Python scripts have been tested manually and with 
 [Pylinters](https://pep8ci.herokuapp.com/). 
 
-Manual testing
+#### Manual testing
+
 In VS Code there's a built-in debugger tool that 'jumps' between code blocks as they're executing. It allows the developer to examine the code through a 'lens' so to speak. Computers are unbelievably fast and often a debugger tool can provide a clearer picture of what goes on 'under the hood'. Debugging is a part of my workflow and it helps me to enhance code stability and to find problematic areas where attention is needed. 
 
 In general, I follow these principles:
@@ -300,3 +301,6 @@ a service that allows apps to be deployed by connecting the project's GitHub rep
 - heroku/nodejs
 
 After a project has been created and is connected to a GitHub repository, you can navigate to the deploy tab and click 'Deploy Branch' to deploy your app.
+
+if you want to clone or fork this project, click [here](https://docs.github.com/en/desktop/adding-and-cloning-repositories/cloning-and-forking-repositories-from-github-desktop)
+to navigate to the GitHub Docs

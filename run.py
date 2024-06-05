@@ -4,7 +4,7 @@ import time
 import random
 import copy
 # Quotes (Usign a third party library)
-from assets.python.third_party_api import get_inspirational_quote
+from assets.python.quotes_api import get_inspirational_quote
 # Character groups
 from assets.python.character_groups import CHARACTER_GROUPS
 # Custom printing functions
