@@ -16,7 +16,9 @@ cards, and if you can remember all of them, you will undoubtedly be better off. 
 <span class="em">counting cards!</span>
  Now that this game has been introduced powerfully, let's break down the intended audience and some less supernatural examples. 
 
-Since this game exists inside the Python terminal, it is supposed to be used by developers. The matrix is an icon for coding, and this project is heavily inspired by it. Having a sharp short-term memory as a developer can be crucial for many reasons. For example, when writing a function, you may need to keep track of multiple variables simultaneously. If you manage to do so, you won't need to repeatedly check variables (their state, their type, what they do, etc.), allowing you to work more efficiently.
+Since this game exists inside the Python terminal, it is supposed to be used by developers. 
+<span class="em" style="color: var(--green)">The matrix</span>
+is an icon for coding, and this project is heavily inspired by it. Having a sharp short-term memory as a developer can be crucial for many reasons. For example, when writing a function, you may need to keep track of multiple variables simultaneously. If you manage to do so, you won't need to repeatedly check variables (their state, their type, what they do, etc.), allowing you to work more efficiently.
 
 Click 
 [here](https://character-rush-05511809a26b.herokuapp.com/)
@@ -26,7 +28,7 @@ to navigate to the deployed app.
 
 ## Instructions
 
-The goal is to memorize as many characters as you possibly can. Before starting a game, you'll be able to configure settings such as difficulty and speed. When the game starts, try to remember all the characters in order. The number of characters will increase for each round, and to get to the next round you need to submit the correct answer. In the first round, you'll have to memorize 5 characters.
+The goal is to memorize as many characters as you possibly can. Before starting a game, you'll be able to configure settings such as difficulty and speed. When the game starts, try to remember all the characters in order. The number of characters will increase for each round, and to get to the next round you need to submit the correct answer. Be prepared to remember 5 characters In the first round.
 
 ## Features
 
@@ -40,7 +42,7 @@ In this part of the game, the user is allowed to configure settings such as diff
 
 ### Simulated writing
 
-Simulated writing has been implemented to prevent large chunks of text from overwhelming the user. Since the browser terminal primarily relies on newlines for rendering, there's an implemented system that simulates writing line by line instead of rendering each character. The video below shows simulated writing in a normal Python terminal.
+Simulated writing has been implemented to prevent large chunks of text from overwhelming the user. Since the browser terminal primarily relies on newlines for rendering, there's an implemented system that simulates writing line by line instead of rendering each character. The user has the option to configure the script to optimize rendering for web browsers. The video below shows simulated writing in a normal Python terminal.
 
 ![Simulated writing](assets/images/readme/simulated_writing.gif "A video of the simulated writing system shown in a Python terminal")
 
@@ -54,9 +56,9 @@ To add some diversity and to prevent the game from feeling too 'monotonic' and p
 ['Inspirational quotes'](https://github.com/saip007/inspirational_quotes)
 made by 
 [saip007](https://github.com/saip007)
-. This package allows developers to simply 'grab' a random inspirational quote and include it in their app. 
+. This package allows developers to simply 'grab' a random inspirational quote and include it in their app.
 
-I've used this package to help the user to maintain a positive mindset during phases of adversity. It can be challenging and tiresome to memorize during long periods, and when facing a loss, this app lets the user choose if they want to bring in some light in the form of inspirational words. Also, the user likely leaves the app after facing a loss, and this could improve their 'last impression' and increase the chances of them coming back some other day.
+I've used this package to help the user to maintain a positive mindset during phases of adversity. Memorizing can be tiresome, and when facing a loss, this app lets the user choose if they want to bring in some light in the form of inspirational words. Users will likely leave the app after facing a loss, and this could improve their 'last impression' and increase the chances of them coming back some other day. If not, they at least may carry some inspiration with them out into the world!
 
 ## Code
 
@@ -252,17 +254,19 @@ Right now, if the user jumps too late, the characters will run through the legs,
 ## Testing
 
 The Python scripts have been tested manually and with 
-[Pylinters](https://pep8ci.herokuapp.com/). 
+[Pylinters](https://pep8ci.herokuapp.com/).
 
-#### Manual testing
+![Pylint results 'All clear, no errors found'](assets/images/readme/testing/pylint.webp "Project diagram")
 
-In VS Code there's a built-in debugger tool that 'jumps' between code blocks as they're executing. It allows the developer to examine the code through a 'lens' so to speak. Computers are unbelievably fast and often a debugger tool can provide a clearer picture of what goes on 'under the hood'. Debugging is a part of my workflow and it helps me to enhance code stability and to find problematic areas where attention is needed. 
+#### Manual testing ![VS Code debugger icon](assets/images/readme/testing/debug_icon.webp "Debugger icon")
+
+In VS Code there's a built-in debugger tool (icon above) that 'jumps' between code blocks as they're executing. It allows the developer to examine the code through a 'lens' so to speak. Computers are unbelievably fast and often a debugger tool can provide a clearer picture of what goes on 'under the hood'. Debugging is a part of my workflow and it helps me to enhance code stability and to find problematic areas where attention is needed. 
 
 In general, I follow these principles:
 1. Visualize what should be implemented and how to implement it.
 2. Write it out and solve any unthought-of problems (use debugging if needed).
-3. Test it and debug again (consider 'truthy/falsy' values, change parameter values).
-Especially, when dealing with APIs, user inputs, and when inserting complex functions as parameters, it's important to check data types and values. 
+3. Test it and debug again (consider 'truthy/falsy' values, change parameter values, check data types).
+Especially, when dealing with APIs, user inputs, changing variables, and when inserting complex functions as parameters.
 
 ## Credits
 
@@ -302,5 +306,5 @@ a service that allows apps to be deployed by connecting the project's GitHub rep
 
 After a project has been created and is connected to a GitHub repository, you can navigate to the deploy tab and click 'Deploy Branch' to deploy your app.
 
-if you want to clone or fork this project, click [here](https://docs.github.com/en/desktop/adding-and-cloning-repositories/cloning-and-forking-repositories-from-github-desktop)
+if you want learn how to clone or fork this project, click [here](https://docs.github.com/en/desktop/adding-and-cloning-repositories/cloning-and-forking-repositories-from-github-desktop)
 to navigate to the GitHub Docs

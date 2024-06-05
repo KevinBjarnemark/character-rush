@@ -57,6 +57,8 @@ def sys_print(text, browser_terminal, simulate_writing=False):
     primarily relies on newlines, this will simulate writing
     by printing lines instead of the individual characters
     when True.
+    simulate_writing: Set this to True if you want to simulate
+    writing
     """
 
     if simulate_writing:

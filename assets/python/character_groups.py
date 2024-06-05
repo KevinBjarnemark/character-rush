@@ -2,14 +2,14 @@
 
 
 # Character groups chosen based on the difficulty level
-# NOTE Place the more difficult characters at the end. 
-# The algorithm will dig deeper into each group the higher 
+# NOTE Place the more difficult characters at the end.
+# The algorithm will dig deeper into each group the higher
 # the difficulty is. eg. l is very similar to 1
 
 CHARACTER_GROUPS = {
     "alphabet": [
-        "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "m", 
-        "n", "o", "p", "r", "s", "t", "u", "v", "w", "x", "y", "z", 
+        "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "m",
+        "n", "o", "p", "r", "s", "t", "u", "v", "w", "x", "y", "z",
         "q", "l",
     ],
     "numbers": [

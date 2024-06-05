@@ -119,7 +119,7 @@ def validated_input(message, browser_terminal, data=None, bool_question=False):
                     return False
             else:
                 return user_input
-        # Avoid exposing the 'dev error' here to keep the UI user-friendly
+        # Avoid exposing the 'dev error' here to keep the app user-friendly
         except ValueError:
             if len(error_message) > 0:
                 sys_print(
