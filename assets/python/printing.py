@@ -54,8 +54,8 @@ def sys_print(text, browser_terminal, simulate_writing=False):
     Parameters:
     text (str): The message to display in the terminal.
     browser_terminal (bool): Since the browser DOM rendering
-    primarily relies on newlines, this will simulate writing 
-    by printing lines instead of the individual characters 
+    primarily relies on newlines, this will simulate writing
+    by printing lines instead of the individual characters
     when True.
     """
 

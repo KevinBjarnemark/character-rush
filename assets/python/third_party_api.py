@@ -5,10 +5,10 @@ from inspirational_quotes import quote
 
 
 def get_inspirational_quote():
-    """Uses a third-party library to fetch quotes mixed with 
-    custom logic. It attempts to create a more realistic 
-    conversation by embedding the fetched quotes into the 
-    conversation. Here's a visualization of how the quotes 
+    """Uses a third-party library to fetch quotes mixed with
+    custom logic. It attempts to create a more realistic
+    conversation by embedding the fetched quotes into the
+    conversation. Here's a visualization of how the quotes
     are embedded:
 
     1 Leading in (A wise man named)
@@ -22,7 +22,7 @@ def get_inspirational_quote():
     5 Ending (I hope this will cheer you up!)
     """
     def get_error_message():
-        """Returns a custom error message. This is a nested function 
+        """Returns a custom error message. This is a nested function
         to improve performance."""
         try:
             static_quotes = [
@@ -32,11 +32,15 @@ def get_inspirational_quote():
                 "It's how you deal with everyday challenges that ultimately "
                 "will determine your success - Liveral Johnsson",
             ]
-            error_message = ("I encountered an error when trying to provide "
-                "you a quote...")
-            stored_quote = (f"Here's a quote that I have stored in my system:"
+            error_message = (
+                "I encountered an error when trying to provide "
+                "you a quote..."
+            )
+            stored_quote = (
+                f"Here's a quote that I have stored in my system:"
                 f"\n{random.choice(static_quotes)}\nYou might want to refresh "
-                "the page.")
+                "the page."
+            )
             return f"{error_message}\n{stored_quote}"
         except RuntimeError:
             return f"{error_message}\nYou might want to refresh the page."
@@ -50,20 +54,20 @@ def get_inspirational_quote():
         return get_error_message()
 
     leading_in = [
-        "A wise person named", 
-        "If it cheers you up,", 
+        "A wise person named",
+        "If it cheers you up,",
         "Remember what",
         "As the great",
     ]
     inbetween = [
-        "once said", 
+        "once said",
         "famously remarked",
         "reminded us of",
         "wisely pointed out",
         "beautifully stated",
     ]
     ending = [
-        "I hope this will cheer you up!", 
+        "I hope this will cheer you up!",
         "I hope you find this uplifting.",
     ]
 
@@ -75,7 +79,10 @@ def get_inspirational_quote():
             "ending": random.choice(ending),
         }
 
-        out = f"{q["leading_in"]} {author} {q["inbetween"]}, '{fetched_quote}' {q["ending"]}"
+        out = (
+            f"{q["leading_in"]} {author} {q["inbetween"]}, "
+            f"'{fetched_quote}' {q["ending"]}"
+        )
         accumulate = ""
         result = ""
         if len(out) >= 60:

@@ -249,6 +249,20 @@ Right now, if the user jumps too late, the characters will run through the legs,
 - Add a skateboard
 </details>
 
+## Testing
+
+The Python scripts have been tested manually and with 
+[Pylinters](https://pep8ci.herokuapp.com/). 
+
+Manual testing
+In VS Code there's a built-in debugger tool that 'jumps' between code blocks as they're executing. It allows the developer to examine the code through a 'lens' so to speak. Computers are unbelievably fast and often a debugger tool can provide a clearer picture of what goes on 'under the hood'. Debugging is a part of my workflow and it helps me to enhance code stability and to find problematic areas where attention is needed. 
+
+In general, I follow these principles:
+1. Visualize what should be implemented and how to implement it.
+2. Write it out and solve any unthought-of problems (use debugging if needed).
+3. Test it and debug again (consider 'truthy/falsy' values, change parameter values).
+Especially, when dealing with APIs, user inputs, and when inserting complex functions as parameters, it's important to check data types and values. 
+
 ## Credits
 
 #### Template

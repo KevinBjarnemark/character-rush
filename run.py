@@ -77,21 +77,21 @@ class CharacterRush:
         )
 
     def inspirational_quote(self):
-        """Asks the user if they want to include inspirational 
-        quotes moving forward and sets the quotes variable 
-        appropriately. 
-        
-        If the user wants to incorporate quotes, 
-        it prints the quote with the sys_print function to the 
-        terminal. 
-        
-        NOTE This is using the get_inspirational_quote which uses a 
+        """Asks the user if they want to include inspirational
+        quotes moving forward and sets the quotes variable
+        appropriately.
+
+        If the user wants to incorporate quotes,
+        it prints the quote with the sys_print function to the
+        terminal.
+
+        NOTE This is using the get_inspirational_quote which uses a
         third-party library indirectly."""
 
         if self.quotes is None:
             # Set the quotes variable
             self.quotes = validated_input(
-                "Would you like me to provide an inspirational quote\n" 
+                "Would you like me to provide an inspirational quote\n"
                 "whenever facing adversity? (yes/no)\n",
                 self.browser_terminal,
                 None,
@@ -137,7 +137,7 @@ class CharacterRush:
             sys_print(
                 "\nYou got it right!\n"
                 f"Characters memorized: {len(user_input)}\n"
-                "Press enter to start the next round", 
+                "Press enter to start the next round",
                 self.browser_terminal,
                 True
             )
@@ -155,7 +155,11 @@ class CharacterRush:
             # an inspirational quote
             self.inspirational_quote()
 
-            sys_print("Press enter to start over.", self.browser_terminal, True)
+            sys_print(
+                "Press enter to start over.",
+                self.browser_terminal,
+                True
+            )
             input("\n")
         return result
 
@@ -309,7 +313,11 @@ class CharacterRush:
             )
             if explain_rules:
                 sys_print(GAME_EXPLANATION, self.browser_terminal, True)
-                sys_print("Press enter to continue", self.browser_terminal, True)
+                sys_print(
+                    "Press enter to continue",
+                    self.browser_terminal,
+                    True
+                )
                 input("\n")
 
             sys_print(
