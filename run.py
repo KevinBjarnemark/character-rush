@@ -134,13 +134,9 @@ class CharacterRush:
         result = user_input == self.correct_answer
         # Summarize results
         if result:
-            sys_print("\nYou got it right!\n", self.browser_terminal, True)
             sys_print(
-                f"Characters memorized: {len(user_input)}\n",
-                self.browser_terminal,
-                True
-            )
-            sys_print(
+                "\nYou got it right!\n"
+                f"Characters memorized: {len(user_input)}\n"
                 "Press enter to start the next round", 
                 self.browser_terminal,
                 True
@@ -149,16 +145,8 @@ class CharacterRush:
             count_down(3, True)
         else:
             sys_print(
-                "Oh no, one or more characters were incorrect..\n\n",
-                self.browser_terminal,
-                True
-            )
-            sys_print(
-                f"Your answer   : {user_input}\n",
-                self.browser_terminal,
-                True
-            )
-            sys_print(
+                "Oh no, one or more characters were incorrect..\n\n"
+                f"Your answer   : {user_input}\n"
                 f"Correct answer: {self.correct_answer}\n\n",
                 self.browser_terminal,
                 True
